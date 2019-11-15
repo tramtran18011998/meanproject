@@ -12,7 +12,7 @@ import { LoaispService } from 'src/app/service/admin/loaisp.service';
 export class LoaiSpComponent implements OnInit {
 
   loaisps: Observable<Loaisp[]>;
-  _id:number;
+  _id:string;
 
   loaisp: Loaisp = new Loaisp();
   constructor(private loaispService: LoaispService, private router: Router) { }
@@ -25,7 +25,7 @@ export class LoaiSpComponent implements OnInit {
     this.loaisps = this.loaispService.getLoaiSPsList();
   }
 
-  deleteLoaiSp(id:number){
+  deleteLoaiSp(id:string){
     this.loaispService.deleteLoaiSP(id).subscribe(
       data => {
         console.log(data);
@@ -36,7 +36,7 @@ export class LoaiSpComponent implements OnInit {
   }
 
 
-  editLoaiSp(id:number){
+  editLoaiSp(id:string){
 
     
     this.loaispService.getLoaiSPById(id).subscribe(data=>{

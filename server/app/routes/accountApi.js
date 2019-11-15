@@ -120,7 +120,7 @@ module.exports = function(app, express) {
             account.matkhau = req.body.matkhau;  // set the users username (comes from the request)
             account.quyenhan = req.body.quyenhan;  // set the users password (comes from the request)
 
-            account.save(function(err) {
+            account.save(function(err, account) {
                 if (err) {
                     // duplicate entry
                     if (err.code == 11000) 
@@ -130,7 +130,7 @@ module.exports = function(app, express) {
                 }
 
                 // return a message
-                res.json({ message: 'User created!' });
+                res.json(account);
             });
 
         })

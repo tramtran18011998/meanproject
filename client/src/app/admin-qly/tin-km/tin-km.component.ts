@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 export class TinKmComponent implements OnInit {
   
   tinkms: Observable<TinKM[]>;
-  _id:number;
+  _id:string;
   
   tinkm: TinKM = new TinKM();
 
@@ -26,7 +26,7 @@ export class TinKmComponent implements OnInit {
     this.tinkms = this.tinkmService.getTinKMsList();
   }
 
-  deleteTinKM(id: number){
+  deleteTinKM(id: string){
     this.tinkmService.deleteTinKM(id).subscribe(
       data => {
       console.log(data);
@@ -36,7 +36,7 @@ export class TinKmComponent implements OnInit {
   );
   }
 
-  editTinKM(id:number){
+  editTinKM(id:string){
     this.tinkmService.getTinKMById(id).subscribe(data=>{
       console.log(data)
       this.tinkm = data;

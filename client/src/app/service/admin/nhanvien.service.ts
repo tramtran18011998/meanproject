@@ -16,7 +16,7 @@ export class NhanvienService {
   }
   
 
-  getNhanVienById(id: number): Observable<any> {
+  getNhanVienById(id: string): Observable<any> {
     return this.http.get(`${this.baseUrl}/${id}`);
   }
 
@@ -24,11 +24,11 @@ export class NhanvienService {
     return this.http.post(`${this.baseUrl}`, loaisp);
   }
 
-  updateNhanVien(id: number, value: any): Observable<Object> {
+  updateNhanVien(id: string, value: any): Observable<Object> {
     return this.http.put(`${this.baseUrl}/${id}`, value);
   }
 
-  deleteNhanVien(id: number): Observable<any> {
+  deleteNhanVien(id: string): Observable<any> {
     return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' });
   }
 }

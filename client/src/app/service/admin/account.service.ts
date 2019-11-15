@@ -16,7 +16,7 @@ export class AccountService {
   }
   
 
-  getAccountById(id: number): Observable<any> {
+  getAccountById(id: string): Observable<any> {
     return this.http.get(`${this.baseUrl}/${id}`);
   }
 
@@ -24,11 +24,11 @@ export class AccountService {
     return this.http.post(`${this.baseUrl}`, loaisp);
   }
 
-  updateAccount(id: number, value: any): Observable<Object> {
+  updateAccount(id: string, value: any): Observable<Object> {
     return this.http.put(`${this.baseUrl}/${id}`, value);
   }
 
-  deleteAccount(id: number): Observable<any> {
+  deleteAccount(id: string): Observable<any> {
     return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' });
   }
 }

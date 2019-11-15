@@ -15,7 +15,7 @@ export class LoaispService {
   }
   
 
-  getLoaiSPById(id: number): Observable<any> {
+  getLoaiSPById(id: string): Observable<any> {
     return this.http.get(`${this.baseUrl}/${id}`);
   }
 
@@ -23,11 +23,11 @@ export class LoaispService {
     return this.http.post(`${this.baseUrl}`, loaisp);
   }
 
-  updateLoaiSP(id: number, value: any): Observable<Object> {
+  updateLoaiSP(id: string, value: any): Observable<Object> {
     return this.http.put(`${this.baseUrl}/${id}`, value);
   }
 
-  deleteLoaiSP(id: number): Observable<any> {
+  deleteLoaiSP(id: string): Observable<any> {
     return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' });
   }
 

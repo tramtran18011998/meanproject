@@ -15,7 +15,7 @@ export class TinkmService {
   }
   
 
-  getTinKMById(id: number): Observable<any> {
+  getTinKMById(id: string): Observable<any> {
     return this.http.get(`${this.baseUrl}/${id}`);
   }
 
@@ -23,11 +23,11 @@ export class TinkmService {
     return this.http.post(`${this.baseUrl}`, loaisp);
   }
 
-  updateTinKM(id: number, value: any): Observable<Object> {
+  updateTinKM(id: string, value: any): Observable<Object> {
     return this.http.put(`${this.baseUrl}/${id}`, value);
   }
 
-  deleteTinKM(id: number): Observable<any> {
+  deleteTinKM(id: string): Observable<any> {
     return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' });
   }
 
