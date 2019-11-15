@@ -1,0 +1,201 @@
+<section class="body_content">
+        
+        <!--Header-->
+        <app-header-guest></app-header-guest>
+        
+        <!-- taps check giỏ hàng -->
+
+
+
+		<div class="centerform">
+                <ul class="nav nav-tabs nav-justified bg-warning" id="myTab"
+                    role="tablist">
+                    <li class="nav-item"><a class="nav-link active"
+                        id="tab-donhang" data-toggle="tab" href="#content-donhang"
+                        role="tab" aria-controls="content-donhang" aria-selected="true">
+                            Đơn hàng đã chọn </a></li>
+                    <li class="nav-item"><a class="nav-link" id="tab-thongtin"
+                        data-toggle="tab" href="#content-thongtin" role="tab"
+                        aria-controls="content-thongtin" aria-selected="false"> Thông
+                            tin giao hàng </a></li>
+                    <li class="nav-item"><a class="nav-link" id="tab-xacnhan"
+                        data-toggle="tab" href="#content-xacnhan" role="tab"
+                        aria-controls="content-xacnhan" aria-selected="false"> Xác nhận
+                            đơn hàng </a></li>
+                </ul>
+    
+    
+                <!-- đưa thôg tin vào 3 tab -->
+                <div class="tab-content" id="myTabContent">
+                    <!-- tab đơn hàng -->
+                    <div class="tab-pane fade show active" id="content-donhang"
+                        role="tabpanel" aria-labelledby="tab-donhang">
+    
+                        <div id="hienthidonhang">
+    
+                            <table class="table table-striped">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th>Thông tin sản phẩm</th>
+                                        <th>Đơn giá</th>
+                                        <th>Số lượng</th>
+    
+                                        <th>Xử lý</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- <%
+                                        for (Map.Entry<String, Item> list : cart.getCartItems().entrySet()) {
+                                    %> -->
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+    
+                                        <td><input type="number" name="SL-SPdcchon" min="1"
+                                            max="50" style="width: 50px; margin-left: 10px;"></td>
+                                          
+                                        <td><a
+                                            href=""><i class="fa fa-trash"></i></a></td>
+                                    </tr>
+                                    <!-- <%
+                                        }
+                                    %> -->
+    
+    
+    
+    
+                                </tbody>
+                            </table>
+    
+                        </div>
+                        <span class="tongThanhtoan">
+    
+    
+                            <ul class="nav nav-tabs nav-justified bg-success" id="myTab"
+                                role="tablist" style="margin-top: 30px;">
+                                <li class="nav-item"><a class="nav-link" id="tab-thongtin"
+                                    data-toggle="tab" href="#content-thongtin" role="tab"
+                                    aria-controls="content-thongtin" onclick="nexttabThongtin()"
+                                    style="color: white; font-size: 18px;"> Đặt hàng </a></li>
+                            </ul>
+    
+    
+                        </span>
+                    </div>
+    
+                    <!-- tab thông tin khách cần giao -->
+                    <div class="tab-pane fade" id="content-thongtin" role="tabpanel"
+                        aria-labelledby="tab-thongtin">
+                        <div class="hienthithongtin">
+    
+    
+                            <table>
+                                
+                                <!-- <form action="AccountServlet" method="post"> -->
+                                    <tr>
+                                        <td width="125px"><b>Họ và tên :</b></td>
+                                        
+                                        <td><input type="text" id="hotenKH"></td>
+    
+                                    </tr>
+                                    <tr>
+                                        <td><b>Địa chỉ :</b></td>
+                                        <td><input type="text" id="diachiKH" placeholder="123"></td>
+                                    </tr>
+    
+                                    <tr>
+                                        <td><b>SĐT :</b></td>
+                                        <td><input type="text" id="sdtKH" placeholder="0123456789"></td>
+                                    </tr>
+                                <!-- </form> -->
+                            </table>
+                            <ul class="nav nav-tabs nav-justified bg-success" id="myTab"
+                                role="tablist" style="margin-top: 30px;">
+                                <li class="nav-item"><a class="nav-link" id="tab-xacnhan"
+                                    data-toggle="tab" href="#content-xacnhan" role="tab"
+                                    aria-controls="content-xacnhan" onclick="nexttabXacnhan()"
+                                    style="color: white; font-size: 18px;"> GIAO HÀNG ĐẾN ĐỊA
+                                        CHỈ NÀY </a></li>
+                            </ul>
+                            <!-- K chạy dc nên dùng nav-links thay tạm -->
+                            <!-- <button class="btn btn-success" type="submit">GIAO HÀNG ĐẾN ĐỊA CHỈ NÀY</button> -->
+    
+                        </div>
+                    </div>
+    
+                    <!-- tab xác nhận đơn hàng -->
+    
+                    <div class="tab-pane fade" id="content-xacnhan" role="tabpanel"
+                        aria-labelledby="tab-xacnhan">
+    
+                        <div class="xacnhan">
+                            
+                            <table class="table table-striped">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th>Thông tin sản phẩm</th>
+                                        <th>Đơn giá</th>
+                                        <th>Số lượng</th>
+    
+                                        <th>Xử lý</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- <%
+                                        for (Map.Entry<String, Item> list : cart.getCartItems().entrySet()) {
+                                    %> -->
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+    
+                                        <td><input type="number" name="SL-SPdcchon" min="1"
+                                            max="50" style="width: 50px; margin-left: 10px;" ></td>
+                                                                 
+                                        <td><a
+                                            href=""><i class="fa fa-trash"></i></a></td>
+                                    </tr>
+    
+    
+    
+                                    <!-- <%
+                                        }
+                                    %> -->
+    
+    
+    
+    
+                                </tbody>
+                            </table>
+    
+                            
+                            <!-- <form action="/CheckOutServlet" method="post"> -->
+                                <span class="tongThanhtoan">
+                                    <h5>TỔNG THANH TOÁN</h5>
+                                    <h4>AAA</h4> 
+                                    <button class="btn btn-success" type="submit">Đồng ý
+                                        đặt hàng</button>
+                                </span>
+                            <!-- </form> -->
+                           
+                            <span>
+                                <h5 style="color: tomato;">Hình thức: Thanh toán khi nhận
+                                    hàng</h5>
+                                <button class="btn btn-danger" type="button"
+                                    style="margin: 35px 70px;" onclick="huyDathang() ">Hủy
+                                    bỏ đơn hàng</button>
+                            </span>
+    
+    
+    
+                        </div>
+                    </div>
+    
+    
+                </div>
+            </div>
+   
+    
+            <!--Footer-->
+            <app-footer-guest></app-footer-guest>
+        </section>
+    

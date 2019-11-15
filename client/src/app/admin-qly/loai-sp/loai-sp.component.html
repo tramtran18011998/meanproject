@@ -1,0 +1,137 @@
+<app-header-admin></app-header-admin>
+
+<div class="container-fluid">
+    <div class="row">
+        <!--sidebar-->
+        <app-sidebar-admin></app-sidebar-admin>
+
+        <div class="col-sm-9 col-sm-offset-3  col-md-offset-2 main" style="margin-left:250px;">
+            <div class="QLSP">
+                <h1>Quản lý loại sản phẩm</h1>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+
+                    <tr>
+
+                        <th>Tên loại sản phẩm</th>
+                        <th width="200px">Lựa chọn</th>
+                    </tr>
+
+                    <tbody>
+                        <tr *ngFor="let loaisp of loaisps | async">
+
+                            <td>{{loaisp.tenloaisp}}</td>
+                            <td width="155px">
+                                <button (click)="deleteLoaiSp(loaisp._id)" class="btn btn-danger">Xóa</button>
+                                <button (click)="editLoaiSp(loaisp._id)" class="btn btn-primary" style="margin-left: 10px" data-toggle="modal" data-target="#myModalEdit">Sửa</button>
+                                <!-- <a
+                                href="/LoaiSPServlet/edit?maLoai=<c:out value="${loaisp.getMaLoai()}" />"
+                                class="edit"> <span class="glyphicon glyphicon-edit"></span></a>
+                                <a
+                                href="/LoaiSPServlet/delete?maLoai=<c:out value="${loaisp.getMaLoai()}" />"
+                                class="delete"> <span
+                                    class="glyphicon glyphicon-remove-sign"></span>
+                            </a> -->
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="btnThem">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalThem">Thêm
+                    mới</button>
+            </div>
+
+
+            <!-- The Modal THEM-->
+            
+                <div class="modal fade" id="myModalThem">
+                        <form (ngSubmit)="onSubmitCreate()">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+
+                            <!-- Modal Header -->
+
+                            <div class="modal-header">
+                                <h3 class="modal-title">Thêm loại sản phẩm</h3>
+                            </div>
+
+
+
+                            <!-- Modal body -->
+
+                            <div class="modal-body">
+                                    <div class="form_row">
+                                        <label>Tên loại sản phẩm :</label> 
+                                        <input type="text" class="form_input"
+                                            name="tenloaisp" required="required" [(ngModel)]="loaisp.tenloaisp"/>
+                                    </div>
+                            </div>
+
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <div class="pull-right">
+                                     <button type="submit" class="btn btn-success">Submit</button>
+                                </div>
+
+                                <button type="button" class="btn btn-secondary pull-left"
+                                    data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                </div>
+           
+
+                <div class="modal fade" id="myModalEdit">
+                        <form (ngSubmit)="onSubmitEdit()">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+
+                            <!-- Modal Header -->
+
+                            <div class="modal-header">
+                                <h3 class="modal-title">Sửa loại sản phẩm</h3>
+                            </div>
+
+
+
+                            <!-- Modal body -->
+
+                            <div class="modal-body">
+                                    <div class="form_row">
+                                        <label>Tên loại sản phẩm :</label> 
+                                        <input type="text" class="form_input"
+                                            name="tenloaisp" required="required" [(ngModel)]="loaisp.tenloaisp"/>
+                                    </div>
+                            </div>
+
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <div class="pull-right">
+                                     <button type="submit" class="btn btn-success">Submit</button>
+                                </div>
+
+                                <button type="button" class="btn btn-secondary pull-left"
+                                    data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                </div>
+
+
+        </div>
+    </div>
+</div>
+<!-- <c:if test="${loaiSanPham != null }">
+    <script type="text/javascript">
+        jQuery.noConflict();
+        $('#myModal').modal('show');
+    </script>
+</c:if> -->

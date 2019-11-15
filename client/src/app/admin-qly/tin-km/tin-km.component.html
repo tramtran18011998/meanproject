@@ -1,0 +1,178 @@
+<app-header-admin></app-header-admin>
+
+<div class="trang">
+	<div class="container-fluid">
+		<!--toàn trang-->
+		<div class="row">
+			<!--toàn trang-->
+
+			<!--sidebar-->
+			<app-sidebar-admin></app-sidebar-admin>
+
+
+			<div class="col-sm-9 col-sm-offset-3  col-md-offset-2 main" style="margin-left:250px;">
+
+				<div class="QLSP">
+					<h1>Quản lý tin khuyến mãi</h1>
+				</div>
+
+
+				<div class="table-responsive">
+					<table class="table table-bordered">
+						
+							<tr>
+
+								<th>Tiêu đề</th>
+								<th>Nội dung</th>
+
+								<th width="110px">Hình ảnh</th>
+								<th width="100px">Lựa chọn</th>
+							</tr>
+						
+
+						<tbody>
+							<tr *ngFor="let tinkm of tinkms | async">
+								<td>{{tinkm.tieude}}</td>
+								<td>{{tinkm.noidung}}</td>
+								<td><img alt="Not found" width="100px" height="100px">{{tinkm.hinhanh}}</td>
+								<!-- <td><img alt="Not found"
+									src="https://nhom15fastfood.herokuapp.com/LoadHinhTinKM?maTKM=${tinkm.getMaTKM() }"
+									width="100px" height="100px"></td> -->
+
+
+								<td width="155px">
+									<button (click)="deleteTinKM(tinkm._id)" class="btn btn-danger">Xóa</button>
+									<button (click)="editTinKM(tinkm._id)" class="btn btn-primary"
+										style="margin-left: 10px" data-toggle="modal"
+										data-target="#myModalEdit">Sửa</button>
+								</td>
+
+							</tr>
+						</tbody>
+
+					</table>
+				</div>
+
+				<div class="container">
+					<div class="btnThem">
+						<button type="button" class="btn btn-primary" data-toggle="modal"
+							data-target="#myModalThem">Thêm Tin Khuyến mãi</button>
+					</div>
+				</div>
+
+
+				<!-- The Modal THEM-->
+
+				<div class="modal fade" id="myModalThem">
+					<form (ngSubmit)="onSubmitCreate()">
+						<div class="modal-dialog modal-dialog-centered">
+							<div class="modal-content">
+
+								<!-- Modal Header -->
+
+								<div class="modal-header">
+									<h3 class="modal-title">Thêm tin khuyến mãi</h3>
+								</div>
+
+
+
+								<!-- Modal body -->
+
+								<div class="modal-body">
+
+									<div class="form_row">
+										<label>Tiêu đề :</label>
+										<input type="text" class="form_input" name="tieude" required="required"
+											[(ngModel)]="tinkm.tieude" />
+									</div>
+									<div class="form_row">
+										<label>Nội dung :</label>
+										<input type="text" class="form_input" name="noidung" required="required"
+											[(ngModel)]="tinkm.noidung" />
+									</div>
+									<div class="form_row">
+										<label>Hình ảnh :</label>
+										<input type="text" class="form_input" name="hinhanh" required="required"
+											[(ngModel)]="tinkm.hinhanh" />
+									</div>
+
+									<!-- <div class="form_row">
+									<label> Hình ảnh:</label> <input type="file" alt="accept"
+										class="form_input" name="imageHinh" accept="image/*"
+										value="${dauSachIU.getHinhBlob() }"
+										enctype="multipart/form-data"></div> -->
+								</div>
+
+								<!-- Modal footer -->
+								<div class="modal-footer">
+									<div class="pull-right">
+										<button type="submit" class="btn btn-success">Submit</button>
+									</div>
+
+									<button type="button" class="btn btn-secondary pull-left"
+										data-dismiss="modal">Close</button>
+								</div>
+							</div>
+						</div>
+					</form>
+
+				</div>
+
+				<div class="modal fade" id="myModalEdit">
+					<form (ngSubmit)="onSubmitEdit()">
+						<div class="modal-dialog modal-dialog-centered">
+							<div class="modal-content">
+
+								<!-- Modal Header -->
+
+								<div class="modal-header">
+									<h3 class="modal-title">Sửa loại sản phẩm</h3>
+								</div>
+
+
+
+								<!-- Modal body -->
+
+								<div class="modal-body">
+									<div class="form_row">
+										<label>Tiêu đề :</label>
+										<input type="text" class="form_input" name="tieude" required="required"
+											[(ngModel)]="tinkm.tieude" />
+									</div>
+									<div class="form_row">
+										<label>Nội dung :</label>
+										<input type="text" class="form_input" name="noidung" required="required"
+											[(ngModel)]="tinkm.noidung" />
+									</div>
+									<div class="form_row">
+										<label>Hình ảnh :</label>
+										<input type="text" class="form_input" name="hinhanh" required="required"
+											[(ngModel)]="tinkm.hinhanh" />
+									</div>
+								</div>
+
+								<!-- Modal footer -->
+								<div class="modal-footer">
+									<div class="pull-right">
+										<button type="submit" class="btn btn-success">Submit</button>
+									</div>
+
+									<button type="button" class="btn btn-secondary pull-left"
+										data-dismiss="modal">Close</button>
+								</div>
+							</div>
+						</div>
+					</form>
+
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+</div>
+<!-- <%-- <c:if test="${tinKhuyenMai != null }">
+		<script type="text/javascript">
+			$('#myModal').modal('show');
+		</script>
+	</c:if> --%> -->

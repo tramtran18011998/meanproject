@@ -1,0 +1,20 @@
+
+.dn{
+    background-image: url('../img/backlogin.png');
+    background-size: cover;
+    background-repeat: no-repeat; 
+    background-position: center center;
+    
+    position: relative;
+    height: 650px;
+    width: 100%;
+    padding: 150px 0;
+}
+
+.dn h1{
+    margin-bottom: 80px;
+    color:white;
+}
+.dn i{
+    color: crimson;
+}

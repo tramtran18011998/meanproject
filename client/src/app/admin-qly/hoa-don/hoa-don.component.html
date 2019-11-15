@@ -1,0 +1,89 @@
+<app-header-admin></app-header-admin>
+<div class="container-fluid">
+    <div class="row">
+        <!--sidebar-->
+        <app-sidebar-admin></app-sidebar-admin>
+
+        <div class="col-sm-9 col-sm-offset-3  col-md-offset-2 main" style="margin-left:250px;">
+            <div class="QLSP">
+                <h1>Danh sách hóa đơn</h1>
+
+            </div>
+            
+            <div class="table-responsive">
+
+                <table class="table table-bordered">
+
+                    <tr>
+                        <th width="80px">Mã hóa đơn</th>
+                        <th>Mã khách hàng</th>
+                        <th>Mã Nhân Viên</th>
+                        <th>Ngày lập</th>
+                        <th>Tổng tiền</th>
+                        <th>Trạng thái</th>
+                        <th>Lựa chọn</th>
+                    </tr>
+                    <!-- <c:forEach var="hd" items="${listHD}">
+                        <tr>
+                            <td><c:out value="${hd.maHD}" /></td>
+                            <td><c:out value="${hd.maKH}" /></td>
+                            <td><c:out value="${hd.maNV}" /></td>
+                            <td><c:out value="${hd.ngayLap}" /></td>
+                            <td><c:out value="${hd.tongTien}" /></td>
+                            <td><c:out value="${hd.trangThai}" /></td>
+                            <td width="120px"><a
+                                <%-- href="/FastFood/LoaiSPServlet/edit?maLoai=<c:out value="${loaisp.getMaLoai()}" />" --%>
+                                    class="edit">
+                                    <span class="glyphicon glyphicon-edit"></span>
+                            </a> <a
+                                href="/FastFood/HoaDonServlet/delete?maHD=<c:out value="${hd.maHD}" />"
+                                class="delete"> <span
+                                    class="glyphicon glyphicon-remove-sign"></span>
+                            </a></td>
+                            
+                            <%-- <td width="120px"><a
+                                href="/FastFood/LoaiSPServlet/edit?maLoai=<c:out value="${loaisp.getMaLoai()}" />"
+                                    class="edit">
+                                    <span class="glyphicon glyphicon-edit"></span>
+                            </a> <a									
+                                class="delete" data-toggle="modal" data-target="#myModalXoaHD"> <span
+                                    class="glyphicon glyphicon-remove-sign"></span>
+                            </a></td> --%>
+                                      
+                        </tr>
+                    </c:forEach> -->
+
+                </table>
+            </div>
+
+        </div>
+        
+        <!--Xoa hoa don-->
+        <div class="container">
+            <div id="myModalXoaHD" class="modal fade" tabindex="-1"
+                role="dialog">
+                <div class="modal-dialog-delete" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"
+                                aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title">Thông báo</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>Bạn có muốn xóa hóa đơn này không?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary"
+                                href="" >">Có</button>
+                            <button type="button" class="btn btn-default"
+                                data-dismiss="modal">Không</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

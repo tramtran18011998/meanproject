@@ -1,0 +1,179 @@
+<app-header-admin></app-header-admin>
+
+<div class="container-fluid">
+    <div class="row">
+
+        <!--sidebar-->
+        <app-sidebar-admin></app-sidebar-admin>
+
+        <div class="col-sm-9 col-sm-offset-3  col-md-offset-2 main" style="margin-left:250px;">
+            <div class="QLSP">
+                <h1>Quản lý nhân viên</h1>
+            </div>
+            
+            <div class="table-responsive">
+                <table class="table table-bordered">
+
+                    <tr>
+                        <th>Tên đăng nhập</th>
+                        <th>Họ tên</th>
+                        <th>Giới tính</th>
+                        <th>Địa chỉ</th>
+                        <th>Email</th>
+                        <th>Số điện thoại</th>                        
+                        <th>Lựa chọn</th>
+                    </tr>
+
+                    <tbody>
+                    <tr *ngFor="let nhanvien of nhanviens | async">
+                        
+                        <td>{{nhanvien.idaccount}}</td>
+                        <td>{{nhanvien.hoten}}</td>
+                        <td>{{nhanvien.gioitinh}}</td>
+                        <td>{{nhanvien.diachi}}</td>
+                        <td>{{nhanvien.email}}</td>
+                        <td>{{nhanvien.sdt}}</td>
+                        <td width="155px">
+                            <button (click)="deleteNhanVien(nhanvien._id)" class="btn btn-danger">Xóa</button>
+                            <button (click)="onSubmitEdit(nhanvien._id)" class="btn btn-primary" style="margin-left: 10px" data-toggle="modal" data-target="#myModalEdit">Sửa</button>
+                            
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+
+            
+
+            <div class="container">
+                <div class="btnThem">
+                    <button type="button" class="btn btn-primary" data-toggle="modal"
+                        data-target="#myModal">Thêm nhân viên</button>
+                </div>
+            </div>
+
+            <!-- <c:if test="${nhanVien == null }">
+                <form method="post" action="/NhanVienServlet/insert">
+            </c:if>
+            <c:if test="${nhanVien != null }">
+                <form method="post" action="/NhanVienServlet/update">
+            </c:if> -->
+
+            <!--Themnhanvien-->
+            <div class="modal fade" id="myModal">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <!-- Modal Header -->
+                        <!-- <c:if test="${nhanVien == null }">
+                            <div class="modal-header">
+                                <h3 class="modal-title">Thêm nhân viên</h3>
+                            </div>
+                        </c:if>
+                        <c:if test="${nhanVien != null }">
+                            <div class="modal-header">
+                                <h3 class="modal-title">Sửa nhân viên</h3>
+                            </div>
+                        </c:if> -->
+
+
+                        <!--Modal body-->
+                        <!-- <div class="modal-body">
+                            <div class="">
+                                <div class="form_row">
+                                    <c:if test="${nhanVien != null }">
+                                        <label>Mã nhân viên:</label>
+                                        <input type="text" class="form_input" name="maNV"
+                                            required="required" readonly="readonly"
+                                            value="${nhanVien.getMaNV() }" />
+                                    </c:if>
+                                    <c:if test="${nhanVien == null }">
+                                        <label>Mã nhân viên:</label>
+                                        <input type="text" class="form_input" name="maNV"
+                                            required="required" readonly="readonly" value="${maNVNew}" />
+                                    </c:if>
+                                </div>
+
+                                <div class="form_row">
+                                    <label>Tên nhân viên :</label> <input type="text"
+                                        class="form_input" name="tenNV" required="required"
+                                        value="${nhanVien.getHoTen() }" />
+                                </div>
+
+                                <div class="form_row">
+                                    <label>Giới tính:</label>
+                                    <form action="">
+                                        <input type="radio" name="gioiTinh" value="Nam"> Nam<br>
+                                        <input type="radio" name="gioiTinh" value="Nữ"> Nữ<br>
+
+                                    </form>
+                                </div>
+                                <div class="form_row">
+                                    <label>Địa chỉ :</label> <input type="text" class="form_input"
+                                        name="diaChi" required="required"
+                                        value="${nhanVien.getDiaChi() }" />
+                                </div>
+                                <div class="form_row">
+                                    <label> Email :</label> <input type="text" class="form_input"
+                                        name="email" required="required"
+                                        value="${nhanVien.getEmail() }" />
+                                </div>
+                                <div class="form_row">
+                                    <label> Số điện thoại :</label> <input type="text"
+                                        class="form_input" name="sdt" required="required"
+                                        value="${nhanVien.getSdt() }" />
+                                </div>
+                                <div class="form_row">
+                                    <label> Tên đăng nhập :</label> <input type="text"
+                                        class="form_input" name="tenDN" required="required"
+                                        value="${nhanVien.getTenDN() }" />
+                                </div>
+                                <div class="form_row">
+                                    <label>Mat khau:</label> <input type="text" class="form_input"
+                                        name="mK" id="mK" />
+                                </div>
+
+                                <div class="form_row">
+                                    <label>Quyen han:</label> <input type="radio" name="quyenHan"
+                                        value="Admin" />Admin <br> <input type="radio"
+                                        name="quyenHan" value="User" />User <br>
+                                </div>
+
+
+
+                            </div>
+                        </div> -->
+                        <!-- Modal footer -->
+                        <!-- <div class="modal-footer">
+                            <div class="pull-right">
+                                <c:if test="${nhanVien == null }">
+                                    <input type="submit" class="btn btn-success" value="Thêm Mới"></input>
+                                </c:if>
+                                <c:if test="${nhanVien != null }">
+                                    <input type="submit" class="btn btn-success"
+                                        value="Sửa Nhân viên"></input>
+                                </c:if>
+
+                            </div>
+                            <button type="button" class="btn btn-secondary pull-left"
+                                data-dismiss="modal">Close</button>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        
+          
+
+
+            
+        </div>
+    </div>
+</div>
+
+<!-- <c:if test="${nhanVien != null }">
+    <script type="text/javascript">
+        jQuery.noConflict();
+        $('#myModal').modal('show');
+    </script>
+</c:if> -->

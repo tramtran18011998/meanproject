@@ -1,0 +1,71 @@
+<app-header-admin></app-header-admin>
+<div class="container-fluid">
+    <div class="row">
+        <!--sidebar-->
+        <app-sidebar-admin></app-sidebar-admin>
+
+        <div class="col-sm-9 col-sm-offset-3  col-md-offset-2 main" style="margin-left:250px;">
+            <div class="QLSP">
+                <h1>Quản lý khách hàng</h1>
+            </div>
+
+
+            <div class="table-responsive">
+                <table class="table table-bordered over">
+
+                    <tr>
+                        <th width="80px">Mã KH</th>
+                        <th>Tên đăng nhập</th>
+                        <th>Họ tên</th>
+                        <th>Địa chỉ</th>
+                        <th>Email</th>
+                        <th>Số điện thoại</th>
+                        <th>Tích lũy</th>
+                        <th>Lựa chọn</th>
+                    </tr>
+                    <!-- <c:forEach var="kh" items="${listKH}">
+                        <tr>
+                            <td><c:out value="${kh.maKH}" /></td>
+                            <td><c:out value="${kh.tenDN}" /></td>
+                            <td><c:out value="${kh.hoTen}" /></td>
+                            <td><c:out value="${kh.diaChi}" /></td>
+                            <td><c:out value="${kh.email}" /></td>
+                            <td><c:out value="${kh.sdt}" /></td>
+                            <td><c:out value="${kh.tichLuy}" /></td>
+
+                            <td><a
+                                href="/KhachHangServlet/delete?maKH=<c:out value='${kh.maKH}' />"
+                                class="delete"> <span
+                                    class="glyphicon glyphicon-remove-sign"></span>
+                            </a></td>
+                        </tr>
+                    </c:forEach> -->
+                </table>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<!--Xoa khach hang-->
+<div class="container">
+    <div id="myModalXoaHD" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog-delete" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">Thông báo</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Bạn có muốn xóa khách hàng này không?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="DongYXoa()">Có</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Không</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
