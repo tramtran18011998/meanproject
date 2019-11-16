@@ -9,81 +9,88 @@
                 <h1>Danh sách hóa đơn</h1>
 
             </div>
-            
+
             <div class="table-responsive">
 
                 <table class="table table-bordered">
 
                     <tr>
-                        <th width="80px">Mã hóa đơn</th>
+
                         <th>Mã khách hàng</th>
-                        <th>Mã Nhân Viên</th>
-                        <th>Ngày lập</th>
+                        <th>Mã nhân Viên</th>
                         <th>Tổng tiền</th>
+                        <th>Ngày lập</th>
                         <th>Trạng thái</th>
                         <th>Lựa chọn</th>
                     </tr>
-                    <!-- <c:forEach var="hd" items="${listHD}">
-                        <tr>
-                            <td><c:out value="${hd.maHD}" /></td>
-                            <td><c:out value="${hd.maKH}" /></td>
-                            <td><c:out value="${hd.maNV}" /></td>
-                            <td><c:out value="${hd.ngayLap}" /></td>
-                            <td><c:out value="${hd.tongTien}" /></td>
-                            <td><c:out value="${hd.trangThai}" /></td>
-                            <td width="120px"><a
-                                <%-- href="/FastFood/LoaiSPServlet/edit?maLoai=<c:out value="${loaisp.getMaLoai()}" />" --%>
-                                    class="edit">
-                                    <span class="glyphicon glyphicon-edit"></span>
-                            </a> <a
-                                href="/FastFood/HoaDonServlet/delete?maHD=<c:out value="${hd.maHD}" />"
-                                class="delete"> <span
-                                    class="glyphicon glyphicon-remove-sign"></span>
-                            </a></td>
-                            
-                            <%-- <td width="120px"><a
-                                href="/FastFood/LoaiSPServlet/edit?maLoai=<c:out value="${loaisp.getMaLoai()}" />"
-                                    class="edit">
-                                    <span class="glyphicon glyphicon-edit"></span>
-                            </a> <a									
-                                class="delete" data-toggle="modal" data-target="#myModalXoaHD"> <span
-                                    class="glyphicon glyphicon-remove-sign"></span>
-                            </a></td> --%>
-                                      
+                    <tbody>
+                        <tr *ngFor="let hoadon of hoadons | async">
+
+                            <td>{{hoadon.makh}}</td>
+                            <td>{{hoadon.manv}}</td>
+                            <td>{{hoadon.tongtien}}</td>
+                            <td>{{hoadon.ngaylap}}</td>
+                            <td>{{hoadon.trangthai}}</td>
+                            <td width="155px">
+                                <button (click)="deleteHoaDon(hoadon._id)" class="btn btn-danger">Xóa</button>
+                                <button (click)="editHoaDon(hoadon._id)" class="btn btn-primary"
+                                    style="margin-left: 10px" data-toggle="modal"
+                                    data-target="#myModalEdit">Sửa</button>
+                            </td>
                         </tr>
-                    </c:forEach> -->
+
+                    </tbody>
 
                 </table>
             </div>
 
         </div>
-        
-        <!--Xoa hoa don-->
-        <div class="container">
-            <div id="myModalXoaHD" class="modal fade" tabindex="-1"
-                role="dialog">
-                <div class="modal-dialog-delete" role="document">
+
+
+        <!--Modal edit hoa don-->
+        <div class="modal fade" id="myModalEdit">
+            <form (ngSubmit)="onSubmitEdit()">
+                <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
+
+                        <!-- Modal Header -->
+
                         <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal"
-                                aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            <h4 class="modal-title">Thông báo</h4>
+                            <h3 class="modal-title">Cập nhật hóa đơn</h3>
                         </div>
+
+
+
+                        <!-- Modal body -->
+
                         <div class="modal-body">
-                            <p>Bạn có muốn xóa hóa đơn này không?</p>
+                            <div class="form_row">
+                                <label>Mã nhân viên :</label>
+                                <input type="text" class="form_input" name="manv" required="required"
+                                    [(ngModel)]="hoadon.manv" />
+                            </div>
+                            <div class="form_row">
+                                <label>Trạng thái :</label>
+                                <input type="text" class="form_input" name="trangthai" required="required"
+                                    [(ngModel)]="hoadon.trangthai" />
+                            </div>
                         </div>
+
+                        <!-- Modal footer -->
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary"
-                                href="" >">Có</button>
-                            <button type="button" class="btn btn-default"
-                                data-dismiss="modal">Không</button>
+                            <div class="pull-right">
+                                <button type="submit" class="btn btn-success">Submit</button>
+                            </div>
+
+                            <button type="button" class="btn btn-secondary pull-left"
+                                data-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
+
         </div>
+
+
     </div>
 </div>
-

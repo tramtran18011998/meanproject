@@ -50,7 +50,7 @@ module.exports.update =function(req, res) {
         if (req.body.giaban) sanpham.giaban = req.body.giaban;
         if (req.body.ttkm) sanpham.ttkm = req.body.ttkm;
         if (req.body.hinhsp) sanpham.hinhsp = req.body.hinhsp;
-        if (req.body.maloai) sanpham.tensp = req.body.maloai;
+        if (req.body.maloai) sanpham.maloai = req.body.maloai;
 
         // save 
         sanpham.save(function(err) {

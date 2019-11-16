@@ -1,23 +1,23 @@
 <app-header-admin></app-header-admin>
 
 <div class="trang">
-    <div class="container-fluid">
-        <!--toàn trang-->
-        <div class="row">
-            <!--toàn trang-->
+	<div class="container-fluid">
+		<!--toàn trang-->
+		<div class="row">
+			<!--toàn trang-->
 
-            <!--sidebar-->
-            <app-sidebar-admin></app-sidebar-admin>
+			<!--sidebar-->
+			<app-sidebar-admin></app-sidebar-admin>
 
 
-            <div class="col-sm-9 col-sm-offset-3  col-md-offset-2 main" style="margin-left:250px;">
-                <div class="QLSP">
-                    <h1>Quản lý sản phẩm</h1>
-                </div>
+			<div class="col-sm-9 col-sm-offset-3  col-md-offset-2 main" style="margin-left:250px;">
+				<div class="QLSP">
+					<h1>Quản lý sản phẩm</h1>
+				</div>
 
-                <!--Search - sort form-->
-                
-                <!-- <form method="post" class="form-inline"
+				<!--Search - sort form-->
+
+				<!-- <form method="post" class="form-inline"
 						action="/SanPhamServlet">
 						<nav class="collapse navbar-collapse navbar-ex1-collapse">
 							<div class="breadcrumb">
@@ -61,153 +61,128 @@
 						</nav>
                     </form> -->
 
-                <div class="table-responsive">
-                    <table class="table table-bordered">
+				<div class="table-responsive">
+					<table class="table table-bordered">
 
-                        <tr>
+						<tr>
+							<th>Tên Sản Phẩm</th>
+							<th>Số lượng</th>
+							<th>Giá ban đầu</th>
+							<th>Giá bán</th>
+							<th>Khuyến mãi (%)</th>
+							<th width="110px">Hình ảnh</th>
+							<th>Mã loại</th>
+							<th>Lựa chọn</th>
+						</tr>
 
-                            <th>Mã SP</th>
-                            <th>Tên SP</th>
-                            <th>Số lượng</th>
-                            <th>Giá ban đầu</th>
-                            <th>Giá bán</th>
-                            <th>Khuyến mãi</th>
-                            <th width="110px">Hình</th>
-                            <th>Mã loại</th>
-                            <th width="100px">Lựa chọn</th>
-                        </tr>
+						<tbody>
+							<tr *ngFor="let sanpham of sanphams | async">
 
-                        <!-- <c:forEach var="SP" items="${listSP}">
-								<tr>
-									<td><c:out value="${SP.getMaSP()}" /></td>
-									<td><c:out value="${SP.getTenSP()}" /></td>
-									<td><c:out value="${SP.getSoLuong()}" /></td>
-									<td><c:out value="${SP.getGiaBanDau()}" /></td>
-									<td><c:out value="${SP.getGiaBan()}" /></td>
-									<td><c:out value="${SP.getKhuyenMai()}" /></td>
-									<td><img alt="Not found"
-										src="https://nhom15fastfood.herokuapp.com/LoadHinh?maSP=${SP.getMaSP() }"
-										width="100px" height="100px"></td>
+								<td>{{sanpham.tensp}}</td>
+								<td>{{sanpham.soluong}}</td>
+								<td>{{sanpham.giabd}}</td>
+								<td>{{sanpham.giaban}}</td>
+								<td>{{sanpham.ttkm}}</td>
+								<td>{{sanpham.hinhsp}}</td>
+								<td>{{sanpham.maloai}}</td>
+								<td width="155px">
+									<button (click)="deleteSanPham(sanpham._id)" class="btn btn-danger">Xóa</button>
+									<button (click)="editSanPham(sanpham._id)" class="btn btn-primary"
+										style="margin-left: 10px" data-toggle="modal"
+										data-target="#myModalEdit">Sửa</button>
 
+								</td>
+							</tr>
 
-									<td><c:forEach var="loaiSP" items="${listLoaiSP }">
-											<c:if test="${SP.getMaLoai() == loaiSP.getMaLoai() }">
-												<c:out value="${loaiSP.getTenLoaiSP()}" />
-											</c:if>
-										</c:forEach></td>
-									<%-- <td><c:out value="${SP.getMaLoai()}" /></td> --%>
-
-
-
-
-									<td width="75px"><a
-										href="/SanPhamServlet/edit?maSP=<c:out value="${SP.getMaSP()}" />"
-										class="edit"> <span class="glyphicon glyphicon-edit"></span></a>
-										<a
-										href="/SanPhamServlet/delete?maSP=<c:out value="${SP.getMaSP()}" />"
-										class="delete"> <span
-											class="glyphicon glyphicon-remove-sign"></span>
-									</a></td>
-								</tr>
-							</c:forEach> -->
-                    </table>
-                </div>
+						</tbody>
+					</table>
+				</div>
 
 
-                <div class="container">
-                    <div class="">
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Thêm
-                            sản phẩm</button>
-                    </div>
-                </div>
+				<div class="container">
+					<div class="btnThem">
+						<button type="button" class="btn btn-primary" data-toggle="modal"
+							data-target="#myModalThem">Thêm
+							sản phẩm</button>
+					</div>
+				</div>
 
 
 
-                <!-- <c:if test="${sanPham == null }">
-						<form enctype="multipart/form-data" method="post"
-							action="/SanPhamServlet/insert">
-					</c:if>
-					<c:if test="${sanPham != null }">
-						<form enctype="multipart/form-data" method="post"
-							action="/SanPhamServlet/update">
-					</c:if> -->
-                <!-- The Modal THEM-->
-                <div class="modal fade" id="myModal">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
+				<!-- The Modal THEM-->
 
-                            <!-- Modal Header -->
-                            <!-- <c:if test="${sanPham == null }">
-									<div class="modal-header">
-										<h3 class="modal-title">Thêm sản phẩm</h3>
+				<div class="modal fade" id="myModalThem">
+					<form (ngSubmit)="onSubmitCreate()">
+						<div class="modal-dialog modal-dialog-centered">
+							<div class="modal-content">
+
+								<!-- Modal Header -->
+
+								<div class="modal-header">
+									<h3 class="modal-title">Thêm sản phẩm</h3>
+								</div>
+
+
+
+								<!-- Modal body -->
+
+								<div class="modal-body">
+									<div class="form_row">
+										<label>Tên sản phẩm :</label>
+										<input type="text" class="form_input" name="tensp" required="required"
+											[(ngModel)]="sanpham.tensp" />
 									</div>
-								</c:if>
-								<c:if test="${sanPham != null }">
-									<div class="modal-header">
-										<h3 class="modal-title">Sửa sản phẩm</h3>
+									<div class="form_row">
+										<label>Số lượng :</label>
+										<input type="number" step="1" min="10" max="1000" class="form_input"
+											name="soluong" required="required" [(ngModel)]="sanpham.soluong" />
+
 									</div>
-								</c:if> -->
-                            <!-- Modal body -->
+									<div class="form_row">
+										<label>Giá ban đầu :</label>
+										<input type="number" class="form_input" step="1000" 
+											min="1000" max="100000000" id="giabd" name="giabd" required="required"
+											[(ngModel)]="sanpham.giabd" />
 
-                            <!-- <div class="modal-body">
-									<div class="">
-										<div class="form_row">
-											<c:if test="${sanPham != null }">
-												<label>Mã sản phẩm:</label>
-												<input type="text" class="form_input" name="txtMaSP"
-													required="required" readonly="readonly"
-													value="${sanPham.getMaSP() }" />
-											</c:if>
-											<c:if test="${sanPham == null }">
-												<label>Mã sản phẩm:</label>
-												<input type="text" class="form_input" name="txtMaSP"
-													required="required" readonly="readonly" value="${maSPNew}" />
-											</c:if>
-										</div>
-										<div class="form_row">
-											<label>Tên sản phẩm :</label> <input type="text"
-												class="form_input" name="txtTenSP" required="required"
-												value="${sanPham.getTenSP() }" />
-										</div>
-										<div class="form_row">
-											<label> Số lượng:</label> <input type="number" step="1"
-												min="1" max="200" class="form_input" name="txtSoLuong"
-												required="required" value="${sanPham.getSoLuong() }" />
-										</div>
-										<div class="form_row">
-											<label> Giá ban đầu:</label> <input type="number" step="1000"
-												onchange="tinhGiaBan()" min="1000" max="100000000"
-												class="form_input" id="giaBanDau" name="txtGiaBanDau"
-												required="required" value="${sanPham.getGiaBanDau() }" />
-										</div>
-										<div class="form_row">
-											<label> Khuyến mãi:</label> <input type="number" step="1"
-												onchange="tinhGiaBan()" min="0" max="99" class="form_input"
-												name="txtKhuyenMai" id="khuyenMai" required="required"
-												value="${sanPham.getKhuyenMai() }" />
-										</div>
-										<div class="form_row">
-											<label> Giá bán ra:</label> <input type="number" step="1000"
-												readonly="readonly" min="1000" max="1000000000"
-												class="form_input" id="giaBan" name="txtGiaBan"
-												required="required" value="${sanPham.getGiaBan() }" />
-										</div>
+									</div>
 
-										<script type="text/javascript">
-											function tinhGiaBan() {
-												var khuyenMai = document
-														.getElementById("khuyenMai").value;
-												var giaBanDau = document
-														.getElementById("giaBanDau").value;
-												document
-														.getElementById("giaBan").value = giaBanDau
-														- giaBanDau
-														* (khuyenMai * 0.01);
-											}
-										</script>
+									<div class="form_row">
+										<label>Khuyến mãi :</label>
+										<input type="number" class="form_input" step="1"  min="0"
+											max="99" id="ttkm" name="ttkm" required="required"
+											[(ngModel)]="sanpham.ttkm" />
+										<p style="font-size: 10px;color: tomato;margin-left: 150px;">Giá bán ra = Giá ban đầu - Giá ban đầu * (Khuyến mãi * 0.01)</p>
 
+									</div>									
 
-										<div class="form_row">
+									<div class="form_row">
+										<label>Hình ảnh :</label>
+										<input type="file" alt="accept" class="form_input" enctype="multipart/form-data"
+											name="hinhsp" required="required" [(ngModel)]="sanpham.hinhsp" />
+
+									</div>
+									<div class="form_row">
+										<label>Loại sản phẩm :</label>
+										<input type="text" class="form_input" name="maloai" required="required"
+											[(ngModel)]="sanpham.maloai" />
+									
+										
+									</div>
+									<div class="form_row">
+										
+										<label>Loại sản phẩm :</label>
+										
+
+										<select style="width: 210px;"  class="form-control" >
+											<option *ngFor="let loaisp of loaisps" [ngValue]="loaisp">
+												{{loaisp.tenloaisp}}
+											</option>
+										</select>
+										
+									</div>
+
+									<!--
+									<div class="form_row">
 											<label> Mã loại:</label> <select class="form_input"
 												id="selectMaLoai" name="selectMaLoai"
 												onchange="changeLoaiSP()">
@@ -224,71 +199,104 @@
 												}
 											</script>
 										</div>
-										<div class="form_row">
-											<label> Hình ảnh:</label> <input type="file" alt="accept"
-												class="form_input" name="imageHinh" accept="image/*"
-												value="${dauSachIU.getHinhBlob() }"
-												enctype="multipart/form-data">
-											
-										</div>
-									</div>
-								</div> -->
+								-->
 
-                            <!-- Modal footer -->
-                            <!-- <div class="modal-footer">
+
+
+								</div>
+
+								<!-- Modal footer -->
+								<div class="modal-footer">
 									<div class="pull-right">
-										<c:if test="${sanPham == null }">
-											<input type="submit" class="btn btn-success" value="Thêm Mới"></input>
-										</c:if>
-										<c:if test="${sanPham != null }">
-											<input type="submit" class="btn btn-success"
-												value="Sửa Sản Phẩm"></input>
-										</c:if>
-
+										<button type="submit" class="btn btn-success">Submit</button>
 									</div>
 
 									<button type="button" class="btn btn-secondary pull-left"
 										data-dismiss="modal">Close</button>
-								</div> -->
-                        </div>
-                    </div>
-
-                </div>
-                
-                <!-- <div class="container">
-						<div id="myModalXoaHD" class="modal fade" tabindex="-1"
-							role="dialog">
-							<div class="modal-dialog-delete" role="document">
-								<div class="modal-content">
-									<div class="modal-header">
-										<button type="button" class="close" data-dismiss="modal"
-											aria-label="Close">
-											<span aria-hidden="true">&times;</span>
-										</button>
-										<h4 class="modal-title">Thông báo</h4>
-									</div>
-									<div class="modal-body">
-										<p>Bạn có muốn xóa sản phẩm này không?</p>
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-primary"
-											onclick="DongYXoa()">Có</button>
-										<button type="button" class="btn btn-default"
-											data-dismiss="modal">Không</button>
-									</div>
 								</div>
 							</div>
 						</div>
-					</div> -->
+					</form>
+
+				</div>
+
+				<div class="modal fade" id="myModalEdit">
+					<form (ngSubmit)="onSubmitEdit()">
+						<div class="modal-dialog modal-dialog-centered">
+							<div class="modal-content">
+
+								<!-- Modal Header -->
+
+								<div class="modal-header">
+									<h3 class="modal-title">Cập nhật sản phẩm</h3>
+								</div>
 
 
 
-            </div>
-        </div>
-    </div>
+								<!-- Modal body -->
+								<div class="modal-body">
+
+									<div class="form_row">
+										<label>Tên sản phẩm :</label>
+										<input type="text" class="form_input" name="tensp" required="required"
+											[(ngModel)]="sanpham.tensp" />
+									</div>
+									<div class="form_row">
+										<label>Số lượng :</label>
+										<input type="number" step="1" min="10" max="1000" class="form_input"
+											name="soluong" required="required" [(ngModel)]="sanpham.soluong" />
+
+									</div>
+									<div class="form_row">
+										<label>Giá ban đầu :</label>
+										<input type="number" class="form_input" step="1000" onchange="tinhgiaban()"
+											min="1000" max="100000000" id="giabd" name="giabd" required="required"
+											[(ngModel)]="sanpham.giabd" />
+
+									</div>
+
+									<div class="form_row">
+										<label>Khuyến mãi :</label>
+										<input type="number" class="form_input" step="1" onchange="tinhgiaban()" min="0"
+											max="99" id="ttkm" name="ttkm" required="required"
+											[(ngModel)]="sanpham.ttkm" />
+
+											<p style="font-size: 10px;color: tomato;margin-left: 150px;">Giá bán ra = Giá ban đầu - Giá ban đầu * (Khuyến mãi * 0.01)</p>
+
+									</div>
+
+									
+									<div class="form_row">
+										<label>Hình ảnh :</label>
+										<input type="file" alt="accept" class="form_input" enctype="multipart/form-data"
+											name="hinhsp" required="required" [(ngModel)]="sanpham.hinhsp" />
+
+									</div>
+									<div class="form_row">
+										<label>Loại sản phẩm :</label>
+										<input type="text" class="form_input" name="maloai" required="required"
+											[(ngModel)]="sanpham.maloai" />
+									</div>
+
+								</div>
+								<!-- Modal footer -->
+								<div class="modal-footer">
+									<div class="pull-right">
+										<button type="submit" class="btn btn-success">Submit</button>
+									</div>
+
+									<button type="button" class="btn btn-secondary pull-left"
+										data-dismiss="modal">Close</button>
+								</div>
+							</div>
+						</div>
+					</form>
+
+				</div>
+
+
+
+			</div>
+		</div>
+	</div>
 </div>
-<!-- <c:if test="${sanPham != null }">
-    <script type="text/javascript">
-        $('#myModal').modal('show');
-    </script>
-</c:if> -->
