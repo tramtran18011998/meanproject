@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Sanpham } from 'src/app/model/Sanpham';
 import { SanphamService } from 'src/app/service/admin/sanpham.service';
-import { Loaisp } from 'src/app/model/Loaisp';
+import {Loaisp} from '../../model/Loaisp';
 import { LoaispService } from 'src/app/service/admin/loaisp.service';
 
 @Component({
@@ -24,7 +24,7 @@ export class SanPhamComponent implements OnInit {
 
   ngOnInit() {
     this.getData();
-    //this.getLoaiSPList();
+    this.getLoaiSPList();
   }
 
   getData(){
@@ -59,7 +59,9 @@ export class SanPhamComponent implements OnInit {
 
   onSubmitCreate(){
     this.getLoaiSPList();
+
     this.sanpham.giaban = this.sanpham.giabd - this.sanpham.giabd*(this.sanpham.ttkm* 0.01);
+
     this.sanphamService.createSanPham(this.sanpham).subscribe(data => console.log(data),
     error => console.log(error));
     this.sanpham = new Sanpham();

@@ -71,7 +71,7 @@
 							<th>Giá bán</th>
 							<th>Khuyến mãi (%)</th>
 							<th width="110px">Hình ảnh</th>
-							<th>Mã loại</th>
+							<th>Tên loại</th>
 							<th>Lựa chọn</th>
 						</tr>
 
@@ -140,20 +140,19 @@
 									</div>
 									<div class="form_row">
 										<label>Giá ban đầu :</label>
-										<input type="number" class="form_input" step="1000" 
-											min="1000" max="100000000" id="giabd" name="giabd" required="required"
-											[(ngModel)]="sanpham.giabd" />
+										<input type="number" class="form_input" step="1000" min="1000" max="100000000"
+											id="giabd" name="giabd" required="required" [(ngModel)]="sanpham.giabd" />
 
 									</div>
 
 									<div class="form_row">
 										<label>Khuyến mãi :</label>
-										<input type="number" class="form_input" step="1"  min="0"
-											max="99" id="ttkm" name="ttkm" required="required"
-											[(ngModel)]="sanpham.ttkm" />
-										<p style="font-size: 10px;color: tomato;margin-left: 150px;">Giá bán ra = Giá ban đầu - Giá ban đầu * (Khuyến mãi * 0.01)</p>
+										<input type="number" class="form_input" step="1" min="0" max="99" id="ttkm"
+											name="ttkm" required="required" [(ngModel)]="sanpham.ttkm" />
+										<p style="font-size: 10px;color: tomato;margin-left: 150px;">Giá bán ra = Giá
+											ban đầu - Giá ban đầu * (Khuyến mãi * 0.01)</p>
 
-									</div>									
+									</div>
 
 									<div class="form_row">
 										<label>Hình ảnh :</label>
@@ -161,24 +160,18 @@
 											name="hinhsp" required="required" [(ngModel)]="sanpham.hinhsp" />
 
 									</div>
-									<div class="form_row">
-										<label>Loại sản phẩm :</label>
-										<input type="text" class="form_input" name="maloai" required="required"
-											[(ngModel)]="sanpham.maloai" />
-									
-										
-									</div>
-									<div class="form_row">
-										
-										<label>Loại sản phẩm :</label>
-										
 
-										<select style="width: 210px;"  class="form-control" >
-											<option *ngFor="let loaisp of loaisps" [ngValue]="loaisp">
+									<div class="form_row">
+
+										<label>Loại sản phẩm :</label>
+
+										<select style="width: 210px;" class="form-control" name="maloai"
+											[(ngModel)]="sanpham.maloai">
+											<option *ngFor="let loaisp of loaisps | async">
 												{{loaisp.tenloaisp}}
 											</option>
 										</select>
-										
+
 									</div>
 
 									<!--
@@ -261,11 +254,12 @@
 											max="99" id="ttkm" name="ttkm" required="required"
 											[(ngModel)]="sanpham.ttkm" />
 
-											<p style="font-size: 10px;color: tomato;margin-left: 150px;">Giá bán ra = Giá ban đầu - Giá ban đầu * (Khuyến mãi * 0.01)</p>
+										<p style="font-size: 10px;color: tomato;margin-left: 150px;">Giá bán ra = Giá
+											ban đầu - Giá ban đầu * (Khuyến mãi * 0.01)</p>
 
 									</div>
 
-									
+
 									<div class="form_row">
 										<label>Hình ảnh :</label>
 										<input type="file" alt="accept" class="form_input" enctype="multipart/form-data"
@@ -273,9 +267,16 @@
 
 									</div>
 									<div class="form_row">
+
 										<label>Loại sản phẩm :</label>
-										<input type="text" class="form_input" name="maloai" required="required"
-											[(ngModel)]="sanpham.maloai" />
+
+										<select style="width: 210px;" class="form-control" name="maloai"
+											[(ngModel)]="sanpham.maloai">
+											<option *ngFor="let loaisp of loaisps | async">
+												{{loaisp.tenloaisp}}
+											</option>
+										</select>
+
 									</div>
 
 								</div>
