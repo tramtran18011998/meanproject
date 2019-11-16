@@ -1,5 +1,6 @@
 export  class Account {
-    id: number;
+    
+    _id: string;
     tendn: string;
     matkhau: string;
     quyenhan: string;

@@ -15,7 +15,7 @@ export class NhanVienComponent implements OnInit {
 
   nhanviens: Observable<NhanVien[]>;
   _id: string;
-  _idacc: string;
+ 
 
 
   nhanvien: NhanVien = new NhanVien();
@@ -31,7 +31,6 @@ export class NhanVienComponent implements OnInit {
   }
   getData() {
     this.nhanviens = this.nhanvienService.getNhanViensList();
-    this._idacc= this.nhanvien.idaccount;
   }
 
   deleteNhanVien(id: string, idaccount: string) {
@@ -65,23 +64,31 @@ export class NhanVienComponent implements OnInit {
   }
 
   onSubmitCreate() {
+    this.onSubmitCreateAcc();
+    
+    //this.nhanvien.idaccount= this.account.tendn;
+    console.log("ktra id account: "+ this.account.tendn);
+     
+    this.nhanvien.idaccount = this.account.tendn;
+    console.log("ktra id account: "+ this.nhanvien.idaccount);
+
     this.nhanvienService.createNhanVien(this.nhanvien).subscribe(data => console.log(data), error => console.log(error));
-    this.nhanvien = new NhanVien();
-    this.getData();
+    this.nhanvien = new NhanVien();    
   }
+
 
   getAccountById(id: string) {
     this.accountService.getAccountById(id).subscribe(data => {
       console.log(data)
       this.account = data;
     }, error => console.log(error));
-    this._idacc = id;
+    //this._idacc = id;
 
   }
   onSubmitCreateAcc() {
     this.accountService.createAccount(this.account).subscribe(data => console.log(data), error => console.log(error));
-    this.account = new Account();
-    this.getData();
+    //this.account = new Account();
+    //this.getData();
   }
 
 

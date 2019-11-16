@@ -52,7 +52,7 @@
 
             <div class="container">
                 <div class="btnThem">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalThemAcc">Thêm
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalThem">Thêm
                         nhân viên</button>
                 </div>
             </div>
@@ -69,11 +69,11 @@
 
                             <!--Modal body-->
                             <div class="modal-body">
-                                <div class="form_row">
+                                <!-- <div class="form_row">
                                     <label> Id account :</label> <input type="text" class="form_input" name="_id"
                                         required="required" [(ngModel)]="account._id" />
 
-                                </div>
+                                </div> -->
                                 <div class="form_row">
                                     <label>Tên nhân viên :</label> <input type="text" class="form_input" name="hoten"
                                         required="required" [(ngModel)]="nhanvien.hoten" />
@@ -101,6 +101,23 @@
                                         required="required" [(ngModel)]="nhanvien.sdt" />
                                 </div>
 
+                                <div class="form_row">
+                                        <label> Tên đăng nhập :</label> <input type="text" class="form_input" name="tendn"
+                                            required="required" [(ngModel)]="account.tendn" />
+                                    </div>
+                                    <div class="form_row">
+                                        <label>Mật khẩu:</label> <input type="text" class="form_input" name="matkhau"
+                                            id="matkhau" [(ngModel)]="account.matkhau" />
+                                    </div>
+    
+                                    <div class="form_row">
+                                        <label>Quyền hạn:</label>
+                                        <form action="">
+                                            <input type="radio" name="quyenhan" value="Admin" [(ngModel)]="account.quyenhan" />Admin <br>
+                                            <input type="radio" name="quyenhan" value="Employee" checked [(ngModel)]="account.quyenhan"  />Employee <br>
+                                        </form>
+                                    </div>
+
                             </div>
 
                             <!-- Modal footer -->
@@ -120,17 +137,17 @@
             </div>
 
             <!--Modal them account-->
-            <div class="modal fade" id="myModalThemAcc">
+            <!-- <div class="modal fade" id="myModalThemAcc">
                 <form (ngSubmit)="onSubmitCreateAcc()">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
 
-                            <!-- Modal Header -->
+                            
 
                             <div class="modal-header">
                                 <h3 class="modal-title">Thêm tài khoản</h3>
                             </div>
-                            <!-- Modal body -->
+                            
 
                             <div class="modal-body">
                                 <div class="form_row">
@@ -151,7 +168,7 @@
                                 </div>
                             </div>
 
-                            <!-- Modal footer -->
+                            
                             <div class="modal-footer">
                                 <div class="pull-right">
                                     <button type="submit" class="btn btn-success" data-toggle="modal"
@@ -165,7 +182,7 @@
                     </div>
                 </form>
 
-            </div>
+            </div> -->
 
         </div>
     </div>
