@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import {Loaisp} from '../../model/Loaisp';
+import { Loaisp } from '../../model/Loaisp';
 import { Router } from '@angular/router';
 import { LoaispService } from 'src/app/service/admin/loaisp.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -13,27 +13,31 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class LoaiSpComponent implements OnInit {
 
   loaisps: Observable<Loaisp[]>;
-  _id:string;
+  _id: string;
 
   loaisp: Loaisp = new Loaisp();
   addForm: FormGroup;
 
 
-  constructor(private loaispService: LoaispService, private router: Router,private formBuilder: FormBuilder) { }
+  constructor(private loaispService: LoaispService, private router: Router, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+
+    this.loaispService.refresh.subscribe(() => {
+      this.getData();
+    });
     this.getData();
     this.addForm = this.formBuilder.group({
-      
+
       tenloaisp: ['', Validators.required]
     });
   }
 
-  getData(){
+  getData() {
     this.loaisps = this.loaispService.getLoaiSPsList();
   }
 
-  deleteLoaiSp(id:string){
+  deleteLoaiSp(id: string) {
     this.loaispService.deleteLoaiSP(id).subscribe(
       data => {
         console.log(data);
@@ -44,28 +48,28 @@ export class LoaiSpComponent implements OnInit {
   }
 
 
-  editLoaiSp(id:string){
+  editLoaiSp(id: string) {
 
-    
-    this.loaispService.getLoaiSPById(id).subscribe(data=>{
+
+    this.loaispService.getLoaiSPById(id).subscribe(data => {
       console.log(data)
-      this.loaisp=data;
-    },error=>console.log(error));
-    this._id= id;
+      this.loaisp = data;
+    }, error => console.log(error));
+    this._id = id;
     //this.router.navigate(['/admin/loaisp']);
   }
 
-  onSubmitEdit(){
-    this.loaispService.updateLoaiSP(this._id, this.loaisp).subscribe(data => {console.log(data);}, error => console.log(error));
+  onSubmitEdit() {
+    this.loaispService.updateLoaiSP(this._id, this.loaisp).subscribe(data => { console.log(data); }, error => console.log(error));
     this.loaisp = new Loaisp();
-    this.getData();
+    //this.getData();
   }
 
-  onSubmitCreate(){
+  onSubmitCreate() {
     this.loaispService.createLoaiSP(this.addForm.value).subscribe(data => console.log(data),
-    error => console.log(error));
+      error => console.log(error));
     this.loaisp = new Loaisp();
-    this.getData();
+    //this.getData();
   }
 
 }

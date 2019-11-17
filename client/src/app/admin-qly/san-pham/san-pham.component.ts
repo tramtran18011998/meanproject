@@ -16,7 +16,8 @@ export class SanPhamComponent implements OnInit {
   sanphams: Observable<Sanpham[]>;
   loaisps: Observable<Loaisp[]>;
 
-  giaban: number;
+  giaban: number ;
+  
   giabd: number;
   ttkm: number;
 
@@ -28,15 +29,20 @@ export class SanPhamComponent implements OnInit {
   constructor(private sanphamService: SanphamService, private loaispService: LoaispService,private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+
+    this.sanphamService.refresh.subscribe(() => {
+      this.getData();
+    });
+
     this.getData();
     this.getLoaiSPList();
     this.addForm = this.formBuilder.group({
       
       tensp: ['', Validators.required],
-      soluong: [null, Validators.required],
-      giabd: [null, Validators.required],
-      giaban: [null, Validators.required],
-      ttkm: [null, Validators.required],
+      soluong: [10, Validators.required],
+      giabd: [1000, Validators.required],
+      giaban: [1000, Validators.required],
+      ttkm: [0, Validators.required],
       hinhsp: ['', Validators.required],
       maloai: ['', Validators.required]
     });
@@ -69,7 +75,7 @@ export class SanPhamComponent implements OnInit {
     this.sanpham.giaban = this.sanpham.giabd - this.sanpham.giabd*(this.sanpham.ttkm* 0.01);
     this.sanphamService.updateSanPham(this._id, this.sanpham).subscribe(data => {console.log(data);}, error => console.log(error));
     this.sanpham = new Sanpham();
-    this.getData();
+    
   }
 
   onSubmitCreate(){
@@ -85,7 +91,7 @@ export class SanPhamComponent implements OnInit {
     this.sanphamService.createSanPham(this.addForm.value).subscribe(data => console.log(data),
     error => console.log(error));
     this.sanpham = new Sanpham();
-    this.getData();
+    
   }
 
 

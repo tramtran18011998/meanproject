@@ -18,6 +18,10 @@ export class HoaDonComponent implements OnInit {
   constructor(private hoadonService: HoadonService) { }
 
   ngOnInit() {
+
+    this.hoadonService.refresh.subscribe(() => {
+      this.getData();
+    });
     this.getData();
   }
 

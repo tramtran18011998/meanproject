@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import {tap} from 'rxjs/operators'
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,14 @@ import { Observable } from 'rxjs';
 export class TinkmService {
 
   private baseUrl = 'http://localhost:4000/api/tinkm';
+
+  private _refresh = new Subject<void>();
+
   constructor(private http: HttpClient) { }
+
+  get refresh(){
+    return this._refresh;
+  }
 
   getTinKMsList(): Observable<any> {
     return this.http.get(`${this.baseUrl}`);
@@ -19,12 +27,20 @@ export class TinkmService {
     return this.http.get(`${this.baseUrl}/${id}`);
   }
 
-  createTinKM(loaisp: Object): Observable<Object> {
-    return this.http.post(`${this.baseUrl}`, loaisp);
+  createTinKM(tinkm: Object): Observable<Object> {
+    return this.http.post(`${this.baseUrl}`, tinkm).pipe(
+      tap(()=> {
+        this._refresh.next();
+      })
+    );
   }
 
   updateTinKM(id: string, value: any): Observable<Object> {
-    return this.http.put(`${this.baseUrl}/${id}`, value);
+    return this.http.put(`${this.baseUrl}/${id}`, value).pipe(
+      tap(()=> {
+        this._refresh.next();
+      })
+    );
   }
 
   deleteTinKM(id: string): Observable<any> {

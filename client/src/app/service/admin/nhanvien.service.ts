@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import {tap} from 'rxjs/operators'
 
 @Injectable({
   providedIn: 'root'
@@ -8,8 +9,13 @@ import { Observable } from 'rxjs';
 export class NhanvienService {
 
   private baseUrl = 'http://localhost:4000/api/nhanvien';
+  private _refresh = new Subject<void>();
 
   constructor(private http: HttpClient) { }
+
+  get refresh(){
+    return this._refresh;
+  }
 
   getNhanViensList(): Observable<any> {
     return this.http.get(`${this.baseUrl}`);
@@ -20,12 +26,20 @@ export class NhanvienService {
     return this.http.get(`${this.baseUrl}/${id}`);
   }
 
-  createNhanVien(loaisp: Object): Observable<Object> {
-    return this.http.post(`${this.baseUrl}`, loaisp);
+  createNhanVien(nhanvien: Object): Observable<Object> {
+    return this.http.post(`${this.baseUrl}`, nhanvien).pipe(
+      tap(()=> {
+        this._refresh.next();
+      })
+    );
   }
 
   updateNhanVien(id: string, value: any): Observable<Object> {
-    return this.http.put(`${this.baseUrl}/${id}`, value);
+    return this.http.put(`${this.baseUrl}/${id}`, value).pipe(
+      tap(()=> {
+        this._refresh.next();
+      })
+    );
   }
 
   deleteNhanVien(id: string): Observable<any> {

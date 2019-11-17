@@ -21,6 +21,11 @@ export class TinKmComponent implements OnInit {
   constructor(private tinkmService: TinkmService, private router:Router,private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+
+    this.tinkmService.refresh.subscribe(() => {
+      this.getData();
+    });
+
     this.getData();
     this.addForm = this.formBuilder.group({
       
@@ -55,13 +60,13 @@ export class TinKmComponent implements OnInit {
   onSubmitEdit(){
     this.tinkmService.updateTinKM(this._id, this.tinkm).subscribe(data => {console.log(data);}, error => console.log(error));
     this.tinkm = new TinKM();
-    this.getData();
+    
   }
 
   onSubmitCreate(){
     this.tinkmService.createTinKM(this.addForm.value).subscribe(data => console.log(data),error => console.log(error));
     this.tinkm = new TinKM();
-    this.getData();
+    
   }
 
 }

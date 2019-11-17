@@ -17,6 +17,10 @@ export class KhachHangComponent implements OnInit {
   constructor(private khachhangService: KhachhangService,private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    this.khachhangService.refresh.subscribe(() => {
+      this.getData();
+    });
+    
     this.getData();
     this.addForm = this.formBuilder.group({
       

@@ -41,6 +41,11 @@ export class NhanVienComponent implements OnInit {
   // }
   
   ngOnInit() {
+
+    this.nhanvienService.refresh.subscribe(() => {
+      this.getData();
+    });
+    
     
     this.getData();
     this.addFormAcc = this.formBuilder.group({
@@ -112,11 +117,14 @@ export class NhanVienComponent implements OnInit {
     //console.log("ktra id account: "+ this._idacc);
      
     //this.nhanvien.idaccount=this._idacc;
+    this.accountService.refresh;
+    
     this.addFormNV.controls['gioitinh'].setValue(this.genderForm.controls['gioitinh'].value);
 
     this.nhanvienService.createNhanVien(this.addFormNV.value).subscribe(data => console.log(data), error => console.log(error));
     this.nhanvien = new NhanVien();    
     this.getData();
+    location.reload();
   }
 
 
