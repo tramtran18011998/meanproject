@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { TinKM } from '../../model/Tinkm';
 import { TinkmService } from 'src/app/service/admin/tinkm.service';
 import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-tin-km',
@@ -15,11 +16,18 @@ export class TinKmComponent implements OnInit {
   _id:string;
   
   tinkm: TinKM = new TinKM();
+  addForm: FormGroup;
 
-  constructor(private tinkmService: TinkmService, private router:Router) { }
+  constructor(private tinkmService: TinkmService, private router:Router,private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.getData();
+    this.addForm = this.formBuilder.group({
+      
+      tieude: ['', Validators.required],
+      noidung: ['', Validators.required],
+      hinhanh: ['', Validators.required]
+    });
   }
 
   getData(){
@@ -51,7 +59,7 @@ export class TinKmComponent implements OnInit {
   }
 
   onSubmitCreate(){
-    this.tinkmService.createTinKM(this.tinkm).subscribe(data => console.log(data),error => console.log(error));
+    this.tinkmService.createTinKM(this.addForm.value).subscribe(data => console.log(data),error => console.log(error));
     this.tinkm = new TinKM();
     this.getData();
   }

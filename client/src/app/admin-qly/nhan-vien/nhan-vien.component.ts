@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { NhanvienService } from 'src/app/service/admin/nhanvien.service';
-import { Observable, from } from 'rxjs';
+import { Observable, from, BehaviorSubject } from 'rxjs';
 import { NhanVien } from '../../model/Nhanvien';
 import { Router } from '@angular/router';
 import { Account } from '../../model/Account';
 import { AccountService } from 'src/app/service/admin/account.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-nhan-vien',
@@ -15,18 +16,57 @@ export class NhanVienComponent implements OnInit {
 
   nhanviens: Observable<NhanVien[]>;
   _id: string;
+  _idacc: string;
+
  
 
+  accounts: Observable<Account[]>;
+  
+  //private accountlast= new BehaviorSubject<string>('');
 
   nhanvien: NhanVien = new NhanVien();
   account: Account = new Account();
 
-  constructor(private nhanvienService: NhanvienService, private router: Router, private accountService: AccountService) { }
+  addFormAcc: FormGroup;
+  addFormNV: FormGroup;
+  genderForm: FormGroup;
+  authForm: FormGroup;
 
+  constructor(private nhanvienService: NhanvienService, private router: Router, private accountService: AccountService ,private formBuilder: FormBuilder) { }
+
+  // getlast(_result: string):void{
+  //   this.accountlast.next(_result);
+  //   // setSearchResults(_searchResult: string): void {
+  //   //   this.searchResultSource.next(_searchResult);
+  // }
+  
   ngOnInit() {
-    // this.getAccountById(this.nhanvien.idaccount);
-
+    
     this.getData();
+    this.addFormAcc = this.formBuilder.group({
+      
+      tendn: ['', Validators.required],
+      matkhau: ['', Validators.required],
+      quyenhan: ['', Validators.required]
+    });
+
+    this.addFormNV = this.formBuilder.group({
+      
+      idaccount: ['', Validators.required],
+      hoten: ['', Validators.required],
+      gioitinh: ['', Validators.required],
+      diachi: ['', Validators.required],
+      email: ['', Validators.required],
+      sdt: ['', Validators.required]
+    });
+
+    this.genderForm = this.formBuilder.group({
+      gioitinh: ['', Validators.required],
+    });
+
+    this.authForm = this.formBuilder.group({
+      quyenhan: ['', Validators.required]
+    });
 
   }
   getData() {
@@ -54,7 +94,8 @@ export class NhanVienComponent implements OnInit {
       console.log(data)
       this.nhanvien = data;
     }, error => console.log(error));
-    this._id = id
+    this._id = id;
+    
   }
 
   onSubmitEdit() {
@@ -64,16 +105,18 @@ export class NhanVienComponent implements OnInit {
   }
 
   onSubmitCreate() {
-    this.onSubmitCreateAcc();
+    //this.onSubmitCreateAcc();
+    //this.getListAccount();
     
     //this.nhanvien.idaccount= this.account.tendn;
-    console.log("ktra id account: "+ this.account.tendn);
+    //console.log("ktra id account: "+ this._idacc);
      
-    this.nhanvien.idaccount = this.account.tendn;
-    console.log("ktra id account: "+ this.nhanvien.idaccount);
+    //this.nhanvien.idaccount=this._idacc;
+    this.addFormNV.controls['gioitinh'].setValue(this.genderForm.controls['gioitinh'].value);
 
-    this.nhanvienService.createNhanVien(this.nhanvien).subscribe(data => console.log(data), error => console.log(error));
+    this.nhanvienService.createNhanVien(this.addFormNV.value).subscribe(data => console.log(data), error => console.log(error));
     this.nhanvien = new NhanVien();    
+    this.getData();
   }
 
 
@@ -85,10 +128,20 @@ export class NhanVienComponent implements OnInit {
     //this._idacc = id;
 
   }
+
+  // getListAccount(){
+  //   this.accounts= this.accountService.getAccountsList();
+  // }
+d
   onSubmitCreateAcc() {
-    this.accountService.createAccount(this.account).subscribe(data => console.log(data), error => console.log(error));
+
+    this.addFormAcc.controls['quyenhan'].setValue(this.authForm.controls['quyenhan'].value);
+    //this.addFormAcc.controls['quyenhan'].value = this.authForm.controls['quyenhan'].value;
+
+    this.accountService.createAccount(this.addFormAcc.value).subscribe(data => console.log(data), error => console.log(error));
     //this.account = new Account();
     //this.getData();
+    this.accounts= this.accountService.getAccountsList();
   }
 
 

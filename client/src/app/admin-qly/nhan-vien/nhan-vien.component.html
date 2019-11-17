@@ -52,14 +52,15 @@
 
             <div class="container">
                 <div class="btnThem">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalThem">Thêm
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalThemAcc">Thêm
                         nhân viên</button>
                 </div>
             </div>
 
 
             <div class="modal fade" id="myModalThem">
-                <form (ngSubmit)="onSubmitCreate()">
+                    <form [formGroup]="addFormNV" (ngSubmit)="onSubmitCreate()">
+                    
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <!-- Modal Header -->
@@ -70,38 +71,49 @@
                             <!--Modal body-->
                             <div class="modal-body">
                                 <!-- <div class="form_row">
-                                    <label> Id account :</label> <input type="text" class="form_input" name="_id"
-                                        required="required" [(ngModel)]="account._id" />
+                                    <label> Id account :</label> <input type="text" class="form_input" name="_id" readonly
+                                        required="required"  [(ngModel)]="nhanvien.idaccount" />
 
                                 </div> -->
                                 <div class="form_row">
+                                    <!-- <div *ngFor="let account of accounts | async | slice:-1"></div> -->
+                                    <!-- <div *ngFor="let account of accounts | async | slice:-1" >
+                                        <label >Ktra id : {{account._id}}</label>
+                                        <input type="text" class="form_input" name="_id" readonly
+                                        required="required"  [(ngModel)]="_idacc" />
+                                    </div> -->
+                                    <!-- <label *ngFor="let account of accounts | async | slice:-1" [(ngModel)]="_idacc">Ktra id : {{account._id}}</label> -->
+                                </div>
+                                <div class="form_row">
                                     <label>Tên nhân viên :</label> <input type="text" class="form_input" name="hoten"
-                                        required="required" [(ngModel)]="nhanvien.hoten" />
+                                        required="required" formControlName="hoten" id="hoten" />
                                 </div>
                                 <div class="form_row">
                                     <label>Giới tính:</label>
-                                    <form action="">
-                                        <input type="radio" name="gioitinh" value="Nam" [(ngModel)]="nhanvien.gioitinh">
+                                    <form [formGroup]="genderForm">
+                                        <input type="radio" name="gioitinh" value="Nam" formControlName="gioitinh" id="gioitinh">
                                         Nam<br>
-                                        <input type="radio" name="gioitinh" value="Nữ" [(ngModel)]="nhanvien.gioitinh">
+                                        <input type="radio" name="gioitinh" value="Nữ" formControlName="gioitinh" id="gioitinh">
                                         Nữ<br>
 
                                     </form>
                                 </div>
                                 <div class="form_row">
                                     <label>Địa chỉ :</label> <input type="text" class="form_input" name="diachi"
-                                        required="required" [(ngModel)]="nhanvien.diachi" />
+                                        required="required" formControlName="diachi" id="diachi" />
                                 </div>
                                 <div class="form_row">
                                     <label> Email :</label> <input type="text" class="form_input" name="email"
-                                        required="required" [(ngModel)]="nhanvien.email" />
+                                        required="required" formControlName="email" id="email" />
                                 </div>
                                 <div class="form_row">
                                     <label> Số điện thoại :</label> <input type="text" class="form_input" name="sdt"
-                                        required="required" [(ngModel)]="nhanvien.sdt" />
+                                        required="required" formControlName="sdt" id="sdt" />
                                 </div>
 
-                                <div class="form_row">
+                                
+
+                                <!-- <div class="form_row">
                                         <label> Tên đăng nhập :</label> <input type="text" class="form_input" name="tendn"
                                             required="required" [(ngModel)]="account.tendn" />
                                     </div>
@@ -116,7 +128,7 @@
                                             <input type="radio" name="quyenhan" value="Admin" [(ngModel)]="account.quyenhan" />Admin <br>
                                             <input type="radio" name="quyenhan" value="Employee" checked [(ngModel)]="account.quyenhan"  />Employee <br>
                                         </form>
-                                    </div>
+                                    </div> -->
 
                             </div>
 
@@ -137,8 +149,9 @@
             </div>
 
             <!--Modal them account-->
-            <!-- <div class="modal fade" id="myModalThemAcc">
-                <form (ngSubmit)="onSubmitCreateAcc()">
+            <div class="modal fade" id="myModalThemAcc">
+     
+                        <form [formGroup]="addFormAcc" (ngSubmit)="onSubmitCreateAcc()">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
 
@@ -152,18 +165,18 @@
                             <div class="modal-body">
                                 <div class="form_row">
                                     <label> Tên đăng nhập :</label> <input type="text" class="form_input" name="tendn"
-                                        required="required" [(ngModel)]="account.tendn" />
+                                        required="required" formControlName="tendn" id="tendn" />
                                 </div>
                                 <div class="form_row">
                                     <label>Mật khẩu:</label> <input type="text" class="form_input" name="matkhau"
-                                        id="matkhau" [(ngModel)]="account.matkhau" />
+                                        id="matkhau" formControlName="matkhau" id="matkhau" />
                                 </div>
 
                                 <div class="form_row">
                                     <label>Quyền hạn:</label>
-                                    <form action="">
-                                        <input type="radio" name="quyenhan" value="Admin" [(ngModel)]="account.quyenhan" />Admin <br>
-                                        <input type="radio" name="quyenhan" value="User" checked [(ngModel)]="account.quyenhan"  />User <br>
+                                    <form [formGroup]="authForm">
+                                        <input type="radio" name="quyenhan" value="Admin" formControlName="quyenhan" id="quyenhan" />Admin <br>
+                                        <input type="radio" name="quyenhan" value="Employee" checked formControlName="quyenhan" id="quyenhan"  />Employee <br>
                                     </form>
                                 </div>
                             </div>
@@ -182,7 +195,7 @@
                     </div>
                 </form>
 
-            </div> -->
+            </div>
 
         </div>
     </div>

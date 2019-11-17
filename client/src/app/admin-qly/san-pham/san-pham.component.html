@@ -112,7 +112,7 @@
 				<!-- The Modal THEM-->
 
 				<div class="modal fade" id="myModalThem">
-					<form (ngSubmit)="onSubmitCreate()">
+						<form [formGroup]="addForm" (ngSubmit)="onSubmitCreate()">
 						<div class="modal-dialog modal-dialog-centered">
 							<div class="modal-content">
 
@@ -130,25 +130,25 @@
 									<div class="form_row">
 										<label>Tên sản phẩm :</label>
 										<input type="text" class="form_input" name="tensp" required="required"
-											[(ngModel)]="sanpham.tensp" />
+										formControlName="tensp" id="tensp"  />
 									</div>
 									<div class="form_row">
 										<label>Số lượng :</label>
 										<input type="number" step="1" min="10" max="1000" class="form_input"
-											name="soluong" required="required" [(ngModel)]="sanpham.soluong" />
+											name="soluong" required="required" formControlName="soluong" id="soluong" />
 
 									</div>
 									<div class="form_row">
 										<label>Giá ban đầu :</label>
 										<input type="number" class="form_input" step="1000" min="1000" max="100000000"
-											id="giabd" name="giabd" required="required" [(ngModel)]="sanpham.giabd" />
+											id="giabd" name="giabd" required="required" formControlName="giabd" id="giabd" />
 
 									</div>
 
 									<div class="form_row">
 										<label>Khuyến mãi :</label>
 										<input type="number" class="form_input" step="1" min="0" max="99" id="ttkm"
-											name="ttkm" required="required" [(ngModel)]="sanpham.ttkm" />
+											name="ttkm" required="required" formControlName="ttkm" id="ttkm" />
 										<p style="font-size: 10px;color: tomato;margin-left: 150px;">Giá bán ra = Giá
 											ban đầu - Giá ban đầu * (Khuyến mãi * 0.01)</p>
 
@@ -157,7 +157,7 @@
 									<div class="form_row">
 										<label>Hình ảnh :</label>
 										<input type="file" alt="accept" class="form_input" enctype="multipart/form-data"
-											name="hinhsp" required="required" [(ngModel)]="sanpham.hinhsp" />
+											name="hinhsp" required="required" formControlName="hinhsp" id="hinhsp" />
 
 									</div>
 
@@ -166,7 +166,7 @@
 										<label>Loại sản phẩm :</label>
 
 										<select style="width: 210px;" class="form-control" name="maloai"
-											[(ngModel)]="sanpham.maloai">
+										formControlName="maloai" id="maloai">
 											<option *ngFor="let loaisp of loaisps | async">
 												{{loaisp.tenloaisp}}
 											</option>
@@ -242,7 +242,7 @@
 									</div>
 									<div class="form_row">
 										<label>Giá ban đầu :</label>
-										<input type="number" class="form_input" step="1000" onchange="tinhgiaban()"
+										<input type="number" class="form_input" step="1000" 
 											min="1000" max="100000000" id="giabd" name="giabd" required="required"
 											[(ngModel)]="sanpham.giabd" />
 
@@ -250,7 +250,7 @@
 
 									<div class="form_row">
 										<label>Khuyến mãi :</label>
-										<input type="number" class="form_input" step="1" onchange="tinhgiaban()" min="0"
+										<input type="number" class="form_input" step="1"  min="0"
 											max="99" id="ttkm" name="ttkm" required="required"
 											[(ngModel)]="sanpham.ttkm" />
 

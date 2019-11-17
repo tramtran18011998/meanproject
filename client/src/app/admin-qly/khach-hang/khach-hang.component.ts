@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { KhachHang } from 'src/app/model/KhachHang';
 import { KhachhangService } from 'src/app/service/admin/khachhang.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-khach-hang',
@@ -11,10 +12,21 @@ import { KhachhangService } from 'src/app/service/admin/khachhang.service';
 export class KhachHangComponent implements OnInit {
 
   khachhangs: Observable<KhachHang[]>
-  constructor(private khachhangService: KhachhangService) { }
+  addForm: FormGroup;
+
+  constructor(private khachhangService: KhachhangService,private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.getData();
+    this.addForm = this.formBuilder.group({
+      
+      idaccount: ['', Validators.required],
+      hoten: ['', Validators.required],
+      diachi: ['', Validators.required],
+      email: ['', Validators.required],
+      sdt: ['', Validators.required],
+      tichluy: [null, Validators.required]
+    });
   }
 
   getData(){

@@ -50,7 +50,7 @@ body{
 #img{
   position: absolute;
   margin: 15px;
-  border: #241b19 solid 3px;
+  /* border: #241b19 solid 3px; */
   margin-top: 4px;
 }
 .navbar-fixed-bottom, .navbar-fixed-top {

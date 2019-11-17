@@ -4,6 +4,7 @@ import { Sanpham } from 'src/app/model/Sanpham';
 import { SanphamService } from 'src/app/service/admin/sanpham.service';
 import {Loaisp} from '../../model/Loaisp';
 import { LoaispService } from 'src/app/service/admin/loaisp.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-san-pham',
@@ -16,15 +17,29 @@ export class SanPhamComponent implements OnInit {
   loaisps: Observable<Loaisp[]>;
 
   giaban: number;
+  giabd: number;
+  ttkm: number;
 
   _id: string;
 
   sanpham: Sanpham = new Sanpham();
-  constructor(private sanphamService: SanphamService, private loaispService: LoaispService) { }
+  addForm: FormGroup;
+
+  constructor(private sanphamService: SanphamService, private loaispService: LoaispService,private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.getData();
     this.getLoaiSPList();
+    this.addForm = this.formBuilder.group({
+      
+      tensp: ['', Validators.required],
+      soluong: [null, Validators.required],
+      giabd: [null, Validators.required],
+      giaban: [null, Validators.required],
+      ttkm: [null, Validators.required],
+      hinhsp: ['', Validators.required],
+      maloai: ['', Validators.required]
+    });
   }
 
   getData(){
@@ -60,9 +75,14 @@ export class SanPhamComponent implements OnInit {
   onSubmitCreate(){
     this.getLoaiSPList();
 
-    this.sanpham.giaban = this.sanpham.giabd - this.sanpham.giabd*(this.sanpham.ttkm* 0.01);
+    //set giaban qua gia ban dau va ttkm
+    this.giabd = parseInt(this.addForm.controls['giabd'].value);
+    this.ttkm = parseInt(this.addForm.controls['ttkm'].value);
 
-    this.sanphamService.createSanPham(this.sanpham).subscribe(data => console.log(data),
+    this.giaban = this.giabd - this.giabd*(this.ttkm*0.01);
+    this.addForm.controls['giaban'].setValue(this.giaban);
+
+    this.sanphamService.createSanPham(this.addForm.value).subscribe(data => console.log(data),
     error => console.log(error));
     this.sanpham = new Sanpham();
     this.getData();

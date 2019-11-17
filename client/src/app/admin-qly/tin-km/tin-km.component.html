@@ -64,7 +64,7 @@
 				<!-- The Modal THEM-->
 
 				<div class="modal fade" id="myModalThem">
-					<form (ngSubmit)="onSubmitCreate()">
+						<form [formGroup]="addForm" (ngSubmit)="onSubmitCreate()">
 						<div class="modal-dialog modal-dialog-centered">
 							<div class="modal-content">
 
@@ -83,17 +83,17 @@
 									<div class="form_row">
 										<label>Tiêu đề :</label>
 										<input type="text" class="form_input" name="tieude" required="required"
-											[(ngModel)]="tinkm.tieude" />
+										formControlName="tieude" id="tieude" />
 									</div>
 									<div class="form_row">
 										<label>Nội dung :</label>
 										<input type="text" class="form_input" name="noidung" required="required"
-											[(ngModel)]="tinkm.noidung" />
+										formControlName="noidung" id="noidung" />
 									</div>
 									<div class="form_row">
 										<label>Hình ảnh :</label>
 										<input type="text" class="form_input" name="hinhanh" required="required"
-											[(ngModel)]="tinkm.hinhanh" />
+										formControlName="hinhanh" id="hinhanh" />
 									</div>
 
 									<!-- <div class="form_row">

@@ -24,7 +24,9 @@
                             <td>{{loaisp.tenloaisp}}</td>
                             <td width="155px">
                                 <button (click)="deleteLoaiSp(loaisp._id)" class="btn btn-danger">Xóa</button>
-                                <button (click)="editLoaiSp(loaisp._id)" class="btn btn-primary" style="margin-left: 10px" data-toggle="modal" data-target="#myModalEdit">Sửa</button>
+                                <button (click)="editLoaiSp(loaisp._id)" class="btn btn-primary"
+                                    style="margin-left: 10px" data-toggle="modal"
+                                    data-target="#myModalEdit">Sửa</button>
                                 <!-- <a
                                 href="/LoaiSPServlet/edit?maLoai=<c:out value="${loaisp.getMaLoai()}" />"
                                 class="edit"> <span class="glyphicon glyphicon-edit"></span></a>
@@ -47,9 +49,10 @@
 
 
             <!-- The Modal THEM-->
-            
-                <div class="modal fade" id="myModalThem">
-                        <form (ngSubmit)="onSubmitCreate()">
+
+            <div class="modal fade" id="myModalThem">
+                <!-- <form (ngSubmit)="onSubmitCreate()"> -->
+                <form [formGroup]="addForm" (ngSubmit)="onSubmitCreate()">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
 
@@ -64,17 +67,17 @@
                             <!-- Modal body -->
 
                             <div class="modal-body">
-                                    <div class="form_row">
-                                        <label>Tên loại sản phẩm :</label> 
-                                        <input type="text" class="form_input"
-                                            name="tenloaisp" required="required" [(ngModel)]="loaisp.tenloaisp"/>
-                                    </div>
+                                <div class="form_row">
+                                    <label>Tên loại sản phẩm :</label>
+                                    <input type="text" class="form_input" name="tenloaisp" required="required"
+                                        formControlName="tenloaisp" id="tenloaisp" />
+                                </div>
                             </div>
 
                             <!-- Modal footer -->
                             <div class="modal-footer">
                                 <div class="pull-right">
-                                     <button type="submit" class="btn btn-success" >Submit</button>
+                                    <button type="submit" class="btn btn-success">Submit</button>
                                 </div>
 
                                 <button type="button" class="btn btn-secondary pull-left"
@@ -84,11 +87,11 @@
                     </div>
                 </form>
 
-                </div>
-           
+            </div>
 
-                <div class="modal fade" id="myModalEdit">
-                        <form (ngSubmit)="onSubmitEdit()">
+
+            <div class="modal fade" id="myModalEdit">
+                <form (ngSubmit)="onSubmitEdit()">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
 
@@ -103,17 +106,17 @@
                             <!-- Modal body -->
 
                             <div class="modal-body">
-                                    <div class="form_row">
-                                        <label>Tên loại sản phẩm :</label> 
-                                        <input type="text" class="form_input"
-                                            name="tenloaisp" required="required" [(ngModel)]="loaisp.tenloaisp"/>
-                                    </div>
+                                <div class="form_row">
+                                    <label>Tên loại sản phẩm :</label>
+                                    <input type="text" class="form_input" name="tenloaisp" required="required"
+                                        [(ngModel)]="loaisp.tenloaisp" />
+                                </div>
                             </div>
 
                             <!-- Modal footer -->
                             <div class="modal-footer">
                                 <div class="pull-right">
-                                     <button type="submit" class="btn btn-success" >Submit</button>
+                                    <button type="submit" class="btn btn-success">Submit</button>
                                 </div>
 
                                 <button type="button" class="btn btn-secondary pull-left"
@@ -123,15 +126,9 @@
                     </div>
                 </form>
 
-                </div>
+            </div>
 
 
         </div>
     </div>
 </div>
-<!-- <c:if test="${loaiSanPham != null }">
-    <script type="text/javascript">
-        jQuery.noConflict();
-        $('#myModal').modal('show');
-    </script>
-</c:if> -->

@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import {Loaisp} from '../../model/Loaisp';
 import { Router } from '@angular/router';
 import { LoaispService } from 'src/app/service/admin/loaisp.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-loai-sp',
@@ -15,10 +16,17 @@ export class LoaiSpComponent implements OnInit {
   _id:string;
 
   loaisp: Loaisp = new Loaisp();
-  constructor(private loaispService: LoaispService, private router: Router) { }
+  addForm: FormGroup;
+
+
+  constructor(private loaispService: LoaispService, private router: Router,private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.getData();
+    this.addForm = this.formBuilder.group({
+      
+      tenloaisp: ['', Validators.required]
+    });
   }
 
   getData(){
@@ -44,6 +52,7 @@ export class LoaiSpComponent implements OnInit {
       this.loaisp=data;
     },error=>console.log(error));
     this._id= id;
+    //this.router.navigate(['/admin/loaisp']);
   }
 
   onSubmitEdit(){
@@ -53,7 +62,7 @@ export class LoaiSpComponent implements OnInit {
   }
 
   onSubmitCreate(){
-    this.loaispService.createLoaiSP(this.loaisp).subscribe(data => console.log(data),
+    this.loaispService.createLoaiSP(this.addForm.value).subscribe(data => console.log(data),
     error => console.log(error));
     this.loaisp = new Loaisp();
     this.getData();
