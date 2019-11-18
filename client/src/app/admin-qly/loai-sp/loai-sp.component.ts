@@ -65,11 +65,12 @@ export class LoaiSpComponent implements OnInit {
     //this.getData();
   }
 
-  onSubmitCreate() {
+  onSubmitCreate(addForm: FormGroup) {
     this.loaispService.createLoaiSP(this.addForm.value).subscribe(data => console.log(data),
       error => console.log(error));
     this.loaisp = new Loaisp();
     //this.getData();
+    addForm.reset();
   }
 
 }

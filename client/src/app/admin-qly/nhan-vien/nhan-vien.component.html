@@ -34,9 +34,9 @@
                             <td>{{nhanvien.email}}</td>
                             <td>{{nhanvien.sdt}}</td>
                             <td width="155px">
-                                <button (click)="deleteNhanVien(nhanvien._id, nhanvien.idaccount)"
+                                <button (click)="deleteNhanVien(nhanvien.tendn,nhanvien._id)"
                                     class="btn btn-danger">Xóa</button>
-                                <button (click)="onSubmitEdit(nhanvien._id)" class="btn btn-primary"
+                                <button (click)="editNhanVien(nhanvien.tendn,nhanvien._id)" class="btn btn-primary"
                                     style="margin-left: 10px" data-toggle="modal"
                                     data-target="#myModalEdit">Sửa</button>
 
@@ -46,20 +46,16 @@
                 </table>
             </div>
 
-
-
-
-
             <div class="container">
                 <div class="btnThem">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalThemAcc">Thêm
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalThem">Thêm
                         nhân viên</button>
                 </div>
             </div>
 
 
             <div class="modal fade" id="myModalThem">
-                    <form [formGroup]="addFormNV" (ngSubmit)="onSubmitCreate()">
+                    <form [formGroup]="addFormNV" (ngSubmit)="onSubmitCreate(addFormNV)">
                     
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
@@ -70,9 +66,10 @@
 
                             <!--Modal body-->
                             <div class="modal-body">
-                                <!-- <div class="form_row">
-                                    <label> Id account :</label> <input type="text" class="form_input" name="_id" readonly
-                                        required="required"  [(ngModel)]="nhanvien.idaccount" />
+                                <!-- <div class="form_row" *ngFor="let account of accounts | async | slice:-1">
+                                    <label> Id account :</label> 
+                                    <input type="text" class="form_input"  readonly
+                                        required="required" [value]="account._id" />
 
                                 </div> -->
                                 <div class="form_row">
@@ -82,8 +79,26 @@
                                         <input type="text" class="form_input" name="_id" readonly
                                         required="required"  [(ngModel)]="_idacc" />
                                     </div> -->
-                                    <!-- <label *ngFor="let account of accounts | async | slice:-1" [(ngModel)]="_idacc">Ktra id : {{account._id}}</label> -->
+                                    <!-- <label id="lblIdaccount" *ngFor="let account of accounts | async | slice:-1" >Ktra id : {{account._id}}</label> -->
                                 </div>
+
+                                <div class="form_row">
+                                    <label> Tên đăng nhập :</label> <input type="text" class="form_input" name="tendn"
+                                        required="required" formControlName="tendn" id="tendn" />
+                                </div>
+                                <div class="form_row">
+                                    <label>Mật khẩu:</label> <input type="text" class="form_input" name="matkhau"
+                                        id="matkhau" formControlName="matkhau" id="matkhau" />
+                                </div>
+
+                                <div class="form_row">
+                                    <label>Quyền hạn:</label>
+                                    <form [formGroup]="authForm">
+                                        <input type="radio" name="quyenhan" value="Admin" formControlName="quyenhan" id="quyenhan" />Admin <br>
+                                        <input type="radio" name="quyenhan" value="Employee" checked formControlName="quyenhan" id="quyenhan"  />Employee <br>
+                                    </form>
+                                </div>
+
                                 <div class="form_row">
                                     <label>Tên nhân viên :</label> <input type="text" class="form_input" name="hoten"
                                         required="required" formControlName="hoten" id="hoten" />
@@ -105,30 +120,15 @@
                                 <div class="form_row">
                                     <label> Email :</label> <input type="text" class="form_input" name="email"
                                         required="required" formControlName="email" id="email" />
+                                        <!-- <span *ngIf="email.invalid">Error</span> -->
                                 </div>
                                 <div class="form_row">
                                     <label> Số điện thoại :</label> <input type="text" class="form_input" name="sdt"
                                         required="required" formControlName="sdt" id="sdt" />
                                 </div>
-
                                 
 
-                                <!-- <div class="form_row">
-                                        <label> Tên đăng nhập :</label> <input type="text" class="form_input" name="tendn"
-                                            required="required" [(ngModel)]="account.tendn" />
-                                    </div>
-                                    <div class="form_row">
-                                        <label>Mật khẩu:</label> <input type="text" class="form_input" name="matkhau"
-                                            id="matkhau" [(ngModel)]="account.matkhau" />
-                                    </div>
-    
-                                    <div class="form_row">
-                                        <label>Quyền hạn:</label>
-                                        <form action="">
-                                            <input type="radio" name="quyenhan" value="Admin" [(ngModel)]="account.quyenhan" />Admin <br>
-                                            <input type="radio" name="quyenhan" value="Employee" checked [(ngModel)]="account.quyenhan"  />Employee <br>
-                                        </form>
-                                    </div> -->
+                               
 
                             </div>
 
@@ -148,8 +148,104 @@
                 </form>
             </div>
 
+
+
+            <div class="modal fade" id="myModalEdit">
+                <form [formGroup]="addFormNV" (ngSubmit)="onSubmitEdit(addFormNV)">
+                
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h3 class="modal-title">Thêm nhân viên</h3>
+                        </div>
+
+                        <!--Modal body-->
+                        <div class="modal-body">
+                            <!-- <div class="form_row" *ngFor="let account of accounts | async | slice:-1">
+                                <label> Id account :</label> 
+                                <input type="text" class="form_input"  readonly
+                                    required="required" [value]="account._id" />
+
+                            </div> -->
+                            <div class="form_row">
+                                <!-- <div *ngFor="let account of accounts | async | slice:-1"></div> -->
+                                <!-- <div *ngFor="let account of accounts | async | slice:-1" >
+                                    <label >Ktra id : {{account._id}}</label>
+                                    <input type="text" class="form_input" name="_id" readonly
+                                    required="required"  [(ngModel)]="_idacc" />
+                                </div> -->
+                                <!-- <label id="lblIdaccount" *ngFor="let account of accounts | async | slice:-1" >Ktra id : {{account._id}}</label> -->
+                            </div>
+
+                            <div class="form_row">
+                                <label> Tên đăng nhập :</label> <input type="text" class="form_input" name="tendn"
+                                    required="required" formControlName="tendn" id="tendn" />
+                            </div>
+                            <div class="form_row">
+                                <label>Mật khẩu:</label> <input type="text" class="form_input" name="matkhau"
+                                    id="matkhau" formControlName="matkhau" id="matkhau" />
+                            </div>
+
+                            <div class="form_row">
+                                <label>Quyền hạn:</label>
+                                <form [formGroup]="authForm">
+                                    <input type="radio" name="quyenhan" value="Admin" formControlName="quyenhan" id="quyenhan" />Admin <br>
+                                    <input type="radio" name="quyenhan" value="Employee" checked formControlName="quyenhan" id="quyenhan"  />Employee <br>
+                                </form>
+                            </div>
+
+                            <div class="form_row">
+                                <label>Tên nhân viên :</label> <input type="text" class="form_input" name="hoten"
+                                    required="required" formControlName="hoten" id="hoten" />
+                            </div>
+                            <div class="form_row">
+                                <label>Giới tính:</label>
+                                <form [formGroup]="genderForm">
+                                    <input type="radio" name="gioitinh" value="Nam" formControlName="gioitinh" id="gioitinh">
+                                    Nam<br>
+                                    <input type="radio" name="gioitinh" value="Nữ" formControlName="gioitinh" id="gioitinh">
+                                    Nữ<br>
+
+                                </form>
+                            </div>
+                            <div class="form_row">
+                                <label>Địa chỉ :</label> <input type="text" class="form_input" name="diachi"
+                                    required="required" formControlName="diachi" id="diachi" />
+                            </div>
+                            <div class="form_row">
+                                <label> Email :</label> <input type="text" class="form_input" name="email"
+                                    required="required" formControlName="email" id="email" />
+                                    <!-- <span *ngIf="email.invalid">Error</span> -->
+                            </div>
+                            <div class="form_row">
+                                <label> Số điện thoại :</label> <input type="text" class="form_input" name="sdt"
+                                    required="required" formControlName="sdt" id="sdt" />
+                            </div>
+                            
+
+                           
+
+                        </div>
+
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                            <div class="pull-right">
+                                <button type="submit" class="btn btn-success" >Submit</button>
+                            </div>
+
+                            <button type="button" class="btn btn-secondary pull-left"
+                                data-dismiss="modal">Close</button>
+                        </div>
+
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
             <!--Modal them account-->
-            <div class="modal fade" id="myModalThemAcc">
+            <!-- <div class="modal fade" id="myModalThemAcc">
      
                         <form [formGroup]="addFormAcc" (ngSubmit)="onSubmitCreateAcc()">
                     <div class="modal-dialog modal-dialog-centered">
@@ -195,7 +291,7 @@
                     </div>
                 </form>
 
-            </div>
+            </div> -->
 
         </div>
     </div>

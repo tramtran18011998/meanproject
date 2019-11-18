@@ -63,10 +63,10 @@ export class TinKmComponent implements OnInit {
     
   }
 
-  onSubmitCreate(){
+  onSubmitCreate(addForm: FormGroup){
     this.tinkmService.createTinKM(this.addForm.value).subscribe(data => console.log(data),error => console.log(error));
     this.tinkm = new TinKM();
-    
+    addForm.reset();
   }
 
 }

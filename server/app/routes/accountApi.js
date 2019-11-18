@@ -1,7 +1,7 @@
-var Account       = require('../models/account');
-var jwt        = require('jsonwebtoken');
-var config     = require('../../database/DB');
-var cors= require('cors');
+var Account = require('../models/account');
+var jwt = require('jsonwebtoken');
+var config = require('../../database/DB');
+var cors = require('cors');
 
 // super secret for creating tokens
 //var superSecret = config.secret;
@@ -19,7 +19,7 @@ var cors= require('cors');
 //here is the magic
 // app.use(cors(corsOptions));
 
-module.exports = function(app, express) {
+module.exports = function (app, express) {
 
     var apiRouter = express.Router();
 
@@ -101,43 +101,47 @@ module.exports = function(app, express) {
     //         success: false, 
     //         message: 'No token provided.' 
     //     });
-        
+
     //   }
 
     //   next(); // make sure we go to the next routes and don't stop here
     // });
 
-  
+
     // on routes that end in /users
     // ----------------------------------------------------
     apiRouter.route('/account')
 
         // create a user (accessed at POST http://localhost:8080/users)
-        .post(function(req, res) {
-            
+        .post(function (req, res) {
+
             var account = new Account();      // create a new instance of the User model
             account.tendn = req.body.tendn;  // set the users name (comes from the request)
             account.matkhau = req.body.matkhau;  // set the users username (comes from the request)
             account.quyenhan = req.body.quyenhan;  // set the users password (comes from the request)
 
-            account.save(function(err, account) {
+            account.save(function (err, account) {
                 if (err) {
                     // duplicate entry
-                    if (err.code == 11000) 
-                        return res.json({ success: false, message: 'A user with that username already exists. '});
-                    else 
+                    if (err.code == 11000)
+                        return res.json({ success: false, message: 'A user with that username already exists. ' });
+                    else
                         return res.send(err);
                 }
 
+                else {
+
+                    return res.json({ success: true, message: 'Account created!' });
+                }
                 // return a message
-                res.json(account);
+                // res.json({ message: 'Account created!' });
             });
 
         })
 
         // get all the users (accessed at GET http://localhost:8080/api/users)
-        .get(function(req, res) {
-            Account.find(function(err, accounts) {
+        .get(function (req, res) {
+            Account.find(function (err, accounts) {
                 if (err) res.send(err);
 
                 // return the users
@@ -147,21 +151,42 @@ module.exports = function(app, express) {
 
     // on routes that end in /users/:user_id
     // ----------------------------------------------------
+    // apiRouter.route('/account/:tendn')
+
+    //     // get the user with that id
+    //     .get(function (req, res) {
+    //         // Account.findById(req.params.tendn, function (err, account) {
+    //         //     if (err) res.send(err);
+
+    //         //     // return that user
+    //         //     res.json(account);
+    //         // });
+    //         //Account.findOne
+    //         Account.findOne(req.params.tendn, function (err, account) {
+    //             if (err) res.send(err);
+
+    //             // return that user
+    //             res.json(account);
+    //         });
+    //         //
+    //     })
+
     apiRouter.route('/account/:account_id')
 
         // get the user with that id
-        .get(function(req, res) {
-            Account.findById(req.params.account_id, function(err, account) {
+        .get(function (req, res) {
+            Account.findById(req.params.account_id, function (err, account) {
                 if (err) res.send(err);
 
                 // return that user
                 res.json(account);
             });
+            
         })
 
         // update the user with this id
-        .put(function(req, res) {
-            Account.findById(req.params.account_id, function(err, account) {
+        .put(function (req, res) {
+            Account.findById(req.params.account_id, function (err, account) {
 
                 if (err) res.send(err);
 
@@ -171,7 +196,7 @@ module.exports = function(app, express) {
                 if (req.body.quyenhan) account.quyenhan = req.body.quyenhan;
 
                 // save the user
-                account.save(function(err) {
+                account.save(function (err) {
                     if (err) res.send(err);
 
                     // return a message
@@ -182,10 +207,12 @@ module.exports = function(app, express) {
         })
 
         // delete the user with this id
-        .delete(function(req, res) {
+        .delete(function (req, res) {
             Account.remove({
-                _id: req.params.account_id
-            }, function(err, account) {
+
+                //xoa account = ten dang nhap
+                tendn: req.params.account_id
+            }, function (err, account) {
                 if (err) res.send(err);
 
                 res.json({ message: 'Successfully deleted' });

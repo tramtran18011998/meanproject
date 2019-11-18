@@ -19,8 +19,12 @@ module.exports.create =function(req, res) {
                 return res.send(err);
         }
 
+        else{
+
+            return res.json({success:true, message: 'NV created!' });
+        }
         // return a message
-        res.json({ message: 'NV created!' });
+        // res.json({ message: 'NV created!' });
     });
 };
 

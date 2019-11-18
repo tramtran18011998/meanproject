@@ -78,7 +78,7 @@ export class SanPhamComponent implements OnInit {
     
   }
 
-  onSubmitCreate(){
+  onSubmitCreate(addForm: FormGroup){
     this.getLoaiSPList();
 
     //set giaban qua gia ban dau va ttkm
@@ -91,7 +91,7 @@ export class SanPhamComponent implements OnInit {
     this.sanphamService.createSanPham(this.addForm.value).subscribe(data => console.log(data),
     error => console.log(error));
     this.sanpham = new Sanpham();
-    
+    addForm.reset();
   }
 
 

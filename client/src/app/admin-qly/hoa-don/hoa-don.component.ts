@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HoaDon } from 'src/app/model/Hoadon';
 import { HoadonService } from 'src/app/service/admin/hoadon.service';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-hoa-don',
@@ -47,10 +48,11 @@ export class HoaDonComponent implements OnInit {
     this._id= id;
   }
 
-  onSubmitEdit(){
+  onSubmitEdit(addForm: FormGroup){
     this.hoadonService.updateHoaDon(this._id, this.hoadon).subscribe(data => {console.log(data);}, error => console.log(error));
     this.hoadon = new HoaDon();
     this.getData();
+    addForm.reset();
   }
 
 }
