@@ -36,7 +36,7 @@
                             <td width="155px">
                                 <button (click)="deleteNhanVien(nhanvien.tendn,nhanvien._id)"
                                     class="btn btn-danger">Xóa</button>
-                                <button (click)="editNhanVien(nhanvien.tendn,nhanvien._id)" class="btn btn-primary"
+                                <button (click)="editNhanVien(nhanvien._id)" class="btn btn-primary"
                                     style="margin-left: 10px" data-toggle="modal"
                                     data-target="#myModalEdit">Sửa</button>
 
@@ -55,8 +55,8 @@
 
 
             <div class="modal fade" id="myModalThem">
-                    <form [formGroup]="addFormNV" (ngSubmit)="onSubmitCreate(addFormNV)">
-                    
+                <form [formGroup]="addFormNV" (ngSubmit)="onSubmitCreate(addFormNV)">
+
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <!-- Modal Header -->
@@ -94,8 +94,10 @@
                                 <div class="form_row">
                                     <label>Quyền hạn:</label>
                                     <form [formGroup]="authForm">
-                                        <input type="radio" name="quyenhan" value="Admin" formControlName="quyenhan" id="quyenhan" />Admin <br>
-                                        <input type="radio" name="quyenhan" value="Employee" checked formControlName="quyenhan" id="quyenhan"  />Employee <br>
+                                        <input type="radio" name="quyenhan" value="Admin" formControlName="quyenhan"
+                                            id="quyenhan" />Admin <br>
+                                        <input type="radio" name="quyenhan" value="Employee" checked
+                                            formControlName="quyenhan" id="quyenhan" />Employee <br>
                                     </form>
                                 </div>
 
@@ -106,9 +108,11 @@
                                 <div class="form_row">
                                     <label>Giới tính:</label>
                                     <form [formGroup]="genderForm">
-                                        <input type="radio" name="gioitinh" value="Nam" formControlName="gioitinh" id="gioitinh">
+                                        <input type="radio" name="gioitinh" value="Nam" formControlName="gioitinh"
+                                            id="gioitinh">
                                         Nam<br>
-                                        <input type="radio" name="gioitinh" value="Nữ" formControlName="gioitinh" id="gioitinh">
+                                        <input type="radio" name="gioitinh" value="Nữ" formControlName="gioitinh"
+                                            id="gioitinh">
                                         Nữ<br>
 
                                     </form>
@@ -120,22 +124,22 @@
                                 <div class="form_row">
                                     <label> Email :</label> <input type="text" class="form_input" name="email"
                                         required="required" formControlName="email" id="email" />
-                                        <!-- <span *ngIf="email.invalid">Error</span> -->
+                                    <!-- <span *ngIf="email.invalid">Error</span> -->
                                 </div>
                                 <div class="form_row">
                                     <label> Số điện thoại :</label> <input type="text" class="form_input" name="sdt"
                                         required="required" formControlName="sdt" id="sdt" />
                                 </div>
-                                
 
-                               
+
+
 
                             </div>
 
                             <!-- Modal footer -->
                             <div class="modal-footer">
                                 <div class="pull-right">
-                                    <button type="submit" class="btn btn-success" >Submit</button>
+                                    <button type="submit" class="btn btn-success">Submit</button>
                                 </div>
 
                                 <button type="button" class="btn btn-secondary pull-left"
@@ -149,100 +153,66 @@
             </div>
 
 
-
             <div class="modal fade" id="myModalEdit">
-                <form [formGroup]="addFormNV" (ngSubmit)="onSubmitEdit(addFormNV)">
-                
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <!-- Modal Header -->
-                        <div class="modal-header">
-                            <h3 class="modal-title">Thêm nhân viên</h3>
+                <form (ngSubmit)="onSubmitEdit()">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h3 class="modal-title">Cập nhật thông tin nhân viên</h3>
+                            </div>
+
+                            <!-- Modal body -->
+                            <div class="modal-body">
+
+                                <div class="form_row">
+                                    <label>Tên nhân viên :</label>
+                                    <input type="text" class="form_input" name="hoten" required="required"
+                                        [(ngModel)]="nhanvien.hoten" />
+                                </div>
+
+                                <div class="form_row">
+                                    <label>Giới tính:</label>
+                                    <form>
+                                        <input type="radio" name="gioitinh" value="Nam" [(ngModel)]="nhanvien.gioitinh">
+                                        Nam<br>
+                                        <input type="radio" name="gioitinh" value="Nữ" [(ngModel)]="nhanvien.gioitinh">
+                                        Nữ<br>
+
+                                    </form>
+                                </div>
+                                <div class="form_row">
+                                    <label>Địa chỉ :</label> <input type="text" class="form_input" name="diachi"
+                                        required="required" [(ngModel)]="nhanvien.diachi" />
+                                </div>
+                                <div class="form_row">
+                                    <label> Email :</label> <input type="text" class="form_input" name="email"
+                                        required="required" [(ngModel)]="nhanvien.email" />
+
+                                </div>
+                                <div class="form_row">
+                                    <label> Số điện thoại :</label> <input type="text" class="form_input" name="sdt"
+                                        required="required" [(ngModel)]="nhanvien.sdt" />
+                                </div>
+
+                            </div>
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <div class="pull-right">
+                                    <button type="submit" class="btn btn-success">Submit</button>
+                                </div>
+
+                                <button type="button" class="btn btn-secondary pull-left"
+                                    data-dismiss="modal">Close</button>
+                            </div>
                         </div>
-
-                        <!--Modal body-->
-                        <div class="modal-body">
-                            <!-- <div class="form_row" *ngFor="let account of accounts | async | slice:-1">
-                                <label> Id account :</label> 
-                                <input type="text" class="form_input"  readonly
-                                    required="required" [value]="account._id" />
-
-                            </div> -->
-                            <div class="form_row">
-                                <!-- <div *ngFor="let account of accounts | async | slice:-1"></div> -->
-                                <!-- <div *ngFor="let account of accounts | async | slice:-1" >
-                                    <label >Ktra id : {{account._id}}</label>
-                                    <input type="text" class="form_input" name="_id" readonly
-                                    required="required"  [(ngModel)]="_idacc" />
-                                </div> -->
-                                <!-- <label id="lblIdaccount" *ngFor="let account of accounts | async | slice:-1" >Ktra id : {{account._id}}</label> -->
-                            </div>
-
-                            <div class="form_row">
-                                <label> Tên đăng nhập :</label> <input type="text" class="form_input" name="tendn"
-                                    required="required" formControlName="tendn" id="tendn" />
-                            </div>
-                            <div class="form_row">
-                                <label>Mật khẩu:</label> <input type="text" class="form_input" name="matkhau"
-                                    id="matkhau" formControlName="matkhau" id="matkhau" />
-                            </div>
-
-                            <div class="form_row">
-                                <label>Quyền hạn:</label>
-                                <form [formGroup]="authForm">
-                                    <input type="radio" name="quyenhan" value="Admin" formControlName="quyenhan" id="quyenhan" />Admin <br>
-                                    <input type="radio" name="quyenhan" value="Employee" checked formControlName="quyenhan" id="quyenhan"  />Employee <br>
-                                </form>
-                            </div>
-
-                            <div class="form_row">
-                                <label>Tên nhân viên :</label> <input type="text" class="form_input" name="hoten"
-                                    required="required" formControlName="hoten" id="hoten" />
-                            </div>
-                            <div class="form_row">
-                                <label>Giới tính:</label>
-                                <form [formGroup]="genderForm">
-                                    <input type="radio" name="gioitinh" value="Nam" formControlName="gioitinh" id="gioitinh">
-                                    Nam<br>
-                                    <input type="radio" name="gioitinh" value="Nữ" formControlName="gioitinh" id="gioitinh">
-                                    Nữ<br>
-
-                                </form>
-                            </div>
-                            <div class="form_row">
-                                <label>Địa chỉ :</label> <input type="text" class="form_input" name="diachi"
-                                    required="required" formControlName="diachi" id="diachi" />
-                            </div>
-                            <div class="form_row">
-                                <label> Email :</label> <input type="text" class="form_input" name="email"
-                                    required="required" formControlName="email" id="email" />
-                                    <!-- <span *ngIf="email.invalid">Error</span> -->
-                            </div>
-                            <div class="form_row">
-                                <label> Số điện thoại :</label> <input type="text" class="form_input" name="sdt"
-                                    required="required" formControlName="sdt" id="sdt" />
-                            </div>
-                            
-
-                           
-
-                        </div>
-
-                        <!-- Modal footer -->
-                        <div class="modal-footer">
-                            <div class="pull-right">
-                                <button type="submit" class="btn btn-success" >Submit</button>
-                            </div>
-
-                            <button type="button" class="btn btn-secondary pull-left"
-                                data-dismiss="modal">Close</button>
-                        </div>
-
                     </div>
-                </div>
+                </form>
 
-            </form>
-        </div>
+            </div>
+
+
 
             <!--Modal them account-->
             <!-- <div class="modal fade" id="myModalThemAcc">

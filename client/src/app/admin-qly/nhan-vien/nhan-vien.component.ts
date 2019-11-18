@@ -111,17 +111,17 @@ export class NhanVienComponent implements OnInit {
     );
   }
 
-  editNhanVien(idAcc: string, idNv: string) {
-    
-    this.nhanvienService.getNhanVienById(idNv).subscribe(data => {
+  editNhanVien(id: string) {
+
+    this.nhanvienService.getNhanVienById(id).subscribe(data => {
       console.log(data)
       this.nhanvien = data;
     }, error => console.log(error));
-    this._id = idNv;
+    this._id = id;
 
   }
 
-  onSubmitEdit(addFormNV: FormGroup) {
+  onSubmitEdit() {
     this.nhanvienService.updateNhanVien(this._id, this.nhanvien).subscribe(data => { console.log(data); }, error => console.log(error));
     this.nhanvien = new NhanVien();
     this.getData();
