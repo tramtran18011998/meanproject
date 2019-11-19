@@ -5,7 +5,8 @@ import { NhanVien } from '../../model/Nhanvien';
 import { Router } from '@angular/router';
 import { Account } from '../../model/Account';
 import { AccountService } from 'src/app/service/admin/account.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup,FormControl, Validators } from '@angular/forms';
+import { Customvalidators } from 'src/app/validators/customvalidators';
 
 @Component({
   selector: 'app-nhan-vien',
@@ -37,6 +38,7 @@ export class NhanVienComponent implements OnInit {
   genderForm: FormGroup;
   authForm: FormGroup;
   sumForm: FormGroup;
+  submitted = false;
 
   constructor(private nhanvienService: NhanvienService, private router: Router, private accountService: AccountService, private formBuilder: FormBuilder) { }
 
@@ -65,23 +67,24 @@ export class NhanVienComponent implements OnInit {
 
     this.addFormNV = this.formBuilder.group({
 
-      tendn: ['', Validators.required],
-      matkhau: ['', Validators.required],
-      quyenhan: ['', Validators.required],
-      idaccount: ['', Validators.required],
-      hoten: ['', Validators.required],
-      gioitinh: ['', Validators.required],
-      diachi: ['', Validators.required],
-      email: ['', Validators.required],
-      sdt: ['', Validators.required]
-    });
+      tendn: new FormControl('', [Validators.required,,Validators.minLength(6),Validators.pattern('^[a-zA-Z0-9_]{6,20}$')]),
+      matkhau:new FormControl( '', [Validators.required,Validators.minLength(6),Validators.pattern('^[a-zA-Z0-9_.-]{6,20}$')]),
+      matkhau2: new FormControl('', Validators.required),
+      quyenhan:new FormControl( ''),
+      idaccount: new FormControl(''),
+      hoten:new FormControl( '', [Validators.required,Validators.pattern('^[a-zA-Z ]+$')]),
+      gioitinh: new FormControl(''),
+      diachi: new FormControl('', Validators.required),
+      email: new FormControl('',  [Validators.required,Validators.email]),
+      sdt: new FormControl('', [Validators.required, Validators.pattern('[0-9]*'), Validators.maxLength(10), Validators.minLength(10)])
+    },{validators: Customvalidators.passwordMatchValidator});
 
     this.genderForm = this.formBuilder.group({
-      gioitinh: ['', Validators.required],
+      gioitinh: new FormControl('')
     });
 
     this.authForm = this.formBuilder.group({
-      quyenhan: ['', Validators.required]
+      quyenhan: new FormControl('')
     });
 
   }
@@ -129,7 +132,18 @@ export class NhanVienComponent implements OnInit {
 
   onSubmitCreate(addFormNV: FormGroup) {
 
-    this.checkAccForm = true;
+    this.submitted = true;
+    
+    
+
+    if (this.addFormNV.invalid) {
+      return;
+    }
+    else{
+      this.addFormNV.controls['idaccount'].setValue(this.addFormNV.controls['tendn'].value);
+    this.addFormNV.controls['gioitinh'].setValue(this.genderForm.controls['gioitinh'].value);
+
+      this.checkAccForm = true;
 
     this.accountService.refresh;
 
@@ -150,8 +164,6 @@ export class NhanVienComponent implements OnInit {
         else {
 
           //if account doesn't exist, create new and can create new nhanvien
-          this.addFormNV.controls['idaccount'].setValue(this.addFormNV.controls['tendn'].value);
-          this.addFormNV.controls['gioitinh'].setValue(this.genderForm.controls['gioitinh'].value);
 
           this.nhanvienService.createNhanVien(this.addFormNV.value).subscribe(data => console.log(data), error => console.log(error));
           this.nhanvien = new NhanVien();
@@ -163,6 +175,9 @@ export class NhanVienComponent implements OnInit {
 
       }
       );
+    }
+
+    
    
   }
 
@@ -199,6 +214,14 @@ export class NhanVienComponent implements OnInit {
   // }
 
 
+  get tendn() { return this.addFormNV.get('tendn'); }
+  get matkhau() { return this.addFormNV.get('matkhau'); }
+  get matkhau2() { return this.addFormNV.get('matkhau2'); }
+  get email() { return this.addFormNV.get('email'); }
+  get hoten() { return this.addFormNV.get('hoten'); }
+  get diachi() { return this.addFormNV.get('diachi'); }
+  get sdt() { return this.addFormNV.get('sdt'); }
+  //get gioitinh() { return this.addFormNV.get('gioitinh'); }
 
 
 }

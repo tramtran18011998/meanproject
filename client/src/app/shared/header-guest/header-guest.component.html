@@ -15,7 +15,7 @@
         style="margin-top: 80px; margin-right: -15px;">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0 ">
             <li class="nav-item main_page">
-                
+
                 <a class="nav-link" routerLink="/trangchu" class="nav-link" routerLinkActive="active">Trang chủ</a>
             </li>
             <li class="nav-item"><a routerLink="/thucdon" class="nav-link">Thực đơn </a></li>
@@ -67,7 +67,7 @@
 
     <!-- dang ky nek  -->
 
-    
+
     <div class="modal fade" id="myModalSignup">
         <form [formGroup]="signupForm" (ngSubmit)="onSubmitCreate(signupForm)">
             <div class="modal-dialog modal-dialog-centered">
@@ -89,7 +89,7 @@
                                 [ngClass]="{'is-invalid':signupForm.get('hoten').touched && signupForm.get('hoten').invalid }"
                                 required />
 
-                                <div *ngIf="signupForm.get('hoten').touched && signupForm.get('hoten').invalid"
+                            <div *ngIf="signupForm.get('hoten').touched && signupForm.get('hoten').invalid"
                                 class="invalid-feedback">
                                 <div *ngIf="signupForm.controls.hoten.errors.required">Khách cần nhập họ tên</div>
                                 <div *ngIf="signupForm.controls.hoten.errors.pattern">Họ tên không hợp lệ</div>
@@ -125,22 +125,29 @@
                                 [ngClass]="{'is-invalid':signupForm.get('sdt').touched && signupForm.get('sdt').invalid }"
                                 required />
 
-                                <div *ngIf="signupForm.get('sdt').touched && signupForm.get('sdt').invalid" class="invalid-feedback">
-                                    <div *ngIf="signupForm.controls.sdt.errors.required"> Khách cần nhập số điện thoại</div>
-                                    <div *ngIf="signupForm.controls.sdt.errors.pattern || 
+                            <div *ngIf="signupForm.get('sdt').touched && signupForm.get('sdt').invalid"
+                                class="invalid-feedback">
+                                <div *ngIf="signupForm.controls.sdt.errors.required"> Khách cần nhập số điện thoại</div>
+                                <div *ngIf="signupForm.controls.sdt.errors.pattern || 
                                                                     signupForm.controls.sdt.errors.minlength || 
-                                                                    signupForm.controls.sdt.errors.maxlength">Số điện thoại không hợp lệ</div>
-                                    
-                                </div>
+                                                                    signupForm.controls.sdt.errors.maxlength">Số điện
+                                    thoại không hợp lệ</div>
+
+                            </div>
 
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="tendn" formControlName="tendn" id="tendn" placeholder="Tên đăng nhập"
-                                [ngClass]="{'is-invalid':signupForm.get('tendn').touched && signupForm.get('tendn').invalid}" required />
-                            
-                            <div *ngIf="signupForm.get('tendn').touched && signupForm.get('tendn').invalid" class="invalid-feedback">
-                                <div *ngIf="signupForm.controls.tendn.errors.required">Khách cần nhập Tên đăng nhập </div>
-                                <div *ngIf="signupForm.controls.tendn.errors.pattern">Các kí tự: [a-z], [A-Z], [0-9], _ được cho phép, độ dài khoảng
+                            <input type="text" class="form-control" name="tendn" formControlName="tendn" id="tendn"
+                                placeholder="Tên đăng nhập"
+                                [ngClass]="{'is-invalid':signupForm.get('tendn').touched && signupForm.get('tendn').invalid}"
+                                required />
+
+                            <div *ngIf="signupForm.get('tendn').touched && signupForm.get('tendn').invalid"
+                                class="invalid-feedback">
+                                <div *ngIf="signupForm.controls.tendn.errors.required">Khách cần nhập Tên đăng nhập
+                                </div>
+                                <div *ngIf="signupForm.controls.tendn.errors.pattern">Các kí tự: [a-z], [A-Z], [0-9], _
+                                    được cho phép, độ dài khoảng
                                     (6,20) kí tự</div>
                             </div>
 
@@ -158,8 +165,10 @@
                                 <div *ngIf="signupForm.controls.matkhau.errors.required">Khách cần nhập mật khẩu</div>
                                 <div *ngIf="signupForm.controls.matkhau.errors.minlength">Mật khẩu tối thiếu 6 kí tự
                                 </div>
-                                
-                                <div *ngIf="signupForm.controls.matkhau.errors.pattern">Các kí tự: [a-z], [A-Z], [0-9], _ . - được cho phép</div>
+                                <div *ngIf="signupForm.controls.matkhau.errors.pattern">Các kí tự: [a-z], [A-Z], [0-9],
+                                    @ được cho phép</div>
+                                <div *ngIf="signupForm.controls.matkhau.errors.pattern">Các kí tự: [a-z], [A-Z], [0-9],
+                                    - . _ được cho phép</div>
                             </div>
 
 

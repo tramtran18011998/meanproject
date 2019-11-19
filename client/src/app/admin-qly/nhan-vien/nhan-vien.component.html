@@ -66,13 +66,8 @@
 
                             <!--Modal body-->
                             <div class="modal-body">
-                                <!-- <div class="form_row" *ngFor="let account of accounts | async | slice:-1">
-                                    <label> Id account :</label> 
-                                    <input type="text" class="form_input"  readonly
-                                        required="required" [value]="account._id" />
 
-                                </div> -->
-                                <div class="form_row">
+                                <div class="form-group">
                                     <!-- <div *ngFor="let account of accounts | async | slice:-1"></div> -->
                                     <!-- <div *ngFor="let account of accounts | async | slice:-1" >
                                         <label >Ktra id : {{account._id}}</label>
@@ -82,53 +77,127 @@
                                     <!-- <label id="lblIdaccount" *ngFor="let account of accounts | async | slice:-1" >Ktra id : {{account._id}}</label> -->
                                 </div>
 
-                                <div class="form_row">
-                                    <label> Tên đăng nhập :</label> <input type="text" class="form_input" name="tendn"
-                                        required="required" formControlName="tendn" id="tendn" />
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="tendn"
+                                        placeholder="Tên đăng nhập" formControlName="tendn" id="tendn"
+                                        [ngClass]="{'is-invalid':addFormNV.get('tendn').touched && addFormNV.get('tendn').invalid}"
+                                        required />
+                                    <div *ngIf="addFormNV.get('tendn').touched && addFormNV.get('tendn').invalid"
+                                        class="invalid-feedback">
+                                        <div *ngIf="addFormNV.controls.tendn.errors.required">Tên đăng nhập không được
+                                            để trống</div>
+                                        <div *ngIf="addFormNV.controls.tendn.errors.pattern">Các kí tự: [a-z], [A-Z],
+                                            [0-9], _ được cho phép, độ dài khoảng
+                                            (6,20) kí tự</div>
+                                    </div>
                                 </div>
-                                <div class="form_row">
-                                    <label>Mật khẩu:</label> <input type="text" class="form_input" name="matkhau"
-                                        id="matkhau" formControlName="matkhau" id="matkhau" />
+                                <div class="form-group">
+                                    <input type="password" class="form-control" name="matkhau"
+                                        id="matkhau" formControlName="matkhau" id="matkhau" placeholder="Mật khẩu"
+                                        [ngClass]="{'is-invalid':addFormNV.get('matkhau').touched && addFormNV.get('matkhau').invalid }"
+                                        required />
+                                    <div *ngIf="addFormNV.get('matkhau').touched && addFormNV.get('matkhau').invalid"
+                                        class="invalid-feedback">
+                                        <div *ngIf="addFormNV.controls.matkhau.errors.required">Mật khẩu không được để
+                                            trống</div>
+                                        <div *ngIf="addFormNV.controls.matkhau.errors.minlength">Mật khẩu tối thiếu 6 kí
+                                            tự
+                                        </div>
+                                        <div *ngIf="addFormNV.controls.matkhau.errors.pattern">Các kí tự: [a-z], [A-Z],
+                                            [0-9], @ được cho phép</div>
+                                        <div *ngIf="addFormNV.controls.matkhau.errors.pattern">Các kí tự: [a-z], [A-Z],
+                                            [0-9], - . _ được cho phép</div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    
+                                    <input type="password" id="matkhau2" name="matkhau2" class="form-control"
+                                        formControlName="matkhau2" placeholder="Nhập lại Mật khẩu"
+                                        [ngClass]="{'is-invalid':addFormNV.get('matkhau2').touched && addFormNV.get('matkhau2').invalid}"
+                                        required>
+
+                                    <div *ngIf="addFormNV.get('matkhau2').touched && addFormNV.get('matkhau2').invalid"
+                                        class="invalid-feedback">
+                                        <div *ngIf="addFormNV.controls.matkhau2.errors.required">Khách cần nhập lại mật
+                                            khẩu
+                                        </div>
+                                        <div *ngIf="addFormNV.controls.matkhau2.errors.NoPassswordMatch">Mật khẩu không
+                                            chính
+                                            xác</div>
+
+                                    </div>
+
                                 </div>
 
-                                <div class="form_row">
-                                    <label>Quyền hạn:</label>
+                                <div class="form-group">
+                                    <p style="float: left; margin-right: 40px;">Quyền hạn:</p>
                                     <form [formGroup]="authForm">
                                         <input type="radio" name="quyenhan" value="Admin" formControlName="quyenhan"
-                                            id="quyenhan" />Admin <br>
-                                        <input type="radio" name="quyenhan" value="Employee" checked
+                                            id="quyenhan" />Admin 
+                                        <input style="margin-left: 70px;" type="radio" name="quyenhan" value="Employee" checked
                                             formControlName="quyenhan" id="quyenhan" />Employee <br>
                                     </form>
                                 </div>
 
-                                <div class="form_row">
-                                    <label>Tên nhân viên :</label> <input type="text" class="form_input" name="hoten"
-                                        required="required" formControlName="hoten" id="hoten" />
+                                <div class="form-group">
+                                     <input type="text" class="form-control" name="hoten"
+                                        required
+                                        [ngClass]="{'is-invalid':addFormNV.get('hoten').touched && addFormNV.get('hoten').invalid }"
+                                        formControlName="hoten" id="hoten" placeholder="Họ và tên" />
+                                    <div *ngIf="addFormNV.get('hoten').touched && addFormNV.get('hoten').invalid"
+                                        class="invalid-feedback">
+                                        <div *ngIf="addFormNV.controls.hoten.errors.required">Họ tên không được để trống
+                                        </div>
+                                        <div *ngIf="addFormNV.controls.hoten.errors.pattern">Họ tên không hợp lệ</div>
+                                    </div>
                                 </div>
-                                <div class="form_row">
-                                    <label>Giới tính:</label>
+                                <div class="form-group">
+                                    <p style="float: left; margin-right: 52px;">Giới tính :</p>
                                     <form [formGroup]="genderForm">
                                         <input type="radio" name="gioitinh" value="Nam" formControlName="gioitinh"
-                                            id="gioitinh">
-                                        Nam<br>
-                                        <input type="radio" name="gioitinh" value="Nữ" formControlName="gioitinh"
+                                            id="gioitinh" checked>
+                                        Nam
+                                        <input style="margin-left: 80px;" type="radio" name="gioitinh" value="Nữ" formControlName="gioitinh"
                                             id="gioitinh">
                                         Nữ<br>
 
                                     </form>
                                 </div>
-                                <div class="form_row">
-                                    <label>Địa chỉ :</label> <input type="text" class="form_input" name="diachi"
-                                        required="required" formControlName="diachi" id="diachi" />
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="diachi"
+                                        required placeholder="Địa chỉ"
+                                        [ngClass]="{'is-invalid':addFormNV.get('diachi').touched && addFormNV.get('diachi').invalid }"
+                                        formControlName="diachi" id="diachi" />
+                                    <div class="invalid-feedback">
+                                        <div>Địa chỉ không được để trống</div>
+                                    </div>
                                 </div>
-                                <div class="form_row">
-                                    <label> Email :</label> <input type="text" class="form_input" name="email"
-                                        required="required" formControlName="email" id="email" />
-                                    <!-- <span *ngIf="email.invalid">Error</span> -->
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="email"
+                                        required placeholder="Email"
+                                        [ngClass]="{'is-invalid':addFormNV.get('email').touched && addFormNV.get('email').invalid}"
+                                        formControlName="email" id="email" />
+                                    <div *ngIf="addFormNV.get('email').touched && addFormNV.get('email').invalid"
+                                        class="invalid-feedback">
+                                        <div *ngIf="addFormNV.controls.email.errors.required">Email không được để trống
+                                        </div>
+                                        <div *ngIf="addFormNV.controls.email.errors.email">Email không hợp lệ</div>
+                                    </div>
                                 </div>
-                                <div class="form_row">
-                                    <label> Số điện thoại :</label> <input type="text" class="form_input" name="sdt"
-                                        required="required" formControlName="sdt" id="sdt" />
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="sdt"
+                                        required placeholder="Số điện thoại"
+                                        [ngClass]="{'is-invalid':addFormNV.get('sdt').touched && addFormNV.get('sdt').invalid }"
+                                        formControlName="sdt" id="sdt" />
+                                    <div *ngIf="addFormNV.get('sdt').touched && addFormNV.get('sdt').invalid"
+                                        class="invalid-feedback">
+                                        <div *ngIf="addFormNV.controls.sdt.errors.required"> Khách cần nhập số điện
+                                            thoại</div>
+                                        <div *ngIf="addFormNV.controls.sdt.errors.pattern || 
+                                            addFormNV.controls.sdt.errors.minlength || 
+                                            addFormNV.controls.sdt.errors.maxlength">Số điện thoại không hợp lệ</div>
+
+                                    </div>
                                 </div>
 
 
@@ -139,7 +208,8 @@
                             <!-- Modal footer -->
                             <div class="modal-footer">
                                 <div class="pull-right">
-                                    <button type="submit" class="btn btn-success">Submit</button>
+                                    <button type="submit" [disabled]="!addFormNV.valid"
+                                        class="btn btn-success">Submit</button>
                                 </div>
 
                                 <button type="button" class="btn btn-secondary pull-left"
