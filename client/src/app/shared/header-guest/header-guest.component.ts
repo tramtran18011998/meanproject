@@ -19,56 +19,29 @@ export class HeaderGuestComponent implements OnInit {
   khachhang: KhachHang = new KhachHang();
   submitted = false;
 
-  // form = new FormGroup({
-  //   firstName: new FormControl('', Validators.required),
-  //   lastName: new FormControl('', Validators.required),
-  //   email: new FormControl('', [
-  //     Validators.required,
-  //     Validators.email
-  //   ]),
-  //   password: new FormControl('', [
-  //     Validators.required,
-  //     Validators.minLength(6)
-  //   ])
-    
-  //  });
 
   constructor(private khachhangService: KhachhangService, private accountService: AccountService, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.signupForm = this.formBuilder.group({
 
-      tendn: new FormControl('', Validators.required),
-      matkhau: new FormControl('', [Validators.required,Validators.minLength(6)]),
+      tendn: new FormControl('', [Validators.required,Validators.minLength(6),Validators.pattern('^[a-zA-Z0-9_]{6,20}$')]),
+      matkhau: new FormControl('', [Validators.required,Validators.minLength(6),Validators.pattern('^[a-zA-Z0-9_.-]{6,20}$')]),
       matkhau2: new FormControl('', Validators.required),
       quyenhan: new FormControl(''),
       idaccount: new FormControl(''),
-      hoten: new FormControl('', Validators.required),
+      hoten: new FormControl('', [Validators.required,Validators.pattern('^[a-zA-Z ]+$')]),
       diachi: new FormControl('', Validators.required),
       email: new FormControl('', [Validators.required,Validators.email]),
-      sdt: new FormControl('', Validators.required),     
+      sdt: new FormControl('', [Validators.required, Validators.pattern('[0-9]*'), Validators.maxLength(10), Validators.minLength(10)]),     
       tichluy: new FormControl(0)
 
-      //tendn: [null, [Validators.required, Validators.pattern('^[a-zA-Z]+$')]],
-      // matkhau: [null, [Validators.required, Validators.minLength(6)]],
-      // matkhau2: [null, Validators.required],
-      // quyenhan: [null, Validators.required],
-      // idaccount: [null, Validators.required],
-      // hoten: [null, [Validators.required,Validators.minLength(6)]],
-      // diachi: [null, Validators.required],
-      // email: [null, [Validators.required, Validators.email]],
-      // sdt: [null, Validators.required],
-      // tichluy: [0, Validators.required]
     }, {validators: Customvalidators.passwordMatchValidator});
     
 
     
   }
 
- 
-  confirmPassword(){
-
-  }
 
   onSubmitCreate(signupForm: FormGroup) {
 
