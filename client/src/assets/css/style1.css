@@ -155,9 +155,9 @@
 .container .modal-content .modal-header h4{
     color:#660066;
 }
-.container .modal-content{
+/* .container .modal-content{
     background-color: #ffd39d;
-}
+} */
 .container .modal-footer .btn-secondary{
     background-color:#ee4000;
     border: #ee4000;

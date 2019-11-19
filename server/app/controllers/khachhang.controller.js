@@ -18,9 +18,10 @@ module.exports.create =function(req, res) {
             else 
                 return res.send(err);
         }
+        else{
+            return res.json({success:true, message: 'KH created!' });
+        }
 
-        // return a message
-        res.json({ message: 'KH created!' });
     });
 };
 

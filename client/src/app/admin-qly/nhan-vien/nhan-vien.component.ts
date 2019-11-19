@@ -16,10 +16,10 @@ export class NhanVienComponent implements OnInit {
 
   nhanviens: Observable<NhanVien[]>;
   _id: string;
-  _idacc: string;
+  //_idacc_idacc: string;
   //message: string;
 
-  _accObser: Account = new Account();
+  //_accObser: Account = new Account();
 
   checkAccForm = false;
 
@@ -32,7 +32,7 @@ export class NhanVienComponent implements OnInit {
 
 
 
-  addFormAcc: FormGroup;
+  //addFormAcc: FormGroup;
   addFormNV: FormGroup;
   genderForm: FormGroup;
   authForm: FormGroup;
@@ -56,12 +56,12 @@ export class NhanVienComponent implements OnInit {
     this.getData();
     this.getListAccount();
 
-    this.addFormAcc = this.formBuilder.group({
+    // this.addFormAcc = this.formBuilder.group({
 
-      tendn: ['', Validators.required],
-      matkhau: ['', Validators.required],
-      quyenhan: ['', Validators.required]
-    });
+    //   tendn: ['', Validators.required],
+    //   matkhau: ['', Validators.required],
+    //   quyenhan: ['', Validators.required]
+    // });
 
     this.addFormNV = this.formBuilder.group({
 

@@ -15,7 +15,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-  
+
   <!-- Custom styles for this template -->
   <link rel="stylesheet" href="./assets/css/CSS.css">
 
@@ -50,12 +50,84 @@
 
 
 
-  
+
   <script type="text/javascript" src="./assets/JS/dki-dnhap.js"></script>
   <script type="text/javascript" src="./assets/JS/main.js"></script>
 
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+
  
+  <!-- <script type="text/javascript">
+  function ktraMK() {
+      var MK = document
+          .getElementById("matkhau").value;
+      var MKnhaplai = document
+          .getElementById("matkhau2").value;
+      
+      if (MK != MKnhaplai) { alert('Mật khẩu không đúng. Vui lòng nhập lại'); enableBtn();}
+  }
+    function ktra() {
+      // ktraNhap();
+      // checkCharacter();
+      if (checkCharacter() == true && ktraNhap()==true) {
+        enableBtn();
+      }
+      
+    }
+    function checkCharacter() {
+
+      let hovaten = document.getElementById('hoten').value;
+      let sDt = document.getElementById('sdt').value;
+      let dchi = document.getElementById('diachi').value;
+      let mail = document.getElementById('email').value;
+      let mknhaplai = document.getElementById('matkhau2').value;
+      let username = document.getElementById('tendn').value;
+      let password = document.getElementById('matkhau').value;
+
+
+      let vali = /[$\\\#%\^\&\*\(\)\[\]\+\{\}\`\~\=\|]/;
+
+
+      if (hovaten.match(vali) || sDt.match(vali) || dchi.match(vali) || mail.match(vali) || mknhaplai.match(vali) || username.match(vali) || password.match(vali)) {
+        alert('Thông tin không được chứa kí tự [$ # % ^ & * () [] {} + = ` ~ |]');
+        $("#btnDK").attr("disabled", "disabled");
+        return false;
+      }
+      return true;
+    }
+    function enableBtn() {
+
+      $("#btnDK").prop('disabled', false);
+    }
+    function ktraNhap(){
+
+      
+      let MK = document
+        .getElementById("matkhau").value;
+      let MKnhaplai = document
+        .getElementById("matkhau2").value;
+      
+
+      let hovaten = document.getElementById('hoten').value;
+      let sdt = document.getElementById('sdt').value;
+      let dchi = document.getElementById('diachi').value;
+      let mail = document.getElementById('email').value;
+      let username = document.getElementById('tendn').value;
+
+      if (hovaten.length == 0 || sdt.length == 0 || dchi.length == 0 || mail.length == 0 || username.length == 0) {
+        alert('Vui lòng nhập đầy đủ thông tin đăng ký');
+      }
+      else if (username.length > 20 || username.length < 3 || password.length > 15 || password.length < 3) {
+        alert('Bạn phải nhập Tên đăng nhập trong khoảng [3,20], Mật khẩu [3,15] kí tự');
+      }
+
+      if (MK != MKnhaplai) { alert('Mật khẩu không đúng'); }
+    }
+  </script> -->
+
+
 </body>
 
 </html>
