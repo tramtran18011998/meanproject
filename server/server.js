@@ -7,6 +7,7 @@ var config = require('./database/DB');
 var path = require('path');
 var cors = require('cors');
 
+mongoose.set('useCreateIndex', true);
 mongoose
   .connect(config.DB, { useNewUrlParser: true },
     console.log("da connect!!!"))
@@ -16,6 +17,7 @@ mongoose
   .catch(() => {
     console.log('Connected failed!')
   });
+
 
 app.use('/uploads', express.static('uploads'));
 app.use(bodyParser.json());

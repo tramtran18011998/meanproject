@@ -4,6 +4,8 @@ import { Loaisp } from '../../model/Loaisp';
 import { Router } from '@angular/router';
 import { LoaispService } from 'src/app/service/admin/loaisp.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { SanphamService } from 'src/app/service/admin/sanpham.service';
+import { Sanpham } from 'src/app/model/Sanpham';
 
 @Component({
   selector: 'app-loai-sp',
@@ -18,8 +20,8 @@ export class LoaiSpComponent implements OnInit {
   loaisp: Loaisp = new Loaisp();
   addForm: FormGroup;
 
-
-  constructor(private loaispService: LoaispService, private router: Router, private formBuilder: FormBuilder) { }
+  
+  constructor(private loaispService: LoaispService,private sanphamService: SanphamService ,private router: Router, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
 
@@ -37,20 +39,29 @@ export class LoaiSpComponent implements OnInit {
     this.loaisps = this.loaispService.getLoaiSPsList();
   }
 
-  deleteLoaiSp(id: string) {
-    this.loaispService.deleteLoaiSP(id).subscribe(
+  deleteLoaiSp(id: string, tenloaisp:string) {
+
+    //deleteLoaiSp(loaisp._id, loaisp.tenloaisp
+    this.loaispService.deleteLoaiSP(id, tenloaisp).subscribe(
       data => {
         console.log(data);
         this.getData();
       },
       error => console.log(error)
     );
+
+    // this.sanphamService.deleteSanPham(tenloaisp).subscribe(
+    //   data => {
+    //     console.log(data);
+    //     this.getData();
+    //   },
+    //   error => console.log(error)
+    // );
+
   }
 
 
   editLoaiSp(id: string) {
-
-
     this.loaispService.getLoaiSPById(id).subscribe(data => {
       console.log(data)
       this.loaisp = data;

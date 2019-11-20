@@ -23,18 +23,11 @@
 
                             <td>{{loaisp.tenloaisp}}</td>
                             <td width="155px">
-                                <button (click)="deleteLoaiSp(loaisp._id)" class="btn btn-danger">Xóa</button>
+                                <button (click)="deleteLoaiSp(loaisp._id, loaisp.tenloaisp)" class="btn btn-danger"><i class="fa fa-trash"></i></button>
                                 <button (click)="editLoaiSp(loaisp._id)" class="btn btn-primary"
                                     style="margin-left: 10px" data-toggle="modal"
-                                    data-target="#myModalEdit">Sửa</button>
-                                <!-- <a
-                                href="/LoaiSPServlet/edit?maLoai=<c:out value="${loaisp.getMaLoai()}" />"
-                                class="edit"> <span class="glyphicon glyphicon-edit"></span></a>
-                                <a
-                                href="/LoaiSPServlet/delete?maLoai=<c:out value="${loaisp.getMaLoai()}" />"
-                                class="delete"> <span
-                                    class="glyphicon glyphicon-remove-sign"></span>
-                            </a> -->
+                                    data-target="#myModalEdit"><i class="fa fa-edit"></i></button>
+                               
                             </td>
                         </tr>
 

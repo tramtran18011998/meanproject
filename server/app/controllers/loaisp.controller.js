@@ -1,4 +1,5 @@
 var LoaiSP       = require('../models/loaisp');
+var SanPham       = require('../models/sanpham');
 
 module.exports.create = function(req, res) {
             
@@ -56,11 +57,30 @@ module.exports.update = function(req, res) {
 };
 
 module.exports.delete = function(req, res) {
-    LoaiSP.remove({
-        _id: req.params.loaisp_id
-    }, function(err, account) {
-        if (err) res.send(err);
+    // LoaiSP.remove({
+    //     _id: req.params.loaisp_id
+    // }, function(err, account) {
+    //     if (err) res.send(err);
 
-        res.json({ message: 'Successfully deleted' });
+    //     res.json({ message: 'Successfully deleted' });
+    // });
+
+    LoaiSP.remove({
+        _id: req.params.loaisp_id,
+        tenloaisp: req.params.loaisp_tenloaisp
+    }, function(err, loaisp) {
+
+        if (err) return res.json({success: false, message: err});
+        
+        SanPham.remove({
+            maloai: req.params.loaisp_tenloaisp
+        }, function(err, sp){
+            if(err) return res.json({success: false, message: err});
+            res.json({ message: 'Successfully deleted' });
+        })
+
+        
+
+        
     });
 }

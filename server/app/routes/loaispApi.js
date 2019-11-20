@@ -40,7 +40,8 @@ module.exports = function(app, express) {
         .put(controller.update)
 
         // delete 
-        .delete(controller.delete);
+        
+        apiRouter.route('/loaisp/:loaisp_id/:loaisp_tenloaisp').delete(controller.delete);
 
     return apiRouter;
 };

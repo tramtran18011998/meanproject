@@ -83,13 +83,18 @@
 								<td>{{sanpham.giabd}}</td>
 								<td>{{sanpham.giaban}}</td>
 								<td>{{sanpham.ttkm}}</td>
-								<td>{{sanpham.hinhsp}}</td>
+								<td><img src="http://localhost:4000/{{sanpham.hinhsp}}"
+									width="100px" height="100px"></td>
+								<!-- <td>{{sanpham.hinhsp}}</td> -->
 								<td>{{sanpham.maloai}}</td>
-								<td width="155px">
-									<button (click)="deleteSanPham(sanpham._id)" class="btn btn-danger">Xóa</button>
+								<td width="175px">
+									<button (click)="deleteSanPham(sanpham._id)" class="btn btn-danger"><i class="fa fa-trash"></i></button>
 									<button (click)="editSanPham(sanpham._id)" class="btn btn-primary"
 										style="margin-left: 10px" data-toggle="modal"
-										data-target="#myModalEdit">Sửa</button>
+										data-target="#myModalEdit"><i class="fa fa-edit"></i></button>
+									<button (click)="uploadSanPham(sanpham._id)" class="btn btn-success"
+										style="margin-left: 10px" data-toggle="modal"
+										data-target="#myModalUpload"><i class="fa fa-upload"></i></button>
 
 								</td>
 							</tr>
@@ -154,12 +159,12 @@
 
 									</div>
 
-									<div class="form_row">
+									<!-- <div class="form_row">
 										<label>Hình ảnh :</label>
-										<input type="file" alt="accept" class="form_input" enctype="multipart/form-data"
-											name="hinhsp" required="required" formControlName="hinhsp" id="hinhsp" />
+										<input type="file" alt="accept" class="form_input" 
+										(change)="selectImage($event)"	name="hinhsp" required="required" formControlName="hinhsp" id="hinhsp" />
 
-									</div>
+									</div> -->
 
 									<div class="form_row">
 
@@ -260,12 +265,12 @@
 									</div>
 
 
-									<div class="form_row">
+									<!-- <div class="form_row">
 										<label>Hình ảnh :</label>
-										<input type="file" alt="accept" class="form_input" enctype="multipart/form-data"
-											name="hinhsp" required="required" [(ngModel)]="sanpham.hinhsp" />
+										<input type="file" alt="accept" class="form_input" 
+										(change)="selectImage($event)"	name="hinhsp" required="required"/>
 
-									</div>
+									</div> -->
 									<div class="form_row">
 
 										<label>Loại sản phẩm :</label>
@@ -279,6 +284,43 @@
 
 									</div>
 
+								</div>
+								<!-- Modal footer -->
+								<div class="modal-footer">
+									<div class="pull-right">
+										<button type="submit" class="btn btn-success">Submit</button>
+									</div>
+
+									<button type="button" class="btn btn-secondary pull-left"
+										data-dismiss="modal">Close</button>
+								</div>
+							</div>
+						</div>
+					</form>
+
+				</div>
+				<div class="modal fade" id="myModalUpload">
+					<form (ngSubmit)="onSubmitUpload()">
+						<div class="modal-dialog modal-dialog-centered">
+							<div class="modal-content">
+
+								<!-- Modal Header -->
+
+								<div class="modal-header">
+									<h3 class="modal-title">Upload</h3>
+								</div>
+
+
+
+								<!-- Modal body -->
+								<div class="modal-body">									
+									<div class="form_row">
+										<label>Hình ảnh :</label>
+										<input type="file" alt="accept" class="form_input" 
+										(change)="selectImage($event)"	name="hinhsp" required="required"/>
+
+									</div>
+									
 								</div>
 								<!-- Modal footer -->
 								<div class="modal-footer">

@@ -9,6 +9,8 @@ import {tap} from 'rxjs/operators'
 export class SanphamService {
 
   private baseUrl = 'http://localhost:4000/api/sanpham';
+  private baseUrl1 = 'http://localhost:4000/api/sanpham/upload';
+
 
   private _refresh = new Subject<void>();
 
@@ -34,8 +36,15 @@ export class SanphamService {
     );
   }
 
-  updateSanPham(id: string, value: any): Observable<Object> {
+  updateSanPham(id: string,value: any): Observable<Object> {
     return this.http.put(`${this.baseUrl}/${id}`, value).pipe(
+      tap(()=> {
+        this._refresh.next();
+      })
+    );
+  }
+  uploadSanPham(id: string,upload: FormData ,value: any): Observable<Object> {
+    return this.http.put(`${this.baseUrl1}/${id}`,upload, value).pipe(
       tap(()=> {
         this._refresh.next();
       })

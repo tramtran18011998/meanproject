@@ -4,7 +4,7 @@ import { Sanpham } from 'src/app/model/Sanpham';
 import { SanphamService } from 'src/app/service/admin/sanpham.service';
 import {Loaisp} from '../../model/Loaisp';
 import { LoaispService } from 'src/app/service/admin/loaisp.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 
 @Component({
   selector: 'app-san-pham',
@@ -15,6 +15,8 @@ export class SanPhamComponent implements OnInit {
 
   sanphams: Observable<Sanpham[]>;
   loaisps: Observable<Loaisp[]>;
+
+  images: File;
 
   giaban: number ;
   
@@ -38,18 +40,25 @@ export class SanPhamComponent implements OnInit {
     this.getLoaiSPList();
     this.addForm = this.formBuilder.group({
       
-      tensp: ['', Validators.required],
-      soluong: [10, Validators.required],
-      giabd: [1000, Validators.required],
-      giaban: [1000, Validators.required],
-      ttkm: [0, Validators.required],
-      hinhsp: ['', Validators.required],
-      maloai: ['', Validators.required]
+      tensp: new FormControl('', Validators.required),
+      soluong:  new FormControl(10, Validators.required),
+      giabd:  new FormControl(1000, Validators.required),
+      giaban:  new FormControl(1000, Validators.required),
+      ttkm: new FormControl(0, Validators.required),
+      //hinhsp:  new FormControl(null, Validators.required),
+      maloai:  new FormControl('', Validators.required)
     });
   }
 
   getData(){
     this.sanphams= this.sanphamService.getSanPhamsList();
+  }
+
+  selectImage(event) {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      this.images = file;
+    }
   }
 
   deleteSanPham(id:string){
@@ -72,6 +81,9 @@ export class SanPhamComponent implements OnInit {
   }
 
   onSubmitEdit(){
+    // const formData = new FormData();
+    // formData.append('hinhsp', this.images);
+
     this.sanpham.giaban = this.sanpham.giabd - this.sanpham.giabd*(this.sanpham.ttkm* 0.01);
     this.sanphamService.updateSanPham(this._id, this.sanpham).subscribe(data => {console.log(data);}, error => console.log(error));
     this.sanpham = new Sanpham();
@@ -98,5 +110,24 @@ export class SanPhamComponent implements OnInit {
   getLoaiSPList(){
     this.loaisps = this.loaispService.getLoaiSPsList();
   }
+
+  uploadSanPham(id:string){
+    this.sanphamService.getSanPhamById(id).subscribe(data=>{
+      console.log(data)
+      this.sanpham=data;
+    },error=>console.log(error));
+    this._id= id;
+
+  }
+    onSubmitUpload(){
+    const formData = new FormData();
+    formData.append('hinhsp', this.images);
+
+    this.sanpham.giaban = this.sanpham.giabd - this.sanpham.giabd*(this.sanpham.ttkm* 0.01);
+    this.sanphamService.uploadSanPham(this._id,formData, this.sanpham).subscribe(data => {console.log(data);}, error => console.log(error));
+    this.sanpham = new Sanpham();
+    
+  }
+
 
 }

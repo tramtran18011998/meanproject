@@ -42,8 +42,8 @@ export class LoaispService {
     );
   }
 
-  deleteLoaiSP(id: string): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' });
+  deleteLoaiSP(id: string, tenloaisp: string): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/${id}/${tenloaisp}`, { responseType: 'text' });
   }
 
 }
