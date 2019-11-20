@@ -2,7 +2,7 @@ var mongoose =require('mongoose');
 var Schema =mongoose.Schema;
 var KhachHangSchema =new Schema({   
     
-    idaccount:{type:String},
+    tendn:{type:String},
     hoten:{type:String},
     diachi:{type:String},
     email:{type:String},

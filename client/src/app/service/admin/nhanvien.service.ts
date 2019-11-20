@@ -42,7 +42,7 @@ export class NhanvienService {
     );
   }
 
-  deleteNhanVien(id: string): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' });
+  deleteNhanVien(id: string, tendn: string): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/${id}/${tendn}`, { responseType: 'text' });
   }
 }

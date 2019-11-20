@@ -57,14 +57,7 @@ module.exports.update = function(req, res) {
 };
 
 module.exports.delete = function(req, res) {
-    // LoaiSP.remove({
-    //     _id: req.params.loaisp_id
-    // }, function(err, account) {
-    //     if (err) res.send(err);
-
-    //     res.json({ message: 'Successfully deleted' });
-    // });
-
+    
     LoaiSP.remove({
         _id: req.params.loaisp_id,
         tenloaisp: req.params.loaisp_tenloaisp
@@ -78,9 +71,6 @@ module.exports.delete = function(req, res) {
             if(err) return res.json({success: false, message: err});
             res.json({ message: 'Successfully deleted' });
         })
-
-        
-
-        
+       
     });
 }

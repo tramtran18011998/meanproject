@@ -1,6 +1,6 @@
 export  class NhanVien {
     
-    idaccount:string;
+    tendn:string;
     hoten: string;
     gioitinh: string;
     diachi: string;

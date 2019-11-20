@@ -1,6 +1,6 @@
 export  class KhachHang {
     
-    idaccount:string;
+    tendn:string;
     hoten: string;
     diachi: string;
     email: string;

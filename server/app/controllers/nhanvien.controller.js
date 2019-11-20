@@ -1,8 +1,9 @@
 var NhanVien       = require('../models/nhanvien');
+var Account       = require('../models/account');
 
 module.exports.create =function(req, res) {           
     var nhanvien = new NhanVien();      
-    nhanvien.idaccount = req.body.idaccount;  
+    nhanvien.tendn = req.body.tendn;  
     nhanvien.hoten = req.body.hoten;  
     nhanvien.gioitinh = req.body.gioitinh;  
     nhanvien.diachi = req.body.diachi;  
@@ -48,7 +49,7 @@ module.exports.update =function(req, res) {
         if (err) res.send(err);
 
         // set the new information if it exists in the request
-        if (req.body.idaccount) nhanvien.idaccount = req.body.idaccount;
+        if (req.body.tendn) nhanvien.tendn = req.body.tendn;
         if (req.body.hoten) nhanvien.hoten = req.body.hoten;
         if (req.body.gioitinh) nhanvien.gioitinh = req.body.gioitinh;
         if (req.body.diachi) nhanvien.diachi = req.body.diachi;
@@ -67,10 +68,17 @@ module.exports.update =function(req, res) {
 };
 module.exports.delete =function(req, res) {
     NhanVien.remove({
-        _id: req.params.nhanvien_id
-    }, function(err) {
-        if (err) res.send(err);
+        _id: req.params.nhanvien_id,
+        tendn: req.params.nhanvien_tendn
+    }, function(err, nhanvien) {
+        if (err) return res.json({success: false, message: err});
 
-        res.json({ message: 'Successfully deleted' });
+        Account.remove({
+            tendn: req.params.nhanvien_tendn
+        }, function(err, sp){
+            if(err) return res.json({success: false, message: err});
+            res.json({ message: 'Successfully deleted' });
+        })
+       
     });
 }

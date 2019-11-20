@@ -14,7 +14,7 @@
                 <table class="table table-bordered over">
 
                     <tr>
-                        <th>Id account</th>
+                        <th>Tên đăng nhập</th>
                         <th>Họ tên</th>
                         <th>Địa chỉ</th>
                         <th>Email</th>
@@ -25,14 +25,14 @@
                     <tbody>
                         <tr *ngFor="let khachhang of khachhangs | async">
 
-                            <td>{{khachhang.idaccount}}</td>
+                            <td>{{khachhang.tendn}}</td>
                             <td>{{khachhang.hoten}}</td>
                             <td>{{khachhang.diachi}}</td>
                             <td>{{khachhang.email}}</td>
                             <td>{{khachhang.sdt}}</td>
                             <td>{{khachhang.tichluy}}</td>
                             <td width="75px">
-                                <button (click)="deleteKhachHang(khachhang._id)" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                <button (click)="deleteKhachHang(khachhang._id,khachhang.tendn)" class="btn btn-danger"><i class="fa fa-trash"></i></button>
                                 
                             </td>
                         </tr>

@@ -37,8 +37,8 @@ export class KhachHangComponent implements OnInit {
     this.khachhangs = this.khachhangService.getKhachHangsList();
   }
 
-  deleteKhachHang(id: string){
-    this.khachhangService.deleteKhachHang(id).subscribe(
+  deleteKhachHang(id: string, tendn: string){
+    this.khachhangService.deleteKhachHang(id, tendn).subscribe(
       data => {
         console.log(data);
         this.getData();

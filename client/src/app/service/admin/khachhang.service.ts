@@ -44,7 +44,7 @@ export class KhachhangService {
     );
   }
 
-  deleteKhachHang(id: string): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' });
+  deleteKhachHang(id: string,tendn: string): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/${id}/${tendn}`, { responseType: 'text' });
   }
 }

@@ -1,8 +1,9 @@
 var KhachHang       = require('../models/khachhang');
+var Account       = require('../models/account');
 
 module.exports.create =function(req, res) {           
     var khachhang = new KhachHang();      
-    khachhang.idaccount = req.body.idaccount;  
+    khachhang.tendn = req.body.tendn;  
     khachhang.hoten = req.body.hoten;      
     khachhang.diachi = req.body.diachi;  
     khachhang.email = req.body.email;  
@@ -45,7 +46,7 @@ module.exports.update =function(req, res) {
         if (err) res.send(err);
 
         // set the new information if it exists in the request
-        if (req.body.idaccount) khachhang.idaccount = req.body.idaccount;
+        if (req.body.tendn) khachhang.tendn = req.body.tendn;
         if (req.body.hoten) khachhang.hoten = req.body.hoten;       
         if (req.body.diachi) khachhang.diachi = req.body.diachi;
         if (req.body.email) khachhang.email = req.body.email;
@@ -64,9 +65,18 @@ module.exports.update =function(req, res) {
 
 module.exports.delete =function(req, res) {
     KhachHang.remove({
-        _id: req.params.khachhang_id
+        _id: req.params.khachhang_id,
+        tendn: req.params.khachhang_tendn
     }, function(err) {
-        if (err) res.send(err);
-        res.json({ message: 'Successfully deleted' });
+        if (err) return res.json({success: false, message: err});
+
+
+        Account.remove({
+            tendn: req.params.khachhang_tendn
+        }, function(err, sp){
+            if(err) return res.json({success: false, message: err});
+            res.json({ message: 'Successfully deleted' });
+        })
+       
     });
 }

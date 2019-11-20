@@ -15,7 +15,7 @@
                 <table class="table table-bordered">
 
                     <tr>
-                        <th>Id account</th>
+                        <th>Tên đăng nhập</th>
                         <th>Họ tên</th>
                         <th>Giới tính</th>
                         <th>Địa chỉ</th>
@@ -27,14 +27,14 @@
                     <tbody>
                         <tr *ngFor="let nhanvien of nhanviens | async">
 
-                            <td>{{nhanvien.idaccount}}</td>
+                            <td>{{nhanvien.tendn}}</td>
                             <td>{{nhanvien.hoten}}</td>
                             <td>{{nhanvien.gioitinh}}</td>
                             <td>{{nhanvien.diachi}}</td>
                             <td>{{nhanvien.email}}</td>
                             <td>{{nhanvien.sdt}}</td>
                             <td width="155px">
-                                <button (click)="deleteNhanVien(nhanvien.tendn,nhanvien._id)"
+                                <button (click)="deleteNhanVien(nhanvien._id,nhanvien.tendn)"
                                     class="btn btn-danger"><i class="fa fa-trash"></i></button>
                                 <button (click)="editNhanVien(nhanvien._id)" class="btn btn-primary"
                                     style="margin-left: 10px" data-toggle="modal"

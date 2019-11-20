@@ -84,6 +84,9 @@ export class SanPhamComponent implements OnInit {
     // const formData = new FormData();
     // formData.append('hinhsp', this.images);
 
+    if(this.sanpham.ttkm ==null){
+      this.sanpham.ttkm =0;
+    }
     this.sanpham.giaban = this.sanpham.giabd - this.sanpham.giabd*(this.sanpham.ttkm* 0.01);
     this.sanphamService.updateSanPham(this._id, this.sanpham).subscribe(data => {console.log(data);}, error => console.log(error));
     this.sanpham = new Sanpham();

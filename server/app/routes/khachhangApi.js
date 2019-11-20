@@ -15,6 +15,7 @@ module.exports = function(app, express) {
         .put(controller.update)
 
         // delete 
-        .delete(controller.delete);
+        //.delete(controller.delete);
+        apiRouter.route('/:khachhang_id/:khachhang_tendn').delete(controller.delete);
     return apiRouter;
 };

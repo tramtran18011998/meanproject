@@ -29,7 +29,7 @@ export class HeaderGuestComponent implements OnInit {
       matkhau: new FormControl('', [Validators.required,Validators.minLength(6),Validators.pattern('^[a-zA-Z0-9_.-]{6,20}$')]),
       matkhau2: new FormControl('', Validators.required),
       quyenhan: new FormControl(''),
-      idaccount: new FormControl(''),
+      //idaccount: new FormControl(''),
       hoten: new FormControl('', [Validators.required,Validators.pattern('^[a-zA-Z ]+$')]),
       diachi: new FormControl('', Validators.required),
       email: new FormControl('', [Validators.required,Validators.email]),
@@ -68,7 +68,7 @@ export class HeaderGuestComponent implements OnInit {
           else {
 
             //if account doesn't exist, create new and can create new nhanvien
-            this.signupForm.controls['idaccount'].setValue(this.signupForm.controls['tendn'].value);
+            //this.signupForm.controls['idaccount'].setValue(this.signupForm.controls['tendn'].value);
 
             const sub1 = this.khachhangService.createKhachHang(this.signupForm.value)
             .subscribe(res => {

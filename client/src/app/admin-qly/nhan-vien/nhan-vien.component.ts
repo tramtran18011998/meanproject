@@ -71,7 +71,7 @@ export class NhanVienComponent implements OnInit {
       matkhau:new FormControl( '', [Validators.required,Validators.minLength(6),Validators.pattern('^[a-zA-Z0-9_.-]{6,20}$')]),
       matkhau2: new FormControl('', Validators.required),
       quyenhan:new FormControl( ''),
-      idaccount: new FormControl(''),
+     
       hoten:new FormControl( '', [Validators.required,Validators.pattern('^[a-zA-Z ]+$')]),
       gioitinh: new FormControl(''),
       diachi: new FormControl('', Validators.required),
@@ -92,20 +92,20 @@ export class NhanVienComponent implements OnInit {
     this.nhanviens = this.nhanvienService.getNhanViensList();
   }
 
-  deleteNhanVien(idAcc: string, idNv: string) {
+  deleteNhanVien(id: string,tendn: string) {
     
 
     //delete account
-    this.accountService.deleteAccount(idAcc).subscribe(
-      data => {
-        console.log(data);
-      },
-      error => console.log(error)
-    );
+    // this.accountService.deleteAccount(idAcc).subscribe(
+    //   data => {
+    //     console.log(data);
+    //   },
+    //   error => console.log(error)
+    // );
 
 
     //delete nhanvien
-    this.nhanvienService.deleteNhanVien(idNv).subscribe(
+    this.nhanvienService.deleteNhanVien(id, tendn).subscribe(
       data => {
         console.log(data);
         this.getData();
@@ -140,7 +140,7 @@ export class NhanVienComponent implements OnInit {
       return;
     }
     else{
-      this.addFormNV.controls['idaccount'].setValue(this.addFormNV.controls['tendn'].value);
+      //this.addFormNV.controls['idaccount'].setValue(this.addFormNV.controls['tendn'].value);
     this.addFormNV.controls['gioitinh'].setValue(this.genderForm.controls['gioitinh'].value);
 
       this.checkAccForm = true;
