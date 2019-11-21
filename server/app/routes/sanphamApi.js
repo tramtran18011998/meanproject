@@ -8,9 +8,9 @@ const storage = multer.diskStorage({
     cb(null, './uploads/');
   },
   filename: function (req, file, cb) {
-    //const now = new Date().toISOString(); const date = now.replace(/:/g, '-');
-    //cb(null, date + file.originalname);
-    cb(null, file.originalname);
+    const now = new Date().toISOString(); const date = now.replace(/:/g, '-');
+    cb(null, date + file.originalname);
+    //cb(null,file.originalname);
   }
 });
 
@@ -54,10 +54,32 @@ module.exports = function (app, express) {
   //apiRouter.use(cors(corsOptions));
 
   apiRouter.route('/')
-    .post(controller.create)
+    .post(upload.single('hinhsp'), (req, res) =>{
+      var sanpham = new SanPham();
+      sanpham.tensp = req.body.tensp;
+      sanpham.soluong = req.body.soluong;
+      sanpham.giabd = req.body.giabd;
+      sanpham.giaban = req.body.giaban;
+      sanpham.ttkm = req.body.ttkm;
+      sanpham.hinhsp = req.file.path;
+      sanpham.maloai = req.body.maloai;
+  
+      sanpham.save(function (err) {
+          if (err) {
+              // duplicate entry
+              if (err.code == 11000)
+                  return res.json({ success: false, message: 'San Pham already exists. ' });
+              else
+                  return res.send(err);
+          }else{
+            return res.json({ message: 'San Pham created!' });
+          }
+  
+      });
+  })
     .get(controller.getList);
 
-  apiRouter.route('/:sanpham_id')
+    apiRouter.route('/:sanpham_id')
     .get(controller.getById)
 
     // update 
@@ -134,4 +156,3 @@ module.exports = function (app, express) {
     })
   return apiRouter;
 };
-

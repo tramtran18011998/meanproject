@@ -1,29 +1,29 @@
 var SanPham = require('../models/sanpham');
 
 
-module.exports.create =function (req, res) {
-    var sanpham = new SanPham();
-    sanpham.tensp = req.body.tensp;
-    sanpham.soluong = req.body.soluong;
-    sanpham.giabd = req.body.giabd;
-    sanpham.giaban = req.body.giaban;
-    sanpham.ttkm = req.body.ttkm;
-    sanpham.hinhsp = req.body.hinhsp;
-    sanpham.maloai = req.body.maloai;
+// module.exports.create =function (req, res) {
+//     var sanpham = new SanPham();
+//     sanpham.tensp = req.body.tensp;
+//     sanpham.soluong = req.body.soluong;
+//     sanpham.giabd = req.body.giabd;
+//     sanpham.giaban = req.body.giaban;
+//     sanpham.ttkm = req.body.ttkm;
+//     sanpham.hinhsp = req.body.hinhsp;
+//     sanpham.maloai = req.body.maloai;
 
-    sanpham.save(function (err) {
-        if (err) {
-            // duplicate entry
-            if (err.code == 11000)
-                return res.json({ success: false, message: 'San Pham already exists. ' });
-            else
-                return res.send(err);
-        }
+//     sanpham.save(function (err) {
+//         if (err) {
+//             // duplicate entry
+//             if (err.code == 11000)
+//                 return res.json({ success: false, message: 'San Pham already exists. ' });
+//             else
+//                 return res.send(err);
+//         }
 
-        // return a message
-        res.json({ message: 'San Pham created!' });
-    });
-};
+//         // return a message
+//         res.json({ message: 'San Pham created!' });
+//     });
+// };
 
 module.exports.getList = function (req, res) {
     SanPham.find(function (err, sanpham) {

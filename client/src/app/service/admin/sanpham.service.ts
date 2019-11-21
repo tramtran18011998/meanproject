@@ -11,7 +11,6 @@ export class SanphamService {
   private baseUrl = 'http://localhost:4000/api/sanpham';
   private baseUrl1 = 'http://localhost:4000/api/sanpham/upload';
 
-
   private _refresh = new Subject<void>();
 
   constructor(private http: HttpClient) { }
@@ -28,14 +27,21 @@ export class SanphamService {
     return this.http.get(`${this.baseUrl}/${id}`);
   }
 
-  createSanPham(sp: Object): Observable<Object> {
-    return this.http.post(`${this.baseUrl}`, sp).pipe(
+  createSanPham(fd:FormData): Observable<Object> {
+    return this.http.post(`${this.baseUrl}`,fd).pipe(
       tap(()=> {
         this._refresh.next();
       })
     );
   }
 
+  // createSanPham(value: any): Observable<Object> {
+  //   return this.http.post(`${this.baseUrl}`,value).pipe(
+  //     tap(()=> {
+  //       this._refresh.next();
+  //     })
+  //   );
+  // }
   updateSanPham(id: string,value: any): Observable<Object> {
     return this.http.put(`${this.baseUrl}/${id}`, value).pipe(
       tap(()=> {

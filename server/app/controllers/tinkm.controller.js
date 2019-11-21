@@ -1,24 +1,24 @@
 var TinKM       = require('../models/tinkm');
 
-module.exports.create =function(req, res) {           
-    var tinkm = new TinKM();      
-    tinkm.tieude = req.body.tieude;  
-    tinkm.noidung = req.body.noidung;  
-    tinkm.hinhanh = req.body.hinhanh;    
+// module.exports.create =function(req, res) {           
+//     var tinkm = new TinKM();      
+//     tinkm.tieude = req.body.tieude;  
+//     tinkm.noidung = req.body.noidung;  
+//     tinkm.hinhanh = req.body.hinhanh;    
 
-    tinkm.save(function(err) {
-        if (err) {
-            // duplicate entry
-            if (err.code == 11000) 
-                return res.json({ success: false, message: 'TinKM already exists. '});
-            else 
-                return res.send(err);
-        }
+//     tinkm.save(function(err) {
+//         if (err) {
+//             // duplicate entry
+//             if (err.code == 11000) 
+//                 return res.json({ success: false, message: 'TinKM already exists. '});
+//             else 
+//                 return res.send(err);
+//         }
 
-        // return a message
-        res.json({ message: 'TinKM created!' });
-    });
-};
+//         // return a message
+//         res.json({ message: 'TinKM created!' });
+//     });
+// };
 
 module.exports.getList = function(req, res) {
     TinKM.find(function(err, tinkm) {

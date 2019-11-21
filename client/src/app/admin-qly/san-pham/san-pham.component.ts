@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Sanpham } from 'src/app/model/Sanpham';
 import { SanphamService } from 'src/app/service/admin/sanpham.service';
-import {Loaisp} from '../../model/Loaisp';
+import { Loaisp } from '../../model/Loaisp';
 import { LoaispService } from 'src/app/service/admin/loaisp.service';
-import { FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-san-pham',
@@ -18,8 +18,8 @@ export class SanPhamComponent implements OnInit {
 
   images: File;
 
-  giaban: number ;
-  
+  giaban: number;
+
   giabd: number;
   ttkm: number;
 
@@ -28,7 +28,7 @@ export class SanPhamComponent implements OnInit {
   sanpham: Sanpham = new Sanpham();
   addForm: FormGroup;
 
-  constructor(private sanphamService: SanphamService, private loaispService: LoaispService,private formBuilder: FormBuilder) { }
+  constructor(private sanphamService: SanphamService, private loaispService: LoaispService, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
 
@@ -39,29 +39,48 @@ export class SanPhamComponent implements OnInit {
     this.getData();
     this.getLoaiSPList();
     this.addForm = this.formBuilder.group({
-      
+
       tensp: new FormControl('', Validators.required),
-      soluong:  new FormControl(10, Validators.required),
-      giabd:  new FormControl(1000, Validators.required),
-      giaban:  new FormControl(1000, Validators.required),
+      soluong: new FormControl(10, Validators.required),
+      giabd: new FormControl(1000, Validators.required),
+      giaban: new FormControl(1000, Validators.required),
       ttkm: new FormControl(0, Validators.required),
-      //hinhsp:  new FormControl(null, Validators.required),
-      maloai:  new FormControl('', Validators.required)
+      hinhsp: new FormControl(null, Validators.required),
+      maloai: new FormControl('', Validators.required)
     });
   }
 
-  getData(){
-    this.sanphams= this.sanphamService.getSanPhamsList();
+  getData() {
+    this.sanphams = this.sanphamService.getSanPhamsList();
   }
 
   selectImage(event) {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      //this.images = file;
+      this.addForm.controls['hinhsp'].setValue(file);
+    }
+
+    // const reader = new FileReader();
+    // if (event.target.files.length > 0) {
+
+    //   const file = (event.target as HTMLInputElement).files[0];
+    //   this.addForm.patchValue({
+    //     hinhsp: file
+    //   });
+    //   this.addForm.get('hinhsp').updateValueAndValidity()
+    // }
+
+  }
+  selectImageUpload(event) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
       this.images = file;
     }
   }
 
-  deleteSanPham(id:string){
+
+  deleteSanPham(id: string) {
     this.sanphamService.deleteSanPham(id).subscribe(
       data => {
         console.log(data);
@@ -72,64 +91,71 @@ export class SanPhamComponent implements OnInit {
   }
 
 
-  editSanPham(id:string){
-    this.sanphamService.getSanPhamById(id).subscribe(data=>{
+  editSanPham(id: string) {
+    this.sanphamService.getSanPhamById(id).subscribe(data => {
       console.log(data)
-      this.sanpham=data;
-    },error=>console.log(error));
-    this._id= id;
+      this.sanpham = data;
+    }, error => console.log(error));
+    this._id = id;
   }
 
-  onSubmitEdit(){
+  onSubmitEdit() {
     // const formData = new FormData();
     // formData.append('hinhsp', this.images);
 
-    if(this.sanpham.ttkm ==null){
-      this.sanpham.ttkm =0;
-    }
-    this.sanpham.giaban = this.sanpham.giabd - this.sanpham.giabd*(this.sanpham.ttkm* 0.01);
-    this.sanphamService.updateSanPham(this._id, this.sanpham).subscribe(data => {console.log(data);}, error => console.log(error));
+    this.sanpham.giaban = this.sanpham.giabd - this.sanpham.giabd * (this.sanpham.ttkm * 0.01);
+    this.sanphamService.updateSanPham(this._id, this.sanpham).subscribe(data => { console.log(data); }, error => console.log(error));
     this.sanpham = new Sanpham();
-    
+
   }
 
-  onSubmitCreate(addForm: FormGroup){
+  onSubmitCreate(addForm: FormGroup) {
     this.getLoaiSPList();
+
 
     //set giaban qua gia ban dau va ttkm
     this.giabd = parseInt(this.addForm.controls['giabd'].value);
     this.ttkm = parseInt(this.addForm.controls['ttkm'].value);
 
-    this.giaban = this.giabd - this.giabd*(this.ttkm*0.01);
+    this.giaban = this.giabd - this.giabd * (this.ttkm * 0.01);
     this.addForm.controls['giaban'].setValue(this.giaban);
 
-    this.sanphamService.createSanPham(this.addForm.value).subscribe(data => console.log(data),
-    error => console.log(error));
+    const formData = new FormData();
+    formData.append('tensp', this.addForm.get('tensp').value);
+    formData.append('soluong', this.addForm.get('soluong').value);
+    formData.append('giabd', this.addForm.get('giabd').value);
+    formData.append('giaban', this.addForm.get('giaban').value);
+    formData.append('ttkm', this.addForm.get('ttkm').value);
+    formData.append('hinhsp', this.addForm.get('hinhsp').value);
+    formData.append('maloai', this.addForm.get('maloai').value);
+
+    this.sanphamService.createSanPham(formData).subscribe(data => console.log(data),
+      error => console.log(error));
     this.sanpham = new Sanpham();
     addForm.reset();
   }
 
 
-  getLoaiSPList(){
+  getLoaiSPList() {
     this.loaisps = this.loaispService.getLoaiSPsList();
   }
 
-  uploadSanPham(id:string){
-    this.sanphamService.getSanPhamById(id).subscribe(data=>{
+  uploadSanPham(id: string) {
+    this.sanphamService.getSanPhamById(id).subscribe(data => {
       console.log(data)
-      this.sanpham=data;
-    },error=>console.log(error));
-    this._id= id;
+      this.sanpham = data;
+    }, error => console.log(error));
+    this._id = id;
 
   }
-    onSubmitUpload(){
-    const formData = new FormData();
-    formData.append('hinhsp', this.images);
+  onSubmitUpload() {
+    const formDataUpload = new FormData();
+    formDataUpload.append('hinhsp', this.images);
 
-    this.sanpham.giaban = this.sanpham.giabd - this.sanpham.giabd*(this.sanpham.ttkm* 0.01);
-    this.sanphamService.uploadSanPham(this._id,formData, this.sanpham).subscribe(data => {console.log(data);}, error => console.log(error));
+    this.sanpham.giaban = this.sanpham.giabd - this.sanpham.giabd * (this.sanpham.ttkm * 0.01);
+    this.sanphamService.uploadSanPham(this._id, formDataUpload, this.sanpham).subscribe(data => { console.log(data); }, error => console.log(error));
     this.sanpham = new Sanpham();
-    
+
   }
 
 
