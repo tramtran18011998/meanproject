@@ -45,13 +45,16 @@ export class TinKmComponent implements OnInit {
     }
 
   }
+  
   selectImageUpload(event) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
       this.images = file;
     }
   }
-  
+
+
+
   getData(){
     this.tinkms = this.tinkmService.getTinKMsList();
   }
@@ -75,7 +78,12 @@ export class TinKmComponent implements OnInit {
   }
 
   onSubmitEdit(){
-    this.tinkmService.updateTinKM(this._id, this.tinkm).subscribe(data => {console.log(data);}, error => console.log(error));
+    const formDataUpload = new FormData();
+    formDataUpload.append('hinhanh', this.images);
+    formDataUpload.append('tieude', this.tinkm.tieude);
+    formDataUpload.append('noidung', this.tinkm.noidung);
+    
+    this.tinkmService.uploadTinKM(this._id,formDataUpload, this.tinkm).subscribe(data => {console.log(data);}, error => console.log(error));
     this.tinkm = new TinKM();
     
   }
@@ -91,22 +99,22 @@ export class TinKmComponent implements OnInit {
     addForm.reset();
   }
 
-  uploadTinKM(id: string) {
-    this.tinkmService.getTinKMById(id).subscribe(data => {
-      console.log(data)
-      this.tinkm = data;
-    }, error => console.log(error));
-    this._id = id;
+  // uploadTinKM(id: string) {
+  //   this.tinkmService.getTinKMById(id).subscribe(data => {
+  //     console.log(data)
+  //     this.tinkm = data;
+  //   }, error => console.log(error));
+  //   this._id = id;
 
-  }
-  onSubmitUpload() {
-    const formDataUpload = new FormData();
-    formDataUpload.append('hinhanh', this.images);
+  // }
+  // onSubmitUpload() {
+  //   const formDataUpload = new FormData();
+  //   formDataUpload.append('hinhanh', this.images);
 
-    this.tinkmService.uploadTinKM(this._id, formDataUpload, this.tinkm).subscribe(data => { console.log(data); }, error => console.log(error));
-    this.tinkm = new TinKM();
+  //   this.tinkmService.uploadTinKM(this._id, formDataUpload, this.tinkm).subscribe(data => { console.log(data); }, error => console.log(error));
+  //   this.tinkm = new TinKM();
 
-  }
+  // }
 
 
 }

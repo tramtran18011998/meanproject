@@ -44,9 +44,9 @@
 									<button (click)="editTinKM(tinkm._id)" class="btn btn-primary"
 										style="margin-left: 10px" data-toggle="modal"
 										data-target="#myModalEdit"><i class="fa fa-edit"></i></button>
-										<button (click)="uploadTinKM(tinkm._id)" class="btn btn-success"
+										<!-- <button (click)="uploadTinKM(tinkm._id)" class="btn btn-success"
 										style="margin-left: 10px" data-toggle="modal"
-										data-target="#myModalUpload"><i class="fa fa-upload"></i></button>
+										data-target="#myModalUpload"><i class="fa fa-upload"></i></button> -->
 								</td>
 
 							</tr>
@@ -143,11 +143,12 @@
 										<input type="text" class="form_input" name="noidung" required="required"
 											[(ngModel)]="tinkm.noidung" />
 									</div>
-									<!-- <div class="form_row">
+									<div class="form_row">
 										<label>Hình ảnh :</label>
-										<input type="text" class="form_input" name="hinhanh" required="required"
-											[(ngModel)]="tinkm.hinhanh" />
-									</div> -->
+										<input style="height: 50px;" type="file" alt="accept" class="form_input"  (change)="selectImageUpload($event)" class="form_input" name="hinhanh" required
+											 />
+									</div>
+									
 								</div>
 
 								<!-- Modal footer -->
@@ -165,20 +166,19 @@
 
 				</div>
 
-				<div class="modal fade" id="myModalUpload">
+				<!-- <div class="modal fade" id="myModalUpload">
 					<form (ngSubmit)="onSubmitUpload()">
 						<div class="modal-dialog modal-dialog-centered">
 							<div class="modal-content">
 
-								<!-- Modal Header -->
-
+								
 								<div class="modal-header">
 									<h3 class="modal-title">Upload</h3>
 								</div>
 
 
 
-								<!-- Modal body -->
+								
 								<div class="modal-body">									
 									<div class="form_row">
 										<label>Hình ảnh :</label>
@@ -188,7 +188,7 @@
 									</div>
 									
 								</div>
-								<!-- Modal footer -->
+								
 								<div class="modal-footer">
 									<div class="pull-right">
 										<button type="submit" class="btn btn-success">Submit</button>
@@ -201,7 +201,7 @@
 						</div>
 					</form>
 
-				</div>
+				</div> -->
 
 
 

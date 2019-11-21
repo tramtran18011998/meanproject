@@ -69,7 +69,7 @@ module.exports = function (app, express) {
                 // set the new information if it exists in the request
                 if (req.body.tieude) tinkm.tieude = req.body.tieude;
                 if (req.body.noidung) tinkm.noidung = req.body.noidung;
-                if (req.body.hinhanh) tinkm.hinhanh = req.body.hinhanh;
+                //if (req.body.hinhanh) tinkm.hinhanh = req.body.hinhanh;
 
                 // save 
                 tinkm.save(function (err) {
