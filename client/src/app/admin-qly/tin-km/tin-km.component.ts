@@ -18,6 +18,8 @@ export class TinKmComponent implements OnInit {
   tinkm: TinKM = new TinKM();
   addForm: FormGroup;
 
+  images: File;
+
   constructor(private tinkmService: TinkmService, private router:Router,private formBuilder: FormBuilder) { }
 
   ngOnInit() {
@@ -35,6 +37,21 @@ export class TinKmComponent implements OnInit {
     });
   }
 
+  selectImage(event) {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      //this.images = file;
+      this.addForm.controls['hinhanh'].setValue(file);
+    }
+
+  }
+  selectImageUpload(event) {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      this.images = file;
+    }
+  }
+  
   getData(){
     this.tinkms = this.tinkmService.getTinKMsList();
   }
@@ -64,9 +81,32 @@ export class TinKmComponent implements OnInit {
   }
 
   onSubmitCreate(addForm: FormGroup){
-    this.tinkmService.createTinKM(this.addForm.value).subscribe(data => console.log(data),error => console.log(error));
+    const formData = new FormData();
+    formData.append('tieude', this.addForm.get('tieude').value);
+    formData.append('noidung', this.addForm.get('noidung').value);
+    formData.append('hinhanh', this.addForm.get('hinhanh').value);
+
+    this.tinkmService.createTinKM(formData).subscribe(data => console.log(data),error => console.log(error));
     this.tinkm = new TinKM();
     addForm.reset();
   }
+
+  uploadTinKM(id: string) {
+    this.tinkmService.getTinKMById(id).subscribe(data => {
+      console.log(data)
+      this.tinkm = data;
+    }, error => console.log(error));
+    this._id = id;
+
+  }
+  onSubmitUpload() {
+    const formDataUpload = new FormData();
+    formDataUpload.append('hinhanh', this.images);
+
+    this.tinkmService.uploadTinKM(this._id, formDataUpload, this.tinkm).subscribe(data => { console.log(data); }, error => console.log(error));
+    this.tinkm = new TinKM();
+
+  }
+
 
 }

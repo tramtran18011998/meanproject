@@ -112,20 +112,20 @@ module.exports = function (app, express) {
     .delete(controller.delete);
 
 
-  apiRouter.route('/:sanpham_id').put(upload.single('hinhsp'), function (req, res) {
-    SanPham.findById(req.params.sanpham_id, function (err, sanpham) {
-      if (err) res.send(err);
+  // apiRouter.route('/:sanpham_id').put(upload.single('hinhsp'), function (req, res) {
+  //   SanPham.findById(req.params.sanpham_id, function (err, sanpham) {
+  //     if (err) res.send(err);
 
-      if (req.file.path) sanpham.hinhsp = req.file.path;
-      // save 
-      sanpham.save(function (err) {
-        if (err) res.send(err);
-        // return a message
-        res.json({ message: 'San Pham updated image!' });
-      });
+  //     if (req.file.path) sanpham.hinhsp = req.file.path;
+  //     // save 
+  //     sanpham.save(function (err) {
+  //       if (err) res.send(err);
+  //       // return a message
+  //       res.json({ message: 'San Pham updated image!' });
+  //     });
 
-    });
-  })
+  //   });
+  // })
 
 
   apiRouter.route('/upload/:sanpham_id')

@@ -34,25 +34,25 @@ module.exports.getById = function(req, res) {
     });
 };
 
-module.exports.update =function(req, res) {
-    TinKM.findById(req.params.tinkm_id, function(err, tinkm) {
+// module.exports.update =function(req, res) {
+//     TinKM.findById(req.params.tinkm_id, function(err, tinkm) {
 
-        if (err) res.send(err);
+//         if (err) res.send(err);
 
-        // set the new information if it exists in the request
-        if (req.body.tieude) tinkm.tieude = req.body.tieude;
-        if (req.body.noidung) tinkm.noidung = req.body.noidung;
-        if (req.body.hinhanh) tinkm.hinhanh = req.body.hinhanh;
+//         // set the new information if it exists in the request
+//         if (req.body.tieude) tinkm.tieude = req.body.tieude;
+//         if (req.body.noidung) tinkm.noidung = req.body.noidung;
+//         if (req.body.hinhanh) tinkm.hinhanh = req.body.hinhanh;
 
-        // save 
-        tinkm.save(function(err) {
-            if (err) res.send(err);
-            // return a message
-            res.json({ message: 'TinKM updated!' });
-        });
+//         // save 
+//         tinkm.save(function(err) {
+//             if (err) res.send(err);
+//             // return a message
+//             res.json({ message: 'TinKM updated!' });
+//         });
 
-    });
-};
+//     });
+// };
 module.exports.delete =function(req, res) {
     TinKM.remove({
         _id: req.params.tinkm_id

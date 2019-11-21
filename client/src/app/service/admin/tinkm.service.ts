@@ -9,6 +9,7 @@ import {tap} from 'rxjs/operators'
 export class TinkmService {
 
   private baseUrl = 'http://localhost:4000/api/tinkm';
+  private baseUrl1 = 'http://localhost:4000/api/tinkm/upload';
 
   private _refresh = new Subject<void>();
 
@@ -27,8 +28,8 @@ export class TinkmService {
     return this.http.get(`${this.baseUrl}/${id}`);
   }
 
-  createTinKM(tinkm: Object): Observable<Object> {
-    return this.http.post(`${this.baseUrl}`, tinkm).pipe(
+  createTinKM(fd:FormData): Observable<Object> {
+    return this.http.post(`${this.baseUrl}`, fd).pipe(
       tap(()=> {
         this._refresh.next();
       })
@@ -37,6 +38,13 @@ export class TinkmService {
 
   updateTinKM(id: string, value: any): Observable<Object> {
     return this.http.put(`${this.baseUrl}/${id}`, value).pipe(
+      tap(()=> {
+        this._refresh.next();
+      })
+    );
+  }
+  uploadTinKM(id: string,upload: FormData ,value: any): Observable<Object> {
+    return this.http.put(`${this.baseUrl1}/${id}`,upload, value).pipe(
       tap(()=> {
         this._refresh.next();
       })

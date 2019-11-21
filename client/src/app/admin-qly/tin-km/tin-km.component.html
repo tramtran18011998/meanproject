@@ -34,17 +34,19 @@
 							<tr *ngFor="let tinkm of tinkms | async">
 								<td>{{tinkm.tieude}}</td>
 								<td>{{tinkm.noidung}}</td>
-								<td><img alt="Not found" width="100px" height="100px">{{tinkm.hinhanh}}</td>
-								<!-- <td><img alt="Not found"
-									src="https://nhom15fastfood.herokuapp.com/LoadHinhTinKM?maTKM=${tinkm.getMaTKM() }"
-									width="100px" height="100px"></td> -->
+								<!-- <td><img alt="Not found" width="100px" height="100px">{{tinkm.hinhanh}}</td> -->
+								<td><img src="http://localhost:4000/{{tinkm.hinhanh}}"
+									width="100px" height="100px"></td>
 
 
-								<td width="155px">
+								<td width="175px">
 									<button (click)="deleteTinKM(tinkm._id)" class="btn btn-danger"><i class="fa fa-trash"></i></button>
 									<button (click)="editTinKM(tinkm._id)" class="btn btn-primary"
 										style="margin-left: 10px" data-toggle="modal"
 										data-target="#myModalEdit"><i class="fa fa-edit"></i></button>
+										<button (click)="uploadTinKM(tinkm._id)" class="btn btn-success"
+										style="margin-left: 10px" data-toggle="modal"
+										data-target="#myModalUpload"><i class="fa fa-upload"></i></button>
 								</td>
 
 							</tr>
@@ -90,17 +92,14 @@
 										<input type="text" class="form_input" name="noidung" required="required"
 										formControlName="noidung" id="noidung" />
 									</div>
+									
+
 									<div class="form_row">
 										<label>Hình ảnh :</label>
-										<input type="file" alt="accept" class="form_input" enctype="multipart/form-data" name="hinhanh" required="required"
-										formControlName="hinhanh" id="hinhanh" />
-									</div>
+										<input style="height: 50px;" type="file" alt="accept" class="form_input" 
+										(change)="selectImage($event)"	 />
 
-									<!-- <div class="form_row">
-									<label> Hình ảnh:</label> <input type="file" alt="accept"
-										class="form_input" name="imageHinh" accept="image/*"
-										value="${dauSachIU.getHinhBlob() }"
-										enctype="multipart/form-data"></div> -->
+									</div>
 								</div>
 
 								<!-- Modal footer -->
@@ -144,11 +143,11 @@
 										<input type="text" class="form_input" name="noidung" required="required"
 											[(ngModel)]="tinkm.noidung" />
 									</div>
-									<div class="form_row">
+									<!-- <div class="form_row">
 										<label>Hình ảnh :</label>
 										<input type="text" class="form_input" name="hinhanh" required="required"
 											[(ngModel)]="tinkm.hinhanh" />
-									</div>
+									</div> -->
 								</div>
 
 								<!-- Modal footer -->
@@ -166,13 +165,47 @@
 
 				</div>
 
+				<div class="modal fade" id="myModalUpload">
+					<form (ngSubmit)="onSubmitUpload()">
+						<div class="modal-dialog modal-dialog-centered">
+							<div class="modal-content">
+
+								<!-- Modal Header -->
+
+								<div class="modal-header">
+									<h3 class="modal-title">Upload</h3>
+								</div>
+
+
+
+								<!-- Modal body -->
+								<div class="modal-body">									
+									<div class="form_row">
+										<label>Hình ảnh :</label>
+										<input style="height: 50px;" type="file" alt="accept" class="form_input" 
+										(change)="selectImageUpload($event)"	name="hinhanh" required="required"/>
+
+									</div>
+									
+								</div>
+								<!-- Modal footer -->
+								<div class="modal-footer">
+									<div class="pull-right">
+										<button type="submit" class="btn btn-success">Submit</button>
+									</div>
+
+									<button type="button" class="btn btn-secondary pull-left"
+										data-dismiss="modal">Close</button>
+								</div>
+							</div>
+						</div>
+					</form>
+
+				</div>
+
+
 
 			</div>
 		</div>
 	</div>
 </div>
-<!-- <%-- <c:if test="${tinKhuyenMai != null }">
-		<script type="text/javascript">
-			$('#myModal').modal('show');
-		</script>
-	</c:if> --%> -->
