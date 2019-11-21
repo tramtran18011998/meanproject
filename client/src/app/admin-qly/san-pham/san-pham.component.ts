@@ -100,11 +100,20 @@ export class SanPhamComponent implements OnInit {
   }
 
   onSubmitEdit() {
-    // const formData = new FormData();
-    // formData.append('hinhsp', this.images);
-
     this.sanpham.giaban = this.sanpham.giabd - this.sanpham.giabd * (this.sanpham.ttkm * 0.01);
-    this.sanphamService.updateSanPham(this._id, this.sanpham).subscribe(data => { console.log(data); }, error => console.log(error));
+
+  
+    const formData = new FormData();
+    formData.append('hinhsp', this.images);
+    formData.append('tensp', this.sanpham.tensp);
+    formData.append('soluong', this.sanpham.soluong.toString());
+    formData.append('giabd', this.sanpham.giabd.toString());
+    formData.append('giaban', this.sanpham.giaban.toString());
+    formData.append('ttkm', this.sanpham.ttkm.toString());
+    formData.append('maloai', this.addForm.get('maloai').value);
+
+    
+    this.sanphamService.uploadSanPham(this._id, formData,this.sanpham).subscribe(data => { console.log(data); }, error => console.log(error));
     this.sanpham = new Sanpham();
 
   }
@@ -140,23 +149,23 @@ export class SanPhamComponent implements OnInit {
     this.loaisps = this.loaispService.getLoaiSPsList();
   }
 
-  uploadSanPham(id: string) {
-    this.sanphamService.getSanPhamById(id).subscribe(data => {
-      console.log(data)
-      this.sanpham = data;
-    }, error => console.log(error));
-    this._id = id;
+  // uploadSanPham(id: string) {
+  //   this.sanphamService.getSanPhamById(id).subscribe(data => {
+  //     console.log(data)
+  //     this.sanpham = data;
+  //   }, error => console.log(error));
+  //   this._id = id;
 
-  }
-  onSubmitUpload() {
-    const formDataUpload = new FormData();
-    formDataUpload.append('hinhsp', this.images);
+  // }
+  // onSubmitUpload() {
+  //   const formDataUpload = new FormData();
+  //   formDataUpload.append('hinhsp', this.images);
 
-    this.sanpham.giaban = this.sanpham.giabd - this.sanpham.giabd * (this.sanpham.ttkm * 0.01);
-    this.sanphamService.uploadSanPham(this._id, formDataUpload, this.sanpham).subscribe(data => { console.log(data); }, error => console.log(error));
-    this.sanpham = new Sanpham();
+  //   this.sanpham.giaban = this.sanpham.giabd - this.sanpham.giabd * (this.sanpham.ttkm * 0.01);
+  //   this.sanphamService.uploadSanPham(this._id, formDataUpload, this.sanpham).subscribe(data => { console.log(data); }, error => console.log(error));
+  //   this.sanpham = new Sanpham();
 
-  }
+  // }
 
 
 }

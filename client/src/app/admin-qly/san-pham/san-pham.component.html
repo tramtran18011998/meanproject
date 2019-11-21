@@ -87,14 +87,14 @@
 									width="100px" height="100px"></td>
 								<!-- <td>{{sanpham.hinhsp}}</td> -->
 								<td>{{sanpham.maloai}}</td>
-								<td width="175px">
+								<td width="155px">
 									<button (click)="deleteSanPham(sanpham._id)" class="btn btn-danger"><i class="fa fa-trash"></i></button>
 									<button (click)="editSanPham(sanpham._id)" class="btn btn-primary"
 										style="margin-left: 10px" data-toggle="modal"
 										data-target="#myModalEdit"><i class="fa fa-edit"></i></button>
-									<button (click)="uploadSanPham(sanpham._id)" class="btn btn-success"
+									<!-- <button (click)="uploadSanPham(sanpham._id)" class="btn btn-success"
 										style="margin-left: 10px" data-toggle="modal"
-										data-target="#myModalUpload"><i class="fa fa-upload"></i></button>
+										data-target="#myModalUpload"><i class="fa fa-upload"></i></button> -->
 
 								</td>
 							</tr>
@@ -179,28 +179,7 @@
 
 									</div>
 
-									<!--
-									<div class="form_row">
-											<label> Mã loại:</label> <select class="form_input"
-												id="selectMaLoai" name="selectMaLoai"
-												onchange="changeLoaiSP()">
-												<c:forEach var="loaiSP" items="${listLoaiSP}">
-													<option value="${loaiSP.getMaLoai()}">
-														<c:out value="${loaiSP.getTenLoaiSP()}" /></option>
-												</c:forEach>
-											</select><br>
-											<script type="text/javascript">
-												function changeLoaiSP() {
-													document
-															.getElementById("txtMaLoai").value = document
-															.getElementById("selectMaLoai").value
-												}
-											</script>
-										</div>
-								-->
-
-
-
+									
 								</div>
 
 								<!-- Modal footer -->
@@ -265,6 +244,12 @@
 									</div>
 
 
+									<div class="form_row">
+										<label>Hình ảnh :</label>
+										<input style="height: 50px;" type="file" alt="accept" class="form_input" 
+										(change)="selectImageUpload($event)" name="hinhsp" required="required"/>
+
+									</div>
 									<!-- <div class="form_row">
 										<label>Hình ảnh :</label>
 										<input type="file" alt="accept" class="form_input" 
@@ -299,12 +284,12 @@
 					</form>
 
 				</div>
-				<div class="modal fade" id="myModalUpload">
+				<!-- <div class="modal fade" id="myModalUpload">
 					<form (ngSubmit)="onSubmitUpload()">
 						<div class="modal-dialog modal-dialog-centered">
 							<div class="modal-content">
 
-								<!-- Modal Header -->
+								
 
 								<div class="modal-header">
 									<h3 class="modal-title">Upload</h3>
@@ -312,7 +297,7 @@
 
 
 
-								<!-- Modal body -->
+								
 								<div class="modal-body">									
 									<div class="form_row">
 										<label>Hình ảnh :</label>
@@ -322,7 +307,7 @@
 									</div>
 									
 								</div>
-								<!-- Modal footer -->
+								
 								<div class="modal-footer">
 									<div class="pull-right">
 										<button type="submit" class="btn btn-success">Submit</button>
@@ -335,7 +320,7 @@
 						</div>
 					</form>
 
-				</div>
+				</div> -->
 
 
 
