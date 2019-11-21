@@ -33,7 +33,15 @@ module.exports.getById = function(req, res) {
         res.json(tinkm);
     });
 };
+module.exports.delete =function(req, res) {
+    TinKM.remove({
+        _id: req.params.tinkm_id
+    }, function(err) {
+        if (err) res.send(err);
 
+        res.json({ message: 'Successfully deleted' });
+    });
+}
 // module.exports.update =function(req, res) {
 //     TinKM.findById(req.params.tinkm_id, function(err, tinkm) {
 
@@ -53,12 +61,3 @@ module.exports.getById = function(req, res) {
 
 //     });
 // };
-module.exports.delete =function(req, res) {
-    TinKM.remove({
-        _id: req.params.tinkm_id
-    }, function(err) {
-        if (err) res.send(err);
-
-        res.json({ message: 'Successfully deleted' });
-    });
-}

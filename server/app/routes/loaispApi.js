@@ -23,15 +23,14 @@ module.exports = function(app, express) {
     var apiRouter = express.Router();
     //apiRouter.use(cors(corsOptions));
 
-    // on routes that end in /users
-    // ----------------------------------------------------
+    
     apiRouter.route('/loaisp')
 
         .post(controller.create)
 
         .get(controller.getList);
 
-    // ----------------------------------------------------
+    
     apiRouter.route('/loaisp/:loaisp_id')
 
         .get(controller.getById)

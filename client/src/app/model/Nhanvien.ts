@@ -5,5 +5,5 @@ export  class NhanVien {
     gioitinh: string;
     diachi: string;
     email: string;
-    sdt: string;
+    sdt: string
 }

@@ -12,7 +12,7 @@ AccountSchema.pre('save',function(next){
     var account=this;
     if(!account.isModified('matkhau')) return next();
     bcrypt.hash(account.matkhau,null,null,function(err,hash){
-        if(err) return next(err);
+        if(err) return next(err)
         account.matkhau=hash;
         next();
     });

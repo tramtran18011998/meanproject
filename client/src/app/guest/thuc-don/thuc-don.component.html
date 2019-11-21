@@ -61,20 +61,37 @@
     
                     <div class="row">
                         <!-- <c:forEach var="SP" items="${listSP}"> -->
+                            <div *ngFor="let sanpham of sanphams | async">
                             <div class="col-md-4 ">
                                 <div class="card">
                                     <div class="card-img-top">
                                         <img
-                                            src="https://nhom15fastfood.herokuapp.com/LoadHinh?maSP=${SP.getMaSP() }"
+                                        src="http://localhost:4000/{{sanpham.hinhsp}}"
                                             height="200" alt="Card image Not found">
                                     </div>
     
                                     <div class="card-body">
                                         <h4 class="card-title" style="margin-bottom: 20px;">
-                                            <!-- <c:out value="${SP.getTenSP()}" /> -->
+                                                {{sanpham.tensp}}
                                         </h4>
-                                        <!-- <c:set var="giaCu" value="${SP.getGiaBanDau()}" />
-                                        <c:set var="giaBan" value="${SP.getGiaBan()}" />
+                                        <ng-template #giacu>
+                                                <div style="text-decoration: line-through; text-align: left;">
+                                                        Giá cũ:<p>{{sanpham.giabd}}</p>
+                                                </div>
+                                        </ng-template>
+                                        <ng-template #giamoi>
+                                                <div style="text-align: left;">
+                                                        Giá khuyến mãi::<p>{{sanpham.giaban}}</p>
+                                                </div>
+                                        </ng-template>
+                                        <!-- <div *ngIf="{{sanpham.giabd}}>{{sanpham.giaban}} | giamoi; giacu"></div> -->
+                                        <!-- <div *ngIf="{{sanpham.giabd}}>{{sanpham.giaban}} ;else giacu"><div style="text-align: left;">
+                                                Giá khuyến mãi::<p>{{sanpham.giaban}}</p>
+                                        </div></div> -->
+                                        <!-- <c:set var="giaCu" value="{{sanpham.giabd}}" />
+                                        
+                                        <c:set var="giaBan" value="{{sanpham.giaban}}" />
+                                        
                                         <c:choose>
                                             <c:when test="${giaBan < giaCu}">
                                                 <div style="text-decoration: line-through; text-align: left;">
@@ -100,8 +117,6 @@
                                             </c:otherwise>
                                         </c:choose> -->
     
-    
-                                        <p></p>
                                         <div>
                                             <a
                                                 href="" class="btn btn-primary">ĐẶT MUA</a>
@@ -110,6 +125,7 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
     
                         <!-- </c:forEach> -->
     

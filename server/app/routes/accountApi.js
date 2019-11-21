@@ -108,11 +108,9 @@ module.exports = function (app, express) {
     // });
 
 
-    // on routes that end in /users
     // ----------------------------------------------------
     apiRouter.route('/account')
 
-        // create a user (accessed at POST http://localhost:8080/users)
         .post(function (req, res) {
 
             var account = new Account();      // create a new instance of the User model
@@ -139,7 +137,6 @@ module.exports = function (app, express) {
 
         })
 
-        // get all the users (accessed at GET http://localhost:8080/api/users)
         .get(function (req, res) {
             Account.find(function (err, accounts) {
                 if (err) res.send(err);
@@ -149,31 +146,10 @@ module.exports = function (app, express) {
             });
         });
 
-    // on routes that end in /users/:user_id
-    // ----------------------------------------------------
-    // apiRouter.route('/account/:tendn')
 
-    //     // get the user with that id
-    //     .get(function (req, res) {
-    //         // Account.findById(req.params.tendn, function (err, account) {
-    //         //     if (err) res.send(err);
-
-    //         //     // return that user
-    //         //     res.json(account);
-    //         // });
-    //         //Account.findOne
-    //         Account.findOne(req.params.tendn, function (err, account) {
-    //             if (err) res.send(err);
-
-    //             // return that user
-    //             res.json(account);
-    //         });
-    //         //
-    //     })
 
     apiRouter.route('/account/:account_id')
 
-        // get the user with that id
         .get(function (req, res) {
             Account.findById(req.params.account_id, function (err, account) {
                 if (err) res.send(err);
@@ -184,7 +160,6 @@ module.exports = function (app, express) {
             
         })
 
-        // update the user with this id
         .put(function (req, res) {
             Account.findById(req.params.account_id, function (err, account) {
 
@@ -206,7 +181,6 @@ module.exports = function (app, express) {
             });
         })
 
-        // delete the user with this id
         .delete(function (req, res) {
             Account.remove({
 

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Sanpham } from 'src/app/model/Sanpham';
+import { SanphamService } from 'src/app/service/admin/sanpham.service';
 
 @Component({
   selector: 'app-thuc-don',
@@ -7,9 +10,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ThucDonComponent implements OnInit {
 
-  constructor() { }
+  sanphams: Observable<Sanpham[]>;
+
+  constructor(private sanphamService: SanphamService) { }
 
   ngOnInit() {
+    this.getData();
+  }
+
+  getData() {
+    this.sanphams = this.sanphamService.getSanPhamsList();
   }
 
 }

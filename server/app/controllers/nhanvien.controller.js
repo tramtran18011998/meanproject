@@ -9,8 +9,6 @@ module.exports.create =function(req, res) {
     nhanvien.diachi = req.body.diachi;  
     nhanvien.email = req.body.email;  
     nhanvien.sdt = req.body.sdt;  
-    
-
     nhanvien.save(function(err) {
         if (err) {
             // duplicate entry
@@ -19,13 +17,9 @@ module.exports.create =function(req, res) {
             else 
                 return res.send(err);
         }
-
         else{
-
             return res.json({success:true, message: 'NV created!' });
         }
-        // return a message
-        // res.json({ message: 'NV created!' });
     });
 };
 
