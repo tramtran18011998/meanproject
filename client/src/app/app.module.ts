@@ -25,6 +25,26 @@ import { KhuyenmaiComponent } from './guest/khuyenmai/khuyenmai.component';
 import { KtraGiohangComponent } from './guest/ktra-giohang/ktra-giohang.component';
 import { ThucDonComponent } from './guest/thuc-don/thuc-don.component';
 
+import { SocialLoginModule, AuthServiceConfig } from "angularx-social-login";
+import { GoogleLoginProvider, FacebookLoginProvider } from "angularx-social-login";
+
+
+
+let config = new AuthServiceConfig([
+  {
+    id: GoogleLoginProvider.PROVIDER_ID,
+    provider: new GoogleLoginProvider("756708970632-32uopi4thhdvacav8bbebv5j0ahi905a.apps.googleusercontent.com")
+  },
+  {
+    id: FacebookLoginProvider.PROVIDER_ID,
+    provider: new FacebookLoginProvider("521164855406062")
+  }
+]);
+ 
+export function provideConfig() {
+  return config;
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,10 +71,16 @@ import { ThucDonComponent } from './guest/thuc-don/thuc-don.component';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,   
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SocialLoginModule
 
   ],
-  providers: [],
+  providers: [
+    {
+      provide: AuthServiceConfig,
+      useFactory: provideConfig
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

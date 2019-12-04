@@ -678,5 +678,9 @@ footer{
 #myModalSuaTT table td{
     padding: 10px;
 }
-
+.qmk:hover{
+    text-decoration: none;
+    cursor: pointer;
+    color: crimson!important;
+}
 
