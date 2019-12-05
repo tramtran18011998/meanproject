@@ -6,6 +6,8 @@ import { KhachHang } from 'src/app/model/KhachHang';
 import { Customvalidators } from 'src/app/validators/customvalidators';
 //import {passValidator} from '../../validators/customValidator'
 
+import { AuthService } from "angularx-social-login";
+import { SocialUser } from "angularx-social-login";
 
 @Component({
   selector: 'app-header-guest',
@@ -14,13 +16,15 @@ import { Customvalidators } from 'src/app/validators/customvalidators';
 })
 export class HeaderGuestComponent implements OnInit {
 
+  private user: SocialUser;
   signupForm: FormGroup;
+  private loggedIn: boolean;
 
   khachhang: KhachHang = new KhachHang();
   submitted = false;
 
 
-  constructor(private khachhangService: KhachhangService, private accountService: AccountService, private formBuilder: FormBuilder) { }
+  constructor(private authService: AuthService,private khachhangService: KhachhangService, private accountService: AccountService, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.signupForm = this.formBuilder.group({
@@ -39,10 +43,20 @@ export class HeaderGuestComponent implements OnInit {
     }, {validators: Customvalidators.passwordMatchValidator});
     
 
+    // this.authService.authState.subscribe((user) => {
+    //   //this.user = user;
+    //   console.log(user);
+    //   this.loggedIn = (user != null);
+    // });
     
   }
 
 
+  signOut(): void {
+    
+    this.authService.signOut();
+    localStorage.removeItem('inuser');
+  }
   onSubmitCreate(signupForm: FormGroup) {
 
     this.submitted = true;
