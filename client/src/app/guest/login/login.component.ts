@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
   private user: SocialUser;
   private loggedIn: boolean;
   khachhang: KhachHang = new KhachHang();
+  //khstorage: KhachHang = new KhachHang();
 
   constructor(private authService: AuthService,private khachhangService: KhachhangService,private router: Router) { }
 
@@ -33,6 +34,7 @@ export class LoginComponent implements OnInit {
       }
       console.log(this.loggedIn);
     });
+    
   }
 
   signInWithGoogle(): void {
