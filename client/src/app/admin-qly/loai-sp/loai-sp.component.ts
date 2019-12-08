@@ -36,7 +36,16 @@ export class LoaiSpComponent implements OnInit {
   }
 
   getData() {
-    this.loaisps = this.loaispService.getLoaiSPsList();
+    //this.loaisps = this.loaispService.getLoaiSPsList();
+    this.loaispService.getLoaiSPsList().subscribe(data=>{
+      this.loaisps = data["message"];
+      if (!data["success"]) {
+
+        
+        alert('Dang nhap lai');
+        
+      }
+    })
   }
 
   deleteLoaiSp(id: string, tenloaisp:string) {
@@ -46,6 +55,11 @@ export class LoaiSpComponent implements OnInit {
       data => {
         console.log(data);
         this.getData();
+        if (!data["success"]) {
+
+          alert('Dang nhap lai');
+          
+        }
       },
       error => console.log(error)
     );
@@ -64,20 +78,37 @@ export class LoaiSpComponent implements OnInit {
   editLoaiSp(id: string) {
     this.loaispService.getLoaiSPById(id).subscribe(data => {
       console.log(data)
-      this.loaisp = data;
+      this.loaisp = data["message"];
+      if (!data["success"]) {
+
+        alert('Dang nhap lai');
+        
+      }
     }, error => console.log(error));
     this._id = id;
     //this.router.navigate(['/admin/loaisp']);
   }
 
   onSubmitEdit() {
-    this.loaispService.updateLoaiSP(this._id, this.loaisp).subscribe(data => { console.log(data); }, error => console.log(error));
+    this.loaispService.updateLoaiSP(this._id, this.loaisp).subscribe(
+      data => { console.log(data);
+        if (!data["success"]) {
+
+        alert('Dang nhap lai');
+        
+      } }, 
+      error => console.log(error));
     this.loaisp = new Loaisp();
     //this.getData();
   }
 
   onSubmitCreate(addForm: FormGroup) {
-    this.loaispService.createLoaiSP(this.addForm.value).subscribe(data => console.log(data),
+    this.loaispService.createLoaiSP(this.addForm.value).subscribe(data => {console.log(data);
+      if (!data["success"]) {
+
+      alert('Dang nhap lai');
+      
+    }},
       error => console.log(error));
     this.loaisp = new Loaisp();
     //this.getData();

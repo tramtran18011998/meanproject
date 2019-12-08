@@ -24,13 +24,14 @@ module.exports.getList = function(req, res) {
     TinKM.find(function(err, tinkm) {
         if (err) res.send(err);
 
-        res.json(tinkm);
+        res.json({ message: tinkm,success:true });
+        //res.json(tinkm);
     });
 };
 module.exports.getById = function(req, res) {
     TinKM.findById(req.params.tinkm_id, function(err, tinkm) {
         if (err) res.send(err);             
-        res.json(tinkm);
+        res.json({ message: tinkm,success:true });
     });
 };
 module.exports.delete =function(req, res) {
@@ -39,7 +40,7 @@ module.exports.delete =function(req, res) {
     }, function(err) {
         if (err) res.send(err);
 
-        res.json({ message: 'Successfully deleted' });
+        res.json({ message: 'Delete!',success:true });
     });
 }
 // module.exports.update =function(req, res) {

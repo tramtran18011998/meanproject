@@ -19,7 +19,7 @@ module.exports.create =function(req, res) {
         }
 
         // return a message
-        res.json({ message: 'CT Hoa Don created!' });
+        res.json({  message: 'Created', success:true });
     });
 };
 
@@ -27,14 +27,14 @@ module.exports.getList = function(req, res) {
     CTHoaDon.find(function(err, cthoadon) {
         if (err) res.send(err);
 
-        res.json(cthoadon);
+        res.json({  message: cthoadon, success:true });
     });
 };
 
 module.exports.getById = function(req, res) {
     CTHoaDon.findById(req.params.cthoadon_id, function(err, cthoadon) {
         if (err) res.send(err);             
-        res.json(cthoadon);
+        res.json({  message: cthoadon, success:true });
     });
 };
 
@@ -54,7 +54,7 @@ module.exports.update =function(req, res) {
         // save 
         cthoadon.save(function(err) {
             if (err) res.send(err);
-            res.json({ message: 'CT Hoa Don updated!' });
+            res.json({  message: 'Da update', success:true });
         });
 
     });
@@ -65,6 +65,6 @@ module.exports.delete =function(req, res) {
         _id: req.params.cthoadon_id
     }, function(err) {
         if (err) res.send(err);
-        res.json({ message: 'Successfully deleted' });
+        res.json({ message: 'Successfully deleted',success:true });
     });
 }

@@ -11,6 +11,7 @@ import { SanphamService } from 'src/app/service/admin/sanpham.service';
 export class ThucDonComponent implements OnInit {
 
   sanphams: Observable<Sanpham[]>;
+  //sanphams = [];
 
   constructor(private sanphamService: SanphamService) { }
 
@@ -19,7 +20,22 @@ export class ThucDonComponent implements OnInit {
   }
 
   getData() {
-    this.sanphams = this.sanphamService.getSanPhamsList();
+    //this.sanphams = this.sanphamService.getSanPhamsList();
+
+    this.sanphamService.getSanPhamsList().subscribe(response => {
+      this.sanphams = response["message"]
+      console.log(this.sanphams);
+      if (!response["success"]) {
+        alert('Hết phiên làm việc, mời bạn đăng nhập lại');
+        
+          localStorage.removeItem('token');
+          localStorage.removeItem('currentuser');
+          localStorage.removeItem('id');
+          localStorage.removeItem('socialstate');
+          localStorage.removeItem('social');
+      }
+    });
+
   }
 
 }

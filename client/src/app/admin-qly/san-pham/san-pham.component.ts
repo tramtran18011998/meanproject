@@ -51,7 +51,13 @@ export class SanPhamComponent implements OnInit {
   }
 
   getData() {
-    this.sanphams = this.sanphamService.getSanPhamsList();
+    //this.sanphams = this.sanphamService.getSanPhamsList();
+    this.sanphamService.getSanPhamsList().subscribe(data =>{
+      this.sanphams = data["message"];
+      if (!data["success"]) {    
+        alert('Dang nhap lai');        
+      }
+    })
   }
 
   selectImage(event) {
@@ -85,6 +91,9 @@ export class SanPhamComponent implements OnInit {
       data => {
         console.log(data);
         this.getData();
+        if (!data["success"]) {    
+          alert('Dang nhap lai');        
+        }
       },
       error => console.log(error)
     );
@@ -94,7 +103,10 @@ export class SanPhamComponent implements OnInit {
   editSanPham(id: string) {
     this.sanphamService.getSanPhamById(id).subscribe(data => {
       console.log(data)
-      this.sanpham = data;
+      this.sanpham = data["message"];
+      if (!data["success"]) {    
+        alert('Dang nhap lai');        
+      }
     }, error => console.log(error));
     this._id = id;
   }
@@ -113,7 +125,12 @@ export class SanPhamComponent implements OnInit {
     formData.append('maloai', this.addForm.get('maloai').value);
 
     
-    this.sanphamService.uploadSanPham(this._id, formData,this.sanpham).subscribe(data => { console.log(data); }, error => console.log(error));
+    this.sanphamService.uploadSanPham(this._id, formData,this.sanpham).subscribe(
+      data => { console.log(data); 
+        if (!data["success"]) {    
+          alert('Dang nhap lai');        
+        }}, 
+      error => console.log(error));
     this.sanpham = new Sanpham();
 
   }
@@ -138,7 +155,11 @@ export class SanPhamComponent implements OnInit {
     formData.append('hinhsp', this.addForm.get('hinhsp').value);
     formData.append('maloai', this.addForm.get('maloai').value);
 
-    this.sanphamService.createSanPham(formData).subscribe(data => console.log(data),
+    this.sanphamService.createSanPham(formData).subscribe(
+      data => {console.log(data);
+      if (!data["success"]) {    
+        alert('Dang nhap lai');        
+      }},
       error => console.log(error));
     this.sanpham = new Sanpham();
     addForm.reset();
@@ -146,7 +167,13 @@ export class SanPhamComponent implements OnInit {
 
 
   getLoaiSPList() {
-    this.loaisps = this.loaispService.getLoaiSPsList();
+    //this.loaisps = this.loaispService.getLoaiSPsList();
+    this.loaispService.getLoaiSPsList().subscribe(
+      data => {
+        this.loaisps = data["message"]
+        if (!data["success"]) {    
+        alert('Dang nhap lai');        
+      }})
   }
 
   // uploadSanPham(id: string) {

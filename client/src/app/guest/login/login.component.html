@@ -6,41 +6,43 @@
 
 
 			<div class="login">
-
+				<form [formGroup]="loginForm" (ngSubmit)="onSubmitLogin(loginForm)">
 				<div class="input-group mb-3" style="width: 500px; margin-left: 80px;">
 					<div class="input-group-prepend">
 						<span class="input-group-text"><i class="fa fa-user"></i></span>
 					</div>
-					<input type="text" class="form-control" placeholder="Tên đăng nhập" id="tenDN" name="tenDN"
+					<input type="text" class="form-control" formControlName="tendn" placeholder="Tên đăng nhập" id="tendn" name="tendn"
 						required>
 				</div>
 				<div class="input-group mb-3" style="width: 500px; margin-left: 80px;">
 					<div class="input-group-prepend">
 						<span class="input-group-text"><i class="fa fa-lock"></i></span>
 					</div>
-					<input type="password" class="form-control" placeholder="Mật khẩu" id="mK" name="mK" required>
+					<input type="password" class="form-control" formControlName="matkhau" placeholder="Mật khẩu" id="matkhau" name="matkhau" required>
 
 				</div>
+				
 
 
 
 				<div class="form-group text-center">
 					<a href="#" class="qmk" data-toggle="modal" data-target="#myModalQuenMK" data-dismiss="modal" id="quenMK"
 						style="margin-right: 310px;color: antiquewhite;">Quên mật khẩu</a>
-					<button type="submit" value="Login" class="btn btn-secondary" onclick="validateFormDNhap()">
+					<button type="submit" class="btn btn-secondary" >
 						<i class="fa fa-arrow-right"></i>
 					</button>
 
 				</div>
+			</form>
 
 				<div style="display: flex;justify-content: space-between;width: 500px;margin-left: 80px;">
 					<button _ngcontent-fwp-c5="" class="btn btn-secondary" name="facebook" type="submit" value="Facebook" (click)="signInWithFB()"
-					style="padding: 10px 90px 10px 50px;font-size: 18px;background-color: black;">
+					style="padding: 10px 90px 10px 50px;font-size: 18px;background-color: black;border: 3px solid mediumblue;">
 						<i _ngcontent-fwp-c5="" aria-hidden="true" class="fa fa-facebook" style="margin-right: 10px;color: white;"></i>
 						Facebook </button>
 						<br />
 					<button type="submit" value="Google" class="btn btn-secondary" name="google" (click)="signInWithGoogle()"
-					style="padding: 10px 90px 10px 50px;font-size: 18px;background-color: black;">
+					style="padding: 10px 90px 10px 50px;font-size: 18px;background-color: black; border: 3px solid crimson;">
 						<i class="fa fa-google-plus" aria-hidden="true" style="margin-right: 10px;color: white;"></i>
 						Google
 					</button>

@@ -142,7 +142,9 @@ module.exports = function (app, express) {
                 if (err) res.send(err);
 
                 // return the users
-                res.json(accounts);
+                res.json({  message: accounts, success:true });
+        
+                
             });
         });
 
@@ -155,7 +157,7 @@ module.exports = function (app, express) {
                 if (err) res.send(err);
 
                 // return that user
-                res.json(account);
+                res.json({  message: account, success:true });
             });
             
         })
@@ -175,7 +177,7 @@ module.exports = function (app, express) {
                     if (err) res.send(err);
 
                     // return a message
-                    res.json({ message: 'User updated!' });
+                    res.json({  message: 'Update!', success:true });
                 });
 
             });
@@ -189,7 +191,7 @@ module.exports = function (app, express) {
             }, function (err, account) {
                 if (err) res.send(err);
 
-                res.json({ message: 'Successfully deleted' });
+                res.json({  message: 'Delete!', success:true });
             });
         });
 

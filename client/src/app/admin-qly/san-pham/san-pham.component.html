@@ -76,14 +76,14 @@
 						</tr>
 
 						<tbody>
-							<tr *ngFor="let sanpham of sanphams | async">
+							<tr *ngFor="let sanpham of sanphams ">
 
 								<td>{{sanpham.tensp}}</td>
 								<td>{{sanpham.soluong}}</td>
 								<td>{{sanpham.giabd}}</td>
 								<td>{{sanpham.giaban}}</td>
 								<td>{{sanpham.ttkm}}</td>
-								<td><img src="http://localhost:4000/{{sanpham.hinhsp}}"
+								<td><img src="http://localhost:3000/{{sanpham.hinhsp}}"
 									width="100px" height="100px"></td>
 								<!-- <td>{{sanpham.hinhsp}}</td> -->
 								<td>{{sanpham.maloai}}</td>
@@ -172,7 +172,7 @@
 
 										<select style="width: 210px;" class="form-control" name="maloai"
 										formControlName="maloai" id="maloai">
-											<option *ngFor="let loaisp of loaisps | async">
+											<option *ngFor="let loaisp of loaisps ">
 												{{loaisp.tenloaisp}}
 											</option>
 										</select>
@@ -262,7 +262,7 @@
 
 										<select style="width: 210px;" class="form-control" name="maloai"
 											[(ngModel)]="sanpham.maloai">
-											<option *ngFor="let loaisp of loaisps | async">
+											<option *ngFor="let loaisp of loaisps ">
 												{{loaisp.tenloaisp}}
 											</option>
 										</select>

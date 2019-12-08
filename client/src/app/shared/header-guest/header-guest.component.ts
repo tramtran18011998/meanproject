@@ -5,9 +5,10 @@ import { FormBuilder, FormGroup,FormControl, Validators,AbstractControl } from '
 import { KhachHang } from 'src/app/model/KhachHang';
 import { Customvalidators } from 'src/app/validators/customvalidators';
 //import {passValidator} from '../../validators/customValidator'
-
+import {Account} from '../../model/Account';
 import { AuthService } from "angularx-social-login";
 import { SocialUser } from "angularx-social-login";
+import { LoginService } from 'src/app/service/guest/login.service';
 
 @Component({
   selector: 'app-header-guest',
@@ -22,9 +23,19 @@ export class HeaderGuestComponent implements OnInit {
 
   khachhang: KhachHang = new KhachHang();
   submitted = false;
+  //if(localStorage.getItem())
+  // account: Account = JSON.parse(localStorage.getItem('currentuser'));
+  // currentName: string= this.account.tendn;
+  account: Account =new Account();
+  currentName: string = null;
+  currentKH: KhachHang= new KhachHang();
+  currentNamekh: string = null;
 
+  
+  usersocial: KhachHang = new KhachHang();
+  
 
-  constructor(private authService: AuthService,private khachhangService: KhachhangService, private accountService: AccountService, private formBuilder: FormBuilder) { }
+  constructor(private authService: AuthService,private khachhangService: KhachhangService, private accountService: AccountService, private loginService: LoginService,private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.signupForm = this.formBuilder.group({
@@ -43,11 +54,41 @@ export class HeaderGuestComponent implements OnInit {
     }, {validators: Customvalidators.passwordMatchValidator});
     
 
-    // this.authService.authState.subscribe((user) => {
-    //   //this.user = user;
-    //   console.log(user);
-    //   this.loggedIn = (user != null);
-    // });
+    if(localStorage.getItem("socialstate") == 'true' && localStorage.getItem('social') != null){
+
+      this.usersocial = JSON.parse(localStorage.getItem('currentuser'));
+      console.log(this.usersocial);
+      
+      this.currentNamekh = this.usersocial.hoten;
+      
+    }else{
+
+      if(localStorage.getItem("currentuser") === null ){
+        this.currentName = null;
+        this.currentKH = null;
+      }else{
+  
+        this.account = JSON.parse(localStorage.getItem('currentuser'));
+        this.currentName =this.account.tendn;
+  
+        this.loginService.getKHByEmail(this.account.tendn).subscribe(
+          data => {
+            this.currentKH = data["message"];
+            if (!data["success"]) {       
+              alert('Dang nhap lai');            
+          }
+          console.log(this.currentKH);
+          this.currentNamekh = this.currentKH.hoten;
+        });
+        
+    }
+    
+    
+      
+      
+    
+    }
+
     
   }
 
@@ -55,8 +96,16 @@ export class HeaderGuestComponent implements OnInit {
   signOut(): void {
     
     this.authService.signOut();
-    localStorage.removeItem('inuser');
+    localStorage.removeItem('token');
+    //localStorage.removeItem('currentUser');
+    localStorage.removeItem('currentuser');
+    localStorage.removeItem('id');
+    localStorage.removeItem('socialstate');
+    localStorage.removeItem('social');
+    
   }
+
+
   onSubmitCreate(signupForm: FormGroup) {
 
     this.submitted = true;

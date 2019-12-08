@@ -17,7 +17,20 @@ export class KhuyenmaiComponent implements OnInit {
     this.getData();
   }
 
-  getData(){
-    this.tinkms = this.tinkmService.getTinKMsList();
+  getData() {
+    //this.tinkms = this.tinkmService.getTinKMsList();
+    this.tinkmService.getTinKMsList().subscribe(
+      data => {
+        this.tinkms = data["message"]
+        if (!data["success"]) {
+          alert('Hết phiên làm việc, mời bạn đăng nhập lại');
+          
+          localStorage.removeItem('token');
+          localStorage.removeItem('currentuser');
+          localStorage.removeItem('id');
+          localStorage.removeItem('socialstate');
+          localStorage.removeItem('social');
+        }
+      })
   }
 }

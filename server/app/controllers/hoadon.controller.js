@@ -21,7 +21,8 @@ module.exports.create =function(req, res) {
         }
 
         // return a message
-        res.json({ message: 'Hoa Don created!' });
+        res.json({ message: 'Hoa Don created!' , success: true});
+        
     });
 };
 
@@ -29,14 +30,14 @@ module.exports.getList = function(req, res) {
     HoaDon.find(function(err, hoadon) {
         if (err) res.send(err);
 
-        res.json(hoadon);
+        res.json({ message: hoadon,success:true });
     });
 };
 
 module.exports.getById = function(req, res) {
     HoaDon.findById(req.params.hoadon_id, function(err, hoadon) {
         if (err) res.send(err);             
-        res.json(hoadon);
+        res.json({ message: hoadon,success:true });
     });
 };
 
@@ -57,7 +58,7 @@ module.exports.update =function(req, res) {
         hoadon.save(function(err) {
             if (err) res.send(err);
             // return a message
-            res.json({ message: 'Hoa Don updated!' });
+            res.json({ message: 'Hoa Don updated!',success:true });
         });
 
     });
@@ -68,6 +69,6 @@ module.exports.delete =function(req, res) {
         _id: req.params.hoadon_id
     }, function(err) {
         if (err) res.send(err);
-        res.json({ message: 'Successfully deleted' });
+        res.json({ message: 'Successfully deleted',success:true });
     });
 }

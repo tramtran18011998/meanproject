@@ -51,7 +51,7 @@ module.exports = function (app, express) {
                     else
                         return res.send(err);
                 } else {
-                    return res.json({ message: 'Tin KM created!' });
+                    res.json({ message: 'Created!',success:true });
                 }
             });
         })
@@ -75,7 +75,7 @@ module.exports = function (app, express) {
                 tinkm.save(function (err) {
                     if (err) res.send(err);
                     // return a message
-                    res.json({ message: 'TinKM updated!' });
+                    res.json({ message: 'Tinkm updated!',success:true });
                 });
 
             });
@@ -100,7 +100,7 @@ module.exports = function (app, express) {
                 tinkm.save(function (err) {
                     if (err) res.send(err);
                     // return a message
-                    res.json({ message: 'TinKM updated!' });
+                    res.json({ message: 'tinkm upload!',success:true });
                 });
 
 

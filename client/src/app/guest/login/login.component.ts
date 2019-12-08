@@ -5,6 +5,11 @@ import { SocialUser } from "angularx-social-login";
 import { KhachhangService } from 'src/app/service/admin/khachhang.service';
 import { KhachHang } from 'src/app/model/KhachHang';
 import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { LoginService } from 'src/app/service/guest/login.service';
+import { AccountService } from 'src/app/service/admin/account.service';
+import { Account } from 'src/app/model/Account';
+import { stringify } from 'querystring';
 
 @Component({
   selector: 'app-login',
@@ -17,8 +22,10 @@ export class LoginComponent implements OnInit {
   private loggedIn: boolean;
   khachhang: KhachHang = new KhachHang();
   //khstorage: KhachHang = new KhachHang();
+  loginForm: FormGroup;
 
-  constructor(private authService: AuthService,private khachhangService: KhachhangService,private router: Router) { }
+  private acc = new Account();
+  constructor(private authService: AuthService,private khachhangService: KhachhangService,private accService:AccountService,private router: Router, private loginService: LoginService,private formBuilder: FormBuilder) { }
 
 
   ngOnInit() {
@@ -28,13 +35,24 @@ export class LoginComponent implements OnInit {
       
       this.loggedIn = (user != null);
       if(this.loggedIn== true){
-        localStorage.setItem('inuser', JSON.stringify(user))
+        this.khachhang.hoten = user.name;
+        this.khachhang.email = user.email;
+        localStorage.setItem('social', JSON.stringify(user));
+        
+        localStorage.setItem('socialstate', 'true' );
+        //localStorage.setItem('token', this.user.authToken);
         this.createKH();
+        localStorage.setItem('currentuser', JSON.stringify(this.khachhang));
         this.router.navigate(['/trangchu']);  
       }
       console.log(this.loggedIn);
     });
     
+    this.loginForm = this.formBuilder.group({
+
+      tendn: ['', Validators.required],
+      matkhau:['', Validators.required]
+    });
   }
 
   signInWithGoogle(): void {
@@ -53,6 +71,12 @@ export class LoginComponent implements OnInit {
  
   signOut(): void {
     this.authService.signOut();
+  }
+
+  onSubmitLogin(loginForm: FormGroup) {
+    this.loginService.login(this.loginForm.controls['tendn'].value, this.loginForm.controls['matkhau'].value)
+      console.log("checkkk");   
+    loginForm.reset();
   }
 
 }

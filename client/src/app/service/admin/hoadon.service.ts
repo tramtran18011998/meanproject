@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import {tap} from 'rxjs/operators'
 
@@ -8,9 +8,15 @@ import {tap} from 'rxjs/operators'
 })
 export class HoadonService {
 
-  private baseUrl = 'http://localhost:4000/api/hoadon';
+  private baseUrl = 'http://localhost:3000/api/hoadon';
 
   private _refresh = new Subject<void>();
+  private headers= new HttpHeaders({
+    'Content-Type': 'application/json',
+    'x-access-token':localStorage.getItem('token'),
+    'Authorization': 'Bearer' + localStorage.getItem('token')
+  })
+  private options = { headers: this.headers };
 
   constructor(private http: HttpClient) { }
 
@@ -18,16 +24,16 @@ export class HoadonService {
     return this._refresh;
   }
   getHoaDonsList(): Observable<any> {
-    return this.http.get(`${this.baseUrl}`);
+    return this.http.get(`${this.baseUrl}`, this.options);
   }
   
 
   getHoaDonById(id: string): Observable<any> {
-    return this.http.get(`${this.baseUrl}/${id}`);
+    return this.http.get(`${this.baseUrl}/${id}`, this.options);
   }
 
   createHoaDon(hoadon: Object): Observable<Object> {
-    return this.http.post(`${this.baseUrl}`, hoadon).pipe(
+    return this.http.post(`${this.baseUrl}`, hoadon, this.options).pipe(
       tap(()=> {
         this._refresh.next();
       })
@@ -35,7 +41,7 @@ export class HoadonService {
   }
 
   updateHoaDon(id: string, value: any): Observable<Object> {
-    return this.http.put(`${this.baseUrl}/${id}`, value).pipe(
+    return this.http.put(`${this.baseUrl}/${id}`, value, this.options).pipe(
       tap(()=> {
         this._refresh.next();
       })
@@ -43,6 +49,6 @@ export class HoadonService {
   }
 
   deleteHoaDon(id: string): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' });
+    return this.http.delete(`${this.baseUrl}/${id}`, this.options);
   }
 }

@@ -11,16 +11,16 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./tin-km.component.css']
 })
 export class TinKmComponent implements OnInit {
-  
+
   tinkms: Observable<TinKM[]>;
-  _id:string;
-  
+  _id: string;
+
   tinkm: TinKM = new TinKM();
   addForm: FormGroup;
 
   images: File;
 
-  constructor(private tinkmService: TinkmService, private router:Router,private formBuilder: FormBuilder) { }
+  constructor(private tinkmService: TinkmService, private router: Router, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
 
@@ -30,7 +30,7 @@ export class TinKmComponent implements OnInit {
 
     this.getData();
     this.addForm = this.formBuilder.group({
-      
+
       tieude: ['', Validators.required],
       noidung: ['', Validators.required],
       hinhanh: ['', Validators.required]
@@ -45,7 +45,7 @@ export class TinKmComponent implements OnInit {
     }
 
   }
-  
+
   selectImageUpload(event) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
@@ -55,46 +55,69 @@ export class TinKmComponent implements OnInit {
 
 
 
-  getData(){
-    this.tinkms = this.tinkmService.getTinKMsList();
+  getData() {
+    //this.tinkms = this.tinkmService.getTinKMsList();
+    this.tinkmService.getTinKMsList().subscribe(data => {
+      this.tinkms = data["message"]
+      if (!data["success"]) {
+        alert('Dang nhap lai');
+      }
+    });
   }
 
-  deleteTinKM(id: string){
+  deleteTinKM(id: string) {
     this.tinkmService.deleteTinKM(id).subscribe(
       data => {
-      console.log(data);
-      this.getData();
-    },
-    error => console.log(error)
-  );
+        console.log(data);
+        this.getData();
+        if (!data["success"]) {
+          alert('Dang nhap lai');
+        }
+      },
+      error => console.log(error)
+    );
   }
 
-  editTinKM(id:string){
-    this.tinkmService.getTinKMById(id).subscribe(data=>{
+  editTinKM(id: string) {
+    this.tinkmService.getTinKMById(id).subscribe(data => {
       console.log(data)
-      this.tinkm = data;
-    },error=>console.log(error));
-    this._id=id
+      this.tinkm = data["message"];
+      if (!data["success"]) {
+        alert('Dang nhap lai');
+      }
+    }, error => console.log(error));
+    this._id = id
   }
 
-  onSubmitEdit(){
+  onSubmitEdit() {
     const formDataUpload = new FormData();
     formDataUpload.append('hinhanh', this.images);
     formDataUpload.append('tieude', this.tinkm.tieude);
     formDataUpload.append('noidung', this.tinkm.noidung);
-    
-    this.tinkmService.uploadTinKM(this._id,formDataUpload, this.tinkm).subscribe(data => {console.log(data);}, error => console.log(error));
+
+    this.tinkmService.uploadTinKM(this._id, formDataUpload, this.tinkm).subscribe(data => {
+      console.log(data);
+      if (!data["success"]) {
+        alert('Dang nhap lai');
+      }
+    },
+      error => console.log(error));
     this.tinkm = new TinKM();
-    
+
   }
 
-  onSubmitCreate(addForm: FormGroup){
+  onSubmitCreate(addForm: FormGroup) {
     const formData = new FormData();
     formData.append('tieude', this.addForm.get('tieude').value);
     formData.append('noidung', this.addForm.get('noidung').value);
     formData.append('hinhanh', this.addForm.get('hinhanh').value);
 
-    this.tinkmService.createTinKM(formData).subscribe(data => console.log(data),error => console.log(error));
+    this.tinkmService.createTinKM(formData).subscribe(data => {
+      console.log(data);
+      if (!data["success"]) {
+        alert('Dang nhap lai');
+      }
+    }, error => console.log(error));
     this.tinkm = new TinKM();
     addForm.reset();
   }

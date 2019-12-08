@@ -34,14 +34,28 @@ export class KhachHangComponent implements OnInit {
   }
 
   getData(){
-    this.khachhangs = this.khachhangService.getKhachHangsList();
+    //this.khachhangs = this.khachhangService.getKhachHangsList();
+    this.khachhangService.getKhachHangsList().subscribe(response => {
+      this.khachhangs = response["message"]
+      console.log(this.khachhangs);
+      if (!response["success"]) {
+
+        alert('Dang nhap lai');
+        
+      }
+    });
   }
 
   deleteKhachHang(id: string, tendn: string){
     this.khachhangService.deleteKhachHang(id, tendn).subscribe(
       data => {
         console.log(data);
-        this.getData();
+        
+        if (!data["success"]) {
+
+          alert('Dang nhap lai');
+          
+        }
       },
       error => console.log(error)
     );

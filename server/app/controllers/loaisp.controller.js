@@ -16,7 +16,7 @@ module.exports.create = function(req, res) {
         }
 
         // return a message
-        res.json({ message: 'LoaiSP created!' });
+        res.json({ message: 'Loaisp created!',success:true });
     });
 
 };
@@ -25,7 +25,7 @@ module.exports.getList = function(req, res) {
     LoaiSP.find(function(err, loaisps) {
         if (err) res.send(err);
 
-        res.json(loaisps);
+        res.json({ message: loaisps,success:true });
     });
 };
 
@@ -34,7 +34,7 @@ module.exports.getById =function(req, res) {
         if (err) res.send(err);
 
        
-        res.json(loaisp);
+        res.json({ message: loaisp,success:true });
     });
 };
 module.exports.update = function(req, res) {
@@ -50,7 +50,8 @@ module.exports.update = function(req, res) {
             if (err) res.send(err);
 
             // return a message
-            res.json({ message: 'LoaiSP updated!' });
+            
+            res.json({ message: 'LoaiSP updated!',success:true });
         });
 
     });
@@ -69,7 +70,7 @@ module.exports.delete = function(req, res) {
             maloai: req.params.loaisp_tenloaisp
         }, function(err, sp){
             if(err) return res.json({success: false, message: err});
-            res.json({ message: 'Successfully deleted' });
+            res.json({ message: 'Delete!',success:true });
         })
        
     });

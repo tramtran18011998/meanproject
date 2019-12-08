@@ -30,13 +30,13 @@ module.exports.getList = function(req, res) {
     KhachHang.find(function(err, khachhang) {
         if (err) res.send(err);
 
-        res.json(khachhang);
+        res.json({ message: khachhang,success:true });
     });
 };
 module.exports.getById = function(req, res) {
     KhachHang.findById(req.params.khachhang_id, function(err, khachhang) {
         if (err) res.send(err);             
-        res.json(khachhang);
+        res.json({ message: khachhang,success:true });
     });
 };
 
@@ -57,7 +57,7 @@ module.exports.update =function(req, res) {
         khachhang.save(function(err) {
             if (err) res.send(err);
             // return a message
-            res.json({ message: 'KH updated!' });
+            res.json({ message: 'KH updated!',success:true });
         });
 
     });
@@ -75,7 +75,7 @@ module.exports.delete =function(req, res) {
             tendn: req.params.khachhang_tendn
         }, function(err, sp){
             if(err) return res.json({success: false, message: err});
-            res.json({ message: 'Successfully deleted' });
+            res.json({ message: 'KH delete!',success:true });
         })
        
     });

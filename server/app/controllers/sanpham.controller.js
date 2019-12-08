@@ -29,13 +29,15 @@ module.exports.getList = function (req, res) {
     SanPham.find(function (err, sanpham) {
         if (err) res.send(err);
 
-        res.json(sanpham);
+        res.json({  message: sanpham, success:true });
+        //res.json(sanpham);
     });
 };
 module.exports.getById = function (req, res) {
     SanPham.findById(req.params.sanpham_id, function (err, sanpham) {
         if (err) res.send(err);
-        res.json(sanpham);
+        //res.json(sanpham);
+        res.json({  message: sanpham, success:true });
     });
 };
 module.exports.getByMaloai = function (req, res) {
@@ -45,7 +47,7 @@ module.exports.getByMaloai = function (req, res) {
     // })
     SanPham.findById(req.params.sanpham_id, function (err, sanpham) {
         if (err) res.send(err);
-        res.json(sanpham);
+        res.json({  message: sanpham, success:true });
     });
 };
 
@@ -78,6 +80,6 @@ module.exports.delete = function (req, res) {
     }, function (err) {
         if (err) res.send(err);
 
-        res.json({ message: 'Successfully deleted' });
+        res.json({  message: "Delete!", success:true });
     });
 }

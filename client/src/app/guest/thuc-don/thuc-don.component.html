@@ -21,14 +21,14 @@
     
     
     
-                        <div class="input-group mb-3"
+                        <!-- <div class="input-group mb-3"
                             style="margin-left: 200px; font-size: 20px;">
                             <select class="form_input" onchange="this.form.submit()"
                                 name="selectLoaiSP" id="selectLoaiSP">
-                                <!-- <c:forEach var="loaiSP" items="${listLoaiSP}">
+                                <c:forEach var="loaiSP" items="${listLoaiSP}">
                                     <option value="${loaiSP.getMaLoai()}">
                                         <c:out value="${loaiSP.getTenLoaiSP()}" /></option>
-                                </c:forEach> -->
+                                </c:forEach> 
                                 <option value="*" selected="selected">default</option>
                             </select>
     
@@ -43,8 +43,8 @@
                             <script type="text/javascript">
                                 document.getElementById("sort").value = "${sort}";
                             </script>
-                        </div>
-                        <div class="input-group mb-3 searchbox" style="margin-left: 40px;">
+                        </div> -->
+                        <!-- <div class="input-group mb-3 searchbox" style="margin-left: 40px;">
     
                             <input type="text" class="form-control" placeholder="Tìm kiếm"
                                 name="search" id="search" value="${search }">
@@ -54,19 +54,19 @@
                                 </button>
                             </div>
     
-                        </div>
+                        </div> -->
     
     
                     </form>
     
                     <div class="row">
                         <!-- <c:forEach var="SP" items="${listSP}"> -->
-                            <div *ngFor="let sanpham of sanphams | async">
+                            <div *ngFor="let sanpham of sanphams">
                             <div class="col-md-4 ">
                                 <div class="card">
                                     <div class="card-img-top">
                                         <img
-                                        src="http://localhost:4000/{{sanpham.hinhsp}}"
+                                        src="http://localhost:3000/{{sanpham.hinhsp}}"
                                             height="200" alt="Card image Not found">
                                     </div>
     
@@ -74,6 +74,10 @@
                                         <h4 class="card-title" style="margin-bottom: 20px;">
                                                 {{sanpham.tensp}}
                                         </h4>
+                                        <div style="text-align: left;">
+                                            Giá khuyến mãi: <span style="font-size: 20px;font-weight: bold;color: crimson;    margin-left: 10px;"> {{sanpham.giaban}} </span>
+                                             VNĐ
+                                        </div>
                                         <ng-template #giacu>
                                                 <div style="text-decoration: line-through; text-align: left;">
                                                         Giá cũ:<p>{{sanpham.giabd}}</p>

@@ -27,7 +27,16 @@ export class HoaDonComponent implements OnInit {
   }
 
   getData(){
-    this.hoadons = this.hoadonService.getHoaDonsList();
+    //this.hoadons = this.hoadonService.getHoaDonsList();
+    this.hoadonService.getHoaDonsList().subscribe(response => {
+      this.hoadons = response["message"]
+      console.log(this.hoadons);
+      if (!response["success"]) {
+
+        alert('Dang nhap lai');
+        
+      }
+    });
   }
 
   deleteHoaDon(id: string){
@@ -35,7 +44,13 @@ export class HoaDonComponent implements OnInit {
       data => {
         console.log(data);
         this.getData();
+        if (!data["success"]) {
+
+          alert('Dang nhap lai');
+          
+        }
       },
+      
       error => console.log(error)
     );
   }
@@ -44,12 +59,27 @@ export class HoaDonComponent implements OnInit {
     this.hoadonService.getHoaDonById(id).subscribe(data=>{
       console.log(data)
       this.hoadon=data;
+      this.getData();
+        if (!data["success"]) {
+
+          alert('Dang nhap lai');
+          
+        }
     },error=>console.log(error));
     this._id= id;
   }
 
   onSubmitEdit(addForm: FormGroup){
-    this.hoadonService.updateHoaDon(this._id, this.hoadon).subscribe(data => {console.log(data);}, error => console.log(error));
+    this.hoadonService.updateHoaDon(this._id, this.hoadon).subscribe(
+      data => {
+        console.log(data); 
+        this.getData();
+        if (!data["success"]) {
+
+          alert('Dang nhap lai');
+          
+        }}, 
+      error => console.log(error));
     this.hoadon = new HoaDon();
     this.getData();
     addForm.reset();

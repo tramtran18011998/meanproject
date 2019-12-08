@@ -65,7 +65,7 @@ module.exports = function (app, express) {
               else
                   return res.send(err);
           }else{
-            return res.json({ message: 'San Pham created!' });
+            res.json({ message: 'SanPham created!',success:true });
           }
   
       });
@@ -94,7 +94,7 @@ module.exports = function (app, express) {
         sanpham.save(function (err) {
           if (err) res.send(err);
           // return a message
-          res.json({ message: 'San Pham updated!' });
+          res.json({ message: 'SP updated!',success:true });
         });
 
       });
@@ -142,7 +142,7 @@ module.exports = function (app, express) {
         sanpham.save(function (err) {
           if (err) res.send(err);
           // return a message
-          res.json({ message: 'San Pham upload!' });
+          res.json({ message: 'SP upload!',success:true });
         });
 
       });

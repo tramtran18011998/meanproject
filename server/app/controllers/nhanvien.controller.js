@@ -27,13 +27,13 @@ module.exports.getList = function(req, res) {
     NhanVien.find(function(err, nhanvien) {
         if (err) res.send(err);
 
-        res.json(nhanvien);
+        res.json({ message: nhanvien,success:true });
     });
 };
 module.exports.getById = function(req, res) {
     NhanVien.findById(req.params.nhanvien_id, function(err, nhanvien) {
         if (err) res.send(err);             
-        res.json(nhanvien);
+        res.json({ message: nhanvien,success:true });
     });
 };
 
@@ -55,7 +55,7 @@ module.exports.update =function(req, res) {
         nhanvien.save(function(err) {
             if (err) res.send(err);
             // return a message
-            res.json({ message: 'NV updated!' });
+            res.json({ message: 'NV updated!',success:true });
         });
 
     });
@@ -71,7 +71,7 @@ module.exports.delete =function(req, res) {
             tendn: req.params.nhanvien_tendn
         }, function(err, sp){
             if(err) return res.json({success: false, message: err});
-            res.json({ message: 'Successfully deleted' });
+            res.json({ message: 'Delete !',success:true });
         })
        
     });

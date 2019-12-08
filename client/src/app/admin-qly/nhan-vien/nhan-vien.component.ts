@@ -16,6 +16,7 @@ import { Customvalidators } from 'src/app/validators/customvalidators';
 export class NhanVienComponent implements OnInit {
 
   nhanviens: Observable<NhanVien[]>;
+  //nhanviens:[];
   _id: string;
   //_idacc_idacc: string;
   //message: string;
@@ -25,6 +26,8 @@ export class NhanVienComponent implements OnInit {
   checkAccForm = false;
 
   accounts: Observable<Account[]>;
+
+  //accounts: [];
 
   //private accountlast= new BehaviorSubject<string>('');
 
@@ -89,7 +92,16 @@ export class NhanVienComponent implements OnInit {
 
   }
   getData() {
-    this.nhanviens = this.nhanvienService.getNhanViensList();
+    //this.nhanviens = this.nhanvienService.getNhanViensList();
+    this.nhanvienService.getNhanViensList().subscribe(data=>{
+      this.nhanviens = data["message"];
+      if (!data["success"]) {
+
+        
+        alert('Dang nhap lai');
+        
+      }
+    })
   }
 
   deleteNhanVien(id: string,tendn: string) {
@@ -109,6 +121,9 @@ export class NhanVienComponent implements OnInit {
       data => {
         console.log(data);
         this.getData();
+        if (!data["success"]) {    
+          alert('Dang nhap lai');        
+        }
       },
       error => console.log(error)
     );
@@ -118,14 +133,17 @@ export class NhanVienComponent implements OnInit {
 
     this.nhanvienService.getNhanVienById(id).subscribe(data => {
       console.log(data)
-      this.nhanvien = data;
+      this.nhanvien = data["message"];
+      if (!data["success"]) {    
+        alert('Dang nhap lai');        
+      }
     }, error => console.log(error));
     this._id = id;
 
   }
 
   onSubmitEdit() {
-    this.nhanvienService.updateNhanVien(this._id, this.nhanvien).subscribe(data => { console.log(data); }, error => console.log(error));
+    this.nhanvienService.updateNhanVien(this._id, this.nhanvien).subscribe(data => console.log(data), error => console.log(error));
     this.nhanvien = new NhanVien();
     this.getData();
   }
@@ -158,7 +176,7 @@ export class NhanVienComponent implements OnInit {
           sub.unsubscribe();
           this.checkAccForm = false;
           console.log(res['message']);
-          alert(res['message'])
+          alert(res['Dang nhap lai'])
         }
 
         else {
@@ -185,14 +203,21 @@ export class NhanVienComponent implements OnInit {
   getAccountById(id: string) {
     this.accountService.getAccountById(id).subscribe(data => {
       console.log(data)
-      this.account = data;
+      this.account = data["message"];
+      
     }, error => console.log(error));
     //this._idacc = id;
 
   }
 
   getListAccount() {
-    this.accounts = this.accountService.getAccountsList();
+    //this.accounts = this.accountService.getAccountsList();
+    this.accountService.getAccountsList().subscribe(data => {
+      this.accounts = data["message"]
+      if (!data["success"]) {    
+        alert('Dang nhap lai');        
+      }
+    })
   }
 
   // onSubmitCreateAcc() {
