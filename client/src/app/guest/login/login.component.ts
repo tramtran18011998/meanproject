@@ -38,10 +38,10 @@ export class LoginComponent implements OnInit {
         this.khachhang.hoten = user.name;
         this.khachhang.email = user.email;
         localStorage.setItem('social', JSON.stringify(user));
-        
+        localStorage.setItem('token', this.user.authToken);
         localStorage.setItem('socialstate', 'true' );
         //localStorage.setItem('token', this.user.authToken);
-        this.createKH();
+        //this.createKH();
         localStorage.setItem('currentuser', JSON.stringify(this.khachhang));
         this.router.navigate(['/trangchu']);  
       }
@@ -56,16 +56,21 @@ export class LoginComponent implements OnInit {
   }
 
   signInWithGoogle(): void {
-    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID); 
+    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then((userdata) => {
+      this.loginService.sendToRestApiMethodForGG(userdata.authToken, userdata.email, userdata.name);
+    }); 
   }
   signInWithFB(): void {
-    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
+    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then((userdata) => {
+      this.loginService.sendToRestApiMethod(userdata.authToken, userdata.email, userdata.name);
+    }); 
   } 
  
+
   createKH(){
     this.khachhang.hoten = this.user.name;
     this.khachhang.email = this.user.email;
-    this.khachhangService.createKhachHang(this.khachhang).subscribe(data => { console.log(data); }, error => console.log(error));
+    this.khachhangService.createKhachHang(this.khachhang).subscribe(data => { console.log(data["message"]); }, error => console.log(error));
   }
   
  

@@ -47,6 +47,37 @@ export class LoginService {
     });
   }
 
+  sendToRestApiMethod(token: string, email: string, name: string){
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer' + localStorage.getItem('token')
+    })
+    return this.http.post<{token: string}>(`${this.baseUrl}` + "/socialloginface", { token: token , email, name}, { headers: headers }).subscribe(onSuccess => {
+      
+      console.log(onSuccess);
+      var token = onSuccess.token;
+      localStorage.setItem('token', token);
+
+    }, onFail => {
+    }
+    );
+  }
+
+  sendToRestApiMethodForGG(token: string, email: string, name: string){
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer' + localStorage.getItem('token')
+    })
+    return this.http.post<{token: string}>(`${this.baseUrl}` + "/sociallogingg", { token: token , email, name}, { headers: headers }).subscribe(onSuccess => {
+      
+      console.log(onSuccess);
+      var token = onSuccess.token;
+      localStorage.setItem('token', token);
+
+    }, onFail => {
+    }
+    );
+  }
   // getAccountByUsername(tendn: string): Observable<any> {
   //   return this.http.get(`${this.baseUrl + "/currentuser"}/${tendn}`);
   // }
