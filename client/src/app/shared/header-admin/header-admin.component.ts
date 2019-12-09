@@ -20,7 +20,7 @@ export class HeaderAdminComponent implements OnInit {
     //localStorage.removeItem('currentUser');
     localStorage.removeItem('currentuser');
     localStorage.removeItem('id');
-    this.router.navigateByUrl('/trangchu');
+    this.router.navigateByUrl('trangchu');
   }
 
 }

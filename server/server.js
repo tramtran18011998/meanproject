@@ -69,7 +69,7 @@ apiRouterAuth.post('/authenticate', function (req, res) {
         var token = jwt.sign({
           account
         }, superSecret, {
-          expiresIn: '300s', //expires in 15ph
+          expiresIn: '1h', //expires in 15ph
           
         });
         var id = account._id;
@@ -115,7 +115,7 @@ apiRouterAuth.post('/socialloginface', function (req, res) {
       token = jwt.sign({
         khachhang
       }, superSecret, {
-        expiresIn: '30s', //expires in 15ph
+        expiresIn: '1h', //expires in 15ph
       });
       res.json({
         success: true,
@@ -137,7 +137,7 @@ apiRouterAuth.post('/socialloginface', function (req, res) {
       token = jwt.sign({
         khachhang
       }, superSecret, {
-        expiresIn: '30s', //expires in 15ph
+        expiresIn: '1h', //expires in 15ph
       });
 
       res.json({
@@ -180,7 +180,7 @@ apiRouterAuth.post('/sociallogingg', function (req, res) {
       token = jwt.sign({
         khachhang
       }, superSecret, {
-        expiresIn: '30s', //expires in 15ph
+        expiresIn: '1h', //expires in 15ph
       });
       res.json({
         success: true,
@@ -202,7 +202,7 @@ apiRouterAuth.post('/sociallogingg', function (req, res) {
       token = jwt.sign({
         khachhang
       }, superSecret, {
-        expiresIn: '30s', //expires in 15ph
+        expiresIn: '1h', //expires in 15ph
       });
 
       res.json({

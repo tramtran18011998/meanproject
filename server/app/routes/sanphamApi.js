@@ -147,5 +147,13 @@ module.exports = function (app, express) {
 
       });
     })
+
+    apiRouter.route('/sanphampage/:page').get(controller.paging);
+    apiRouter.route('/addcart/:sanpham_id').get(function(req, res, next){
+      var sanpham_id = req.params.sanpham_id;
+    });
+
+
   return apiRouter;
 };
+

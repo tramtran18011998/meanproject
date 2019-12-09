@@ -28,6 +28,8 @@ import { ThucDonComponent } from './guest/thuc-don/thuc-don.component';
 import { SocialLoginModule, AuthServiceConfig } from "angularx-social-login";
 import { GoogleLoginProvider, FacebookLoginProvider } from "angularx-social-login";
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 
 
@@ -73,7 +75,9 @@ export function provideConfig() {
     HttpClientModule,
     FormsModule,   
     ReactiveFormsModule,
-    SocialLoginModule
+    SocialLoginModule,
+    BrowserAnimationsModule,
+    MatPaginatorModule
 
   ],
   providers: [

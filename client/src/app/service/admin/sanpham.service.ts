@@ -10,6 +10,7 @@ export class SanphamService {
 
   private baseUrl = 'http://localhost:3000/api/sanpham';
   private baseUrl1 = 'http://localhost:3000/api/sanpham/upload';
+  private baseUrlPaging = 'http://localhost:3000/api/sanpham/sanphampage'
 
   
   private _refresh = new Subject<void>();
@@ -68,5 +69,10 @@ export class SanphamService {
 
   deleteSanPham(id: string): Observable<any> {
     return this.http.delete(`${this.baseUrl}/${id}`,this.options);
+  }
+
+  getSanPhamsListPaging(page: number ){
+
+    return this.http.get(`${this.baseUrlPaging}/${page}`,this.options);
   }
 }

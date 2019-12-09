@@ -83,3 +83,38 @@ module.exports.delete = function (req, res) {
         res.json({  message: "Delete!", success:true });
     });
 }
+
+// module.exports.paging = function (req, res, next) {
+//     var perPage = 8; //sp moi trang
+//     var page = req.params.page || 1;
+//     SanPham.find({})
+//         .skip((perPage * page) - perPage)
+//         .limit(perPage)
+//         .exec(function(err, sanphams){
+//             SanPham.count().exec(function(err, count){
+//                 console.log(sanphams);
+//                 if(err) return next(err)
+//                 else{
+//                     res.json(sanphams);
+//                 }
+//             })
+//         })
+// }
+
+module.exports.paging = function (req, res, next) {
+    var perPage = 9; //sp moi trang
+    var page = req.params.page || 1;
+    
+    SanPham.find({})
+        .skip((perPage * page) - perPage)
+        .limit(perPage)
+        .exec(function(err, sanphams){
+            SanPham.count().exec(function(err, count){
+                console.log(sanphams);
+                if(err) return next(err)
+                else{
+                    res.json({message:sanphams,success:true});
+                }
+            })
+        })
+}
