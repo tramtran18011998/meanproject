@@ -97,6 +97,22 @@ export class LoginService {
     })
     return this.http.get(`${this.baseUrl + "/current"}/${email}`,{ headers: headers });
   }
+
+  resetPassword(email: string, matkhau: string) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer' + localStorage.getItem('token')
+    })
+    return this.http.post<{ token: string, account: Account, id: string }>(`${this.baseUrl}` + "/mailresetpassword", { email, matkhau }, { headers: headers }).subscribe(response => {
+      const token = response.token;
+      const currentuser = response.account;
+      const id = response.id;
+      console.log(token);
+      console.log(response["message"]);
+
+
+    });
+  }
   // getCurrenUser(){
   //   const headers = new HttpHeaders({
   //     'Content-Type': 'application/json',

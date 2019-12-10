@@ -5,11 +5,12 @@ import { SocialUser } from "angularx-social-login";
 import { KhachhangService } from 'src/app/service/admin/khachhang.service';
 import { KhachHang } from 'src/app/model/KhachHang';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators,FormControl } from '@angular/forms';
 import { LoginService } from 'src/app/service/guest/login.service';
 import { AccountService } from 'src/app/service/admin/account.service';
 import { Account } from 'src/app/model/Account';
 import { stringify } from 'querystring';
+import { Customvalidators } from 'src/app/validators/customvalidators';
 
 @Component({
   selector: 'app-login',
@@ -24,6 +25,7 @@ export class LoginComponent implements OnInit {
   //khstorage: KhachHang = new KhachHang();
   loginForm: FormGroup;
 
+  resetPassword: FormGroup;
   private acc = new Account();
   constructor(private authService: AuthService,private khachhangService: KhachhangService,private accService:AccountService,private router: Router, private loginService: LoginService,private formBuilder: FormBuilder) { }
 
@@ -53,6 +55,14 @@ export class LoginComponent implements OnInit {
       tendn: ['', Validators.required],
       matkhau:['', Validators.required]
     });
+
+    this.resetPassword = this.formBuilder.group({
+
+      email: new FormControl('',  [Validators.required,Validators.email]),
+      matkhau:new FormControl( '', [Validators.required,Validators.minLength(6),Validators.pattern('^[a-zA-Z0-9_.-]{6,20}$')]),
+      matkhau2: new FormControl('', Validators.required),
+      
+    },{validators: Customvalidators.passwordMatchValidator});
   }
 
   signInWithGoogle(): void {
@@ -83,5 +93,17 @@ export class LoginComponent implements OnInit {
       console.log("checkkk");   
     loginForm.reset();
   }
+
+  onSubmitReset(resetpassform: FormGroup){
+
+    if(this.resetPassword.invalid){
+      return
+    }else{
+      this.loginService.resetPassword(this.resetPassword.controls['email'].value, this.resetPassword.controls['matkhau'].value);
+    }
+
+    resetpassform.reset();
+  }
+  
 
 }
