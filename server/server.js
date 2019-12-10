@@ -8,6 +8,7 @@ var cors = require('cors');
 var jwt = require('jsonwebtoken');
 var Account = require('./app/models/account');
 var KhachHang = require('./app/models/khachhang');
+var nodemailer = require('nodemailer');
 
 app.use(cors({
   origin: 'https://localhost:4200'
@@ -103,6 +104,32 @@ apiRouterAuth.post('/socialloginface', function (req, res) {
     if (err) throw err;
     if (!khachhang) {
        
+      //step 1:
+      let transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: 'tram01299577036@gmail.com',
+          pass:'tram01299577036'
+        }
+      });
+
+      // step 2:
+      let mailOptions = {
+        from: 'tram01299577036@gmail.com',
+        to : req.body.email,
+        //headline of mail
+        subject: 'Confirm GINs CHICKEN Account',
+        html: 'https://localhost:4200/trangchu'
+      };
+
+      //step 3:
+      transporter.sendMail(mailOptions, function(err, data){
+        if(err){ console.log('Error occurs'+ err)}
+        else{
+          console.log("Mail sent !!"+ data);
+        }
+      })
+
       kh.email = req.body.email;
       kh.hoten = req.body.name;
       kh.save(function(err) {
@@ -167,7 +194,35 @@ apiRouterAuth.post('/sociallogingg', function (req, res) {
   }).select('_id tendn hoten diachi email sdt tichluy').exec(function (err, khachhang) {
     if (err) throw err;
     if (!khachhang) {
-       
+
+      
+        //step 1:
+      let transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: 'tram01299577036@gmail.com',
+          pass:'tram01299577036'
+        }
+      });
+
+      // step 2:
+      let mailOptions = {
+        from: 'tram01299577036@gmail.com',
+        to : req.body.email,
+        //headline of mail
+        subject: 'Confirm GINs CHICKEN Account',
+        html: 'https://localhost:4200/trangchu'
+      };
+
+      //step 3:
+      transporter.sendMail(mailOptions, function(err, data){
+        if(err){ console.log('Error occurs'+ err)}
+        else{
+          console.log("Mail sent !!"+ data);
+        }
+      })
+
+
       kh.email = req.body.email;
       kh.hoten = req.body.name;
       kh.save(function(err) {
