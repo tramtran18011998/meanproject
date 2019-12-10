@@ -172,24 +172,6 @@ apiRouterAuth.post('/mailresetpassword', function (req, res) {
         }
       })
 
-      //console.log(checkReset);
-
-      // if (checkReset == true) {
-      //   Account.findById(curacc._id, function (err, account) {
-      //     if (err) res.send(err);
-
-      //     if (req.body.matkhau) account.matkhau = req.body.matkhau;
-      //     // save the user
-      //     account.save(function (err) {
-      //       if (err) res.send(err);
-      //       // return a message
-      //       res.json({ message: account, success: true });
-      //     });
-
-      //   });
-      // } else {
-      //   res.json({ message: 'Fail to reset password', success: false });
-      // }
 
       console.log(checkReset);
     })
@@ -241,39 +223,6 @@ apiRouterAuth.put('/resetPassword/:account_id', function (req, res) {
   }
 
 })
-
-// apiRouterAuth.post('/active', function(req,res){
-//   var kh = new KhachHang();
-//   // kh.email = req.body.email;
-//   // kh.hoten = req.body.name;
-//   // kh.email = localStorage.getItem('email');
-//   // kh.hoten = localStorage.getItem('hoten');
-//   //token: req.params.token;
-//   kh.email = emailStore;
-//   kh.hoten = hotenStore;
-//   kh.save(function(err){
-//     if(err){
-//       // duplicate entry
-//       if (err.code == 11000)
-//         return res.json({ success: false, message: 'KH already exists. ' });
-//       else
-//         return res.send(err);
-//     }
-//     token = jwt.sign({
-//           kh
-//         }, superSecret, {
-//           expiresIn: '1h', //expires in 15ph
-//         });
-//         res.json({
-//           success: true,
-//           message: 'User da duoc cap nhat token!',
-//           token: token,
-//           kh
-//         });
-//   })
-
-// });
-
 
 //set lại token từ facebook
 apiRouterAuth.post('/socialloginface', function (req, res) {
