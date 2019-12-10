@@ -53,7 +53,9 @@ function huyDathang()
                 title: "Đã hủy !",
                 icon :"success",
             });
-            window.location= "TrangChu.jsp";
+            window.location= "/trangchu";
+            localStorage.removeItem('cart');
+            localStorage.removeItem('num');
         
         } else {
           swal({

@@ -1,5 +1,5 @@
 export  class KhachHang {
-    
+    _id: string;
     tendn:string;
     hoten: string;
     diachi: string;

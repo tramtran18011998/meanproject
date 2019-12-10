@@ -1,6 +1,9 @@
 var controller = require('../controllers/sanpham.controller');
 var SanPham = require('../models/sanpham');
+var Cart = require('../models/cart');
 const multer = require('multer');
+const session = require('express-session');
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, './uploads/');
@@ -151,6 +154,16 @@ module.exports = function (app, express) {
     apiRouter.route('/sanphampage/:page').get(controller.paging);
     apiRouter.route('/addcart/:sanpham_id').get(function(req, res, next){
       var sanpham_id = req.params.sanpham_id;
+      var cart = new Cart(req.session.cart ? req.session.cart: {items:{}});
+
+      SanPham.findById(sanpham_id, function(err, sanpham){
+        if(err){
+          res.send(err);
+        }
+        cart.add(sanpham, sanpham_id);
+        req.session.cart = cart;
+        console.log(req.session.cart);
+      })
     });
 
 

@@ -89,6 +89,14 @@ export class LoginService {
     })
     return this.http.get(`${this.baseUrl + "/currentkh"}/${tendn}`,{ headers: headers });
   }
+
+  getKHBymail(email: string): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer' + localStorage.getItem('token')
+    })
+    return this.http.get(`${this.baseUrl + "/current"}/${email}`,{ headers: headers });
+  }
   // getCurrenUser(){
   //   const headers = new HttpHeaders({
   //     'Content-Type': 'application/json',

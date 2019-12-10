@@ -47,15 +47,14 @@
                                     <!-- <%
                                         for (Map.Entry<String, Item> list : cart.getCartItems().entrySet()) {
                                     %> -->
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
+                                    <tr *ngFor="let item of items ">
+                                        <td>{{item.sanpham.tensp}}</td>
+                                        <td>{{item.sanpham.giaban}}</td>
     
-                                        <td><input type="number" name="SL-SPdcchon" min="1"
-                                            max="50" style="width: 50px; margin-left: 10px;"></td>
+                                        <td><input type="number" name="quantity" min="1" 
+                                            max="50" style="width: 50px; margin-left: 10px;"  value="{{item.quantity}}"></td>
                                           
-                                        <td><a
-                                            href=""><i class="fa fa-trash"></i></a></td>
+                                        <td><button style="height: 30px;width: 30px;padding: initial;" class="btn btn-danger" (click)="remove(item.sanpham._id)"><i class="fa fa-trash"></i></button></td>
                                     </tr>
                                     <!-- <%
                                         }
@@ -73,10 +72,11 @@
     
                             <ul class="nav nav-tabs nav-justified bg-success" id="myTab"
                                 role="tablist" style="margin-top: 30px;">
-                                <li class="nav-item"><a class="nav-link" id="tab-thongtin"
+                                <li class="nav-item"><button class="btn btn-success" id="tab-thongtin"
                                     data-toggle="tab" href="#content-thongtin" role="tab"
-                                    aria-controls="content-thongtin" onclick="nexttabThongtin()"
-                                    style="color: white; font-size: 18px;"> Đặt hàng </a></li>
+                                    aria-controls="content-thongtin" (click)="updateKHInfo(khachhang._id)"
+                                    style="color: white; font-size: 18px;background: #28a745;"> Đặt hàng </button></li>
+                                    
                             </ul>
     
     
@@ -84,43 +84,46 @@
                     </div>
     
                     <!-- tab thông tin khách cần giao -->
-                    <div class="tab-pane fade" id="content-thongtin" role="tabpanel"
-                        aria-labelledby="tab-thongtin">
+                    <div class="tab-pane fade" id="content-thongtin" role="tabpanel" aria-labelledby="tab-thongtin">
+                    
                         <div class="hienthithongtin">
-    
-    
-                            <table>
-                                
-                                <!-- <form action="AccountServlet" method="post"> -->
+                            <form (ngSubmit)="onSubmitUpdate()">
+                                <table>
+                    
+                                    <!-- <form action="AccountServlet" method="post"> -->
                                     <tr>
                                         <td width="125px"><b>Họ và tên :</b></td>
-                                        
-                                        <td><input type="text" id="hotenKH"></td>
-    
+                    
+                                        <td><input style="width: 220px;font-size: 19px;" type="text" class="form_input" required="required" name="hoten" id="hoten"
+                                                [(ngModel)]="khachhang.hoten"></td>
+                    
                                     </tr>
                                     <tr>
                                         <td><b>Địa chỉ :</b></td>
-                                        <td><input type="text" id="diachiKH" placeholder="123"></td>
+                                        <td><input type="text" style="width: 220px;font-size: 19px;" class="form_input" required="required" name="diachi" id="diachi"
+                                                [(ngModel)]="khachhang.diachi"></td>
                                     </tr>
-    
+                    
                                     <tr>
                                         <td><b>SĐT :</b></td>
-                                        <td><input type="text" id="sdtKH" placeholder="0123456789"></td>
+                                        <td><input type="text" style="width: 220px;font-size: 19px;" class="form_input" required="required" name="sdt" id="sdt"
+                                                [(ngModel)]="khachhang.sdt"></td>
                                     </tr>
-                                <!-- </form> -->
-                            </table>
-                            <ul class="nav nav-tabs nav-justified bg-success" id="myTab"
-                                role="tablist" style="margin-top: 30px;">
-                                <li class="nav-item"><a class="nav-link" id="tab-xacnhan"
-                                    data-toggle="tab" href="#content-xacnhan" role="tab"
-                                    aria-controls="content-xacnhan" onclick="nexttabXacnhan()"
-                                    style="color: white; font-size: 18px;"> GIAO HÀNG ĐẾN ĐỊA
-                                        CHỈ NÀY </a></li>
-                            </ul>
-                            <!-- K chạy dc nên dùng nav-links thay tạm -->
-                            <!-- <button class="btn btn-success" type="submit">GIAO HÀNG ĐẾN ĐỊA CHỈ NÀY</button> -->
-    
+                                    <!-- </form> -->
+                                </table>
+                                <button type="submit" style="margin-top: 15px; margin-left: 100px;" class="btn btn-warning">Cập nhật thông tin</button>
+                                
+                                <ul class="nav nav-tabs nav-justified bg-info" id="myTab" role="tablist" style="margin-top: 30px;">
+                                    <li class="nav-item" style="height: 40px;"><button class="nav-link" id="tab-xacnhan"
+                                            data-toggle="tab" href="#content-xacnhan" role="tab" aria-controls="content-xacnhan" style="color: white; font-size: 18px;background: #28a745;margin-left: 0px;margin-top: 0px;height: 60px;
+                                                                width: 350px;"> XÁC NHẬN ĐƠN HÀNG </button></li>
+                                    
+                                </ul>
+                                <!-- K chạy dc nên dùng nav-links thay tạm -->
+                                <!-- <button class="btn btn-success" type="submit">GIAO HÀNG ĐẾN ĐỊA CHỈ NÀY</button> -->
+                            </form>
                         </div>
+                    
                     </div>
     
                     <!-- tab xác nhận đơn hàng -->
@@ -144,15 +147,14 @@
                                     <!-- <%
                                         for (Map.Entry<String, Item> list : cart.getCartItems().entrySet()) {
                                     %> -->
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
+                                    <tr *ngFor="let item of items ">
+                                        <td>{{item.sanpham.tensp}}</td>
+                                        <td>{{item.sanpham.giaban}}</td>
     
-                                        <td><input type="number" name="SL-SPdcchon" min="1"
-                                            max="50" style="width: 50px; margin-left: 10px;" ></td>
-                                                                 
-                                        <td><a
-                                            href=""><i class="fa fa-trash"></i></a></td>
+                                        <td><input type="number" name="quantity" min="1" (change)="updateQuantity(item.sanpham._id)"
+                                            max="50" style="width: 50px; margin-left: 10px;"  [(ngModel)]="item.quantity"></td>
+                                          
+                                        <td><button style="height: 30px;width: 30px;padding: initial;" class="btn btn-danger" (click)="remove(item.sanpham._id)"><i class="fa fa-trash"></i></button></td>
                                     </tr>
     
     
@@ -171,8 +173,8 @@
                             <!-- <form action="/CheckOutServlet" method="post"> -->
                                 <span class="tongThanhtoan">
                                     <h5>TỔNG THANH TOÁN</h5>
-                                    <h4>AAA</h4> 
-                                    <button class="btn btn-success" type="submit">Đồng ý
+                                    <h4>{{total}}</h4> 
+                                    <button class="btn btn-success" (click)="onSubmitOrder()" type="submit">Đồng ý
                                         đặt hàng</button>
                                 </span>
                             <!-- </form> -->

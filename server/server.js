@@ -42,6 +42,8 @@ app.use(function(req, res, next) {
 });
 
 var apiRouterAuth = express.Router();
+
+
 apiRouterAuth.post('/authenticate', function (req, res) {
   
   Account.findOne({
@@ -69,7 +71,7 @@ apiRouterAuth.post('/authenticate', function (req, res) {
         var token = jwt.sign({
           account
         }, superSecret, {
-          expiresIn: '1h', //expires in 15ph
+          expiresIn: '24h', //expires in 15ph
           
         });
         var id = account._id;
@@ -180,7 +182,7 @@ apiRouterAuth.post('/sociallogingg', function (req, res) {
       token = jwt.sign({
         khachhang
       }, superSecret, {
-        expiresIn: '1h', //expires in 15ph
+        expiresIn: '30s', //expires in 15ph
       });
       res.json({
         success: true,
@@ -202,7 +204,7 @@ apiRouterAuth.post('/sociallogingg', function (req, res) {
       token = jwt.sign({
         khachhang
       }, superSecret, {
-        expiresIn: '1h', //expires in 15ph
+        expiresIn: '30s', //expires in 15ph
       });
 
       res.json({
@@ -271,6 +273,15 @@ apiRouterAuth.get('/currentuser', function(req, res){
 apiRouterAuth.get('/currentkh/:tendn', function(req, res){
   KhachHang.findOne({
     tendn: req.params.tendn
+  }).select('_id tendn hoten diachi email sdt tichluy').exec(function (err, khachhang){
+    if(err) res.send(err);
+    res.json({ message: khachhang,success:true });
+  })
+});
+
+apiRouterAuth.get('/current/:email', function(req, res){
+  KhachHang.findOne({
+    email: req.params.email
   }).select('_id tendn hoten diachi email sdt tichluy').exec(function (err, khachhang){
     if(err) res.send(err);
     res.json({ message: khachhang,success:true });

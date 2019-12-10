@@ -31,6 +31,7 @@ export class HeaderGuestComponent implements OnInit {
   currentKH: KhachHang= new KhachHang();
   currentNamekh: string = null;
 
+  num = JSON.parse(localStorage.getItem('num'));
   
   usersocial: KhachHang = new KhachHang();
   
@@ -58,7 +59,17 @@ export class HeaderGuestComponent implements OnInit {
 
       this.usersocial = JSON.parse(localStorage.getItem('currentuser'));
       console.log(this.usersocial);
-      
+      //localStorage.setItem('currentkh', JSON.stringify(this.usersocial));
+      this.loginService.getKHBymail(this.usersocial.email).subscribe(
+        data => {
+          this.currentKH = data["message"];
+          localStorage.setItem('currentkh', JSON.stringify(this.currentKH));
+          if (!data["success"]) {       
+            alert('Dang nhap lai');            
+        }
+        console.log(this.currentKH);
+        //this.currentNamekh = this.currentKH.hoten;
+      });
       this.currentNamekh = this.usersocial.hoten;
       
     }else{
@@ -74,6 +85,7 @@ export class HeaderGuestComponent implements OnInit {
         this.loginService.getKHByEmail(this.account.tendn).subscribe(
           data => {
             this.currentKH = data["message"];
+            localStorage.setItem('currentkh', JSON.stringify(this.currentKH));
             if (!data["success"]) {       
               alert('Dang nhap lai');            
           }
@@ -102,6 +114,9 @@ export class HeaderGuestComponent implements OnInit {
     localStorage.removeItem('id');
     localStorage.removeItem('socialstate');
     localStorage.removeItem('social');
+    localStorage.removeItem('cart');
+    localStorage.removeItem('num');
+    localStorage.removeItem('currentkh');
     
   }
 

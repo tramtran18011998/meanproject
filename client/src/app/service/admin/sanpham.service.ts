@@ -11,6 +11,7 @@ export class SanphamService {
   private baseUrl = 'http://localhost:3000/api/sanpham';
   private baseUrl1 = 'http://localhost:3000/api/sanpham/upload';
   private baseUrlPaging = 'http://localhost:3000/api/sanpham/sanphampage'
+  private baseUrlCart = 'http://localhost:3000/api/sanpham/addcart'
 
   
   private _refresh = new Subject<void>();
@@ -74,5 +75,9 @@ export class SanphamService {
   getSanPhamsListPaging(page: number ){
 
     return this.http.get(`${this.baseUrlPaging}/${page}`,this.options);
+  }
+
+  addToCart(id: string){
+    return this.http.get(`${this.baseUrlCart}/${id}`, this.options);
   }
 }

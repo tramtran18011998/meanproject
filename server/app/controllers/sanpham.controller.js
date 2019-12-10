@@ -110,7 +110,7 @@ module.exports.paging = function (req, res, next) {
         .limit(perPage)
         .exec(function(err, sanphams){
             SanPham.count().exec(function(err, count){
-                console.log(sanphams);
+                //console.log(sanphams);
                 if(err) return next(err)
                 else{
                     res.json({message:sanphams,success:true});

@@ -1,6 +1,7 @@
 
 export  class Sanpham {
     
+    _id: string;
     tensp: string;
     soluong: number;
     giabd: number;

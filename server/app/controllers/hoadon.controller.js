@@ -21,7 +21,7 @@ module.exports.create =function(req, res) {
         }
 
         // return a message
-        res.json({ message: 'Hoa Don created!' , success: true});
+        res.json({ message: hoadon , success: true});
         
     });
 };
