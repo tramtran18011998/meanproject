@@ -132,15 +132,6 @@ apiRouterAuth.post('/signup', function (req, res) {
 
   });
 
-  console.log(req.body.tendn);
-  console.log(req.body.matkhau);
-  console.log(req.body.quyenhan);
-  console.log(req.body.hoten);
-  console.log(req.body.diachi);
-  console.log(req.body.email);
-  console.log(req.body.sdt);
-  console.log(req.body.tichluy);
-
   var token = jwt.sign({
     account
   }, superSecret, {
