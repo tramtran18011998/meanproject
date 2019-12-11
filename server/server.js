@@ -94,6 +94,67 @@ apiRouterAuth.post('/authenticate', function (req, res) {
     }
   });
 });
+apiRouterAuth.post('/signup', function (req, res) {
+
+  var account = new Account();      // create a new instance of the User model
+  account.tendn = req.body.tendn;  // set the users name (comes from the request)
+  account.matkhau = req.body.matkhau;  // set the users username (comes from the request)
+  account.quyenhan = req.body.quyenhan;  // set the users password (comes from the request)
+
+  account.save(function (err, account) {
+    if (err) {
+      // duplicate entry
+      if (err.code == 11000)
+        return res.json({ success: false, message: 'A user with that username already exists. ' });
+      
+    }
+
+    // return a message
+    // res.json({ message: 'Account created!' });
+  });
+  var khachhang = new KhachHang();
+  khachhang.tendn = req.body.tendn;
+  khachhang.hoten = req.body.hoten;
+  khachhang.diachi = req.body.diachi;
+  khachhang.email = req.body.email;
+  khachhang.sdt = req.body.sdt;
+  khachhang.tichluy = req.body.tichluy;
+
+
+  khachhang.save(function (err) {
+    if (err) {
+      // duplicate entry
+      if (err.code == 11000)
+        return res.json({ success: false, message: 'KH already exists. ' });
+      
+    }
+
+
+  });
+
+  console.log(req.body.tendn);
+  console.log(req.body.matkhau);
+  console.log(req.body.quyenhan);
+  console.log(req.body.hoten);
+  console.log(req.body.diachi);
+  console.log(req.body.email);
+  console.log(req.body.sdt);
+  console.log(req.body.tichluy);
+
+  var token = jwt.sign({
+    account
+  }, superSecret, {
+    expiresIn: '24h', //expires in 15ph
+
+  });
+  var id = account._id;
+  //return information including token as JSON
+  res.json({
+    success: true,
+    message: 'User da duoc cap nhat token!',
+    token: token
+  });
+});
 
 
 var curkh = new KhachHang();

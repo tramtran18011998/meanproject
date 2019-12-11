@@ -16,6 +16,14 @@ export class LoginService {
 
   constructor(private http: HttpClient, private router: Router) { }
 
+  signup(tendn: string, matkhau: string, quyenhan: string, hoten: string, diachi: string, sdt: string, email: string, tichluy: number) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer' + localStorage.getItem('token')
+    })
+    return this.http.post(`${this.baseUrl}` + "/signup", { tendn,matkhau, quyenhan, hoten,diachi,  sdt ,email,tichluy}, { headers: headers })
+  }
+
   login(tendn: string, matkhau: string) {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',

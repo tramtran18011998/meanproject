@@ -121,8 +121,58 @@ export class HeaderGuestComponent implements OnInit {
   }
 
 
+  // onSubmitCreate(signupForm: FormGroup) {
+
+  //   this.submitted = true;
+
+  //   if (this.signupForm.invalid) {
+  //     return;
+  //   }
+  //   else{
+  //     this.accountService.refresh;
+
+
+  //     //create account
+  //     this.signupForm.controls['quyenhan'].setValue('User');
+
+  //     const sub = this.accountService.createAccount(this.signupForm.value)
+  //       .subscribe(res => {
+  //         if (!res["success"]) {
+  //           sub.unsubscribe();
+  //           console.log(res['message']);
+  //           alert(res['message'])
+  //         }
+
+  //         else {
+
+  //           //if account doesn't exist, create new and can create new nhanvien
+  //           //this.signupForm.controls['idaccount'].setValue(this.signupForm.controls['tendn'].value);
+
+  //           const sub1 = this.khachhangService.createKhachHang(this.signupForm.value)
+  //           .subscribe(res => {
+  //             if(!res["success"]){
+  //               sub1.unsubscribe();
+  //               console.log(res['message']);
+                
+  //             }
+  //           });
+  //           this.khachhang = new KhachHang();
+
+  //           alert('Đăng ký thành công !!!');
+  //           //reset form insert
+  //           signupForm.reset();
+  //         }
+
+  //       }
+  //       );
+
+  //   }
+
+  // }
   onSubmitCreate(signupForm: FormGroup) {
 
+    var acc = new Account();
+    var kh = new KhachHang();
     this.submitted = true;
 
     if (this.signupForm.invalid) {
@@ -135,40 +185,42 @@ export class HeaderGuestComponent implements OnInit {
       //create account
       this.signupForm.controls['quyenhan'].setValue('User');
 
-      const sub = this.accountService.createAccount(this.signupForm.value)
-        .subscribe(res => {
-          if (!res["success"]) {
-            sub.unsubscribe();
-            console.log(res['message']);
-            alert(res['message'])
-          }
 
-          else {
+      //this.loginService.signup(signupForm.value)
 
-            //if account doesn't exist, create new and can create new nhanvien
-            //this.signupForm.controls['idaccount'].setValue(this.signupForm.controls['tendn'].value);
 
-            const sub1 = this.khachhangService.createKhachHang(this.signupForm.value)
-            .subscribe(res => {
-              if(!res["success"]){
-                sub1.unsubscribe();
-                console.log(res['message']);
-                
-              }
-            });
-            this.khachhang = new KhachHang();
+      acc.quyenhan = this.signupForm.controls['quyenhan'].value;
+      acc.tendn = this.signupForm.controls['tendn'].value;
+      acc.matkhau = this.signupForm.controls['matkhau'].value;
+      kh.tendn = this.signupForm.controls['tendn'].value;
+      kh.diachi = this.signupForm.controls['diachi'].value;
+      kh.email = this.signupForm.controls['email'].value;
+      kh.hoten = this.signupForm.controls['hoten'].value;
+      kh.sdt = this.signupForm.controls['sdt'].value;
+      kh.tichluy = this.signupForm.controls['tichluy'].value;
+      
 
+
+
+      console.log(this.signupForm.value);
+      const sub = this.loginService.signup(acc.tendn, acc.matkhau, acc.quyenhan,kh.hoten, kh.diachi, kh.sdt,kh.email,  kh.tichluy).subscribe(res => {
+        console.log(res['message']);
+        if (!res["success"]) {
+          sub.unsubscribe();
+          console.log(res['message']);
+          alert(res['message'])
+        }else{
+          console.log(res['message']);
             alert('Đăng ký thành công !!!');
             //reset form insert
             signupForm.reset();
-          }
-
         }
-        );
+      });
 
-    }
+     }
 
   }
+
   get tendn() { return this.signupForm.get('tendn'); }
   get matkhau() { return this.signupForm.get('matkhau'); }
   get matkhau2() { return this.signupForm.get('matkhau2'); }
